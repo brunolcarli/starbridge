@@ -8,14 +8,15 @@ function reset_canvas(chart_id, div_id){
     canvas.setAttribute('width', '400');
     canvas.setAttribute('height', '400');
     document.getElementById(div_id).appendChild(canvas);
+
+    return document.getElementById(chart_id).getContext('2d');
 }
 
 function plot_total_score(player_name){
-    // Always ensure a new chart
     let chart_id = 'TotalScoreChart';
-    reset_canvas(chart_id, 'total_score_chart')
+
     return resolve_player_total_score(player_name).then(dataset => {
-        const ctx = document.getElementById(chart_id).getContext('2d');
+        const ctx = reset_canvas(chart_id, 'total_score_chart');
         const score = dataset['score'];
         const rank = dataset['rank'];
         const dates = dataset['dates'];
@@ -54,7 +55,7 @@ function plot_total_score(player_name){
 
 function plot_economy_score(player_name){
     return resolve_player_economy_score(player_name).then(dataset => {
-        const ctx = document.getElementById('EconomyScoreChart').getContext('2d');
+        const ctx = reset_canvas('EconomyScoreChart', 'economy_score_chart');
         const score = dataset['score'];
         const rank = dataset['rank'];
         const dates = dataset['dates'];
@@ -93,7 +94,7 @@ function plot_economy_score(player_name){
 
 function plot_research_score(player_name){
     return resolve_player_research_score(player_name).then(dataset => {
-        const ctx = document.getElementById('ResearchScoreChart').getContext('2d');
+        const ctx = reset_canvas('ResearchScoreChart', 'research_score_chart');
         const score = dataset['score'];
         const rank = dataset['rank'];
         const dates = dataset['dates'];
@@ -132,7 +133,7 @@ function plot_research_score(player_name){
 
 function plot_military_score(player_name){
     return resolve_player_military_score(player_name).then(dataset => {
-        const ctx = document.getElementById('MilitaryScoreChart').getContext('2d');
+        const ctx = reset_canvas('MilitaryScoreChart', 'military_score_chart');
         const score = dataset['score'];
         const rank = dataset['rank'];
         const ships = dataset['ships'];
@@ -179,7 +180,7 @@ function plot_military_score(player_name){
 
 function plot_military_built_score(player_name){
     return resolve_player_military_built_score(player_name).then(dataset => {
-        const ctx = document.getElementById('MilitaryBuiltScoreChart').getContext('2d');
+        const ctx = reset_canvas('MilitaryBuiltScoreChart', 'military_built_score_chart');
         const score = dataset['score'];
         const rank = dataset['rank'];
         const dates = dataset['dates'];
@@ -218,7 +219,7 @@ function plot_military_built_score(player_name){
 
 function plot_military_destroyed_score(player_name){
     return resolve_player_military_destroyed_score(player_name).then(dataset => {
-        const ctx = document.getElementById('MilitaryDestroyedScoreChart').getContext('2d');
+        const ctx = reset_canvas('MilitaryDestroyedScoreChart', 'military_destroyed_score_chart');
         const score = dataset['score'];
         const rank = dataset['rank'];
         const dates = dataset['dates'];
@@ -257,7 +258,7 @@ function plot_military_destroyed_score(player_name){
 
 function plot_military_lost_score(player_name){
     return resolve_player_military_lost_score(player_name).then(dataset => {
-        const ctx = document.getElementById('MilitaryLostScoreChart').getContext('2d');
+        const ctx = reset_canvas('MilitaryLostScoreChart', 'military_lost_score_chart');
         const score = dataset['score'];
         const rank = dataset['rank'];
         const dates = dataset['dates'];
@@ -296,7 +297,7 @@ function plot_military_lost_score(player_name){
 
 function plot_honor_score(player_name){
     return resolve_player_honor_score(player_name).then(dataset => {
-        const ctx = document.getElementById('HonorScoreChart').getContext('2d');
+        const ctx = reset_canvas('HonorScoreChart', 'honor_score_chart');
         const score = dataset['score'];
         const rank = dataset['rank'];
         const dates = dataset['dates'];
