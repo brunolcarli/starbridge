@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+  <!-- 
+  ###################################
+    @Author: Bruno Luvizotto Carli
+    @beelzebruno
+  ###################################
+  -->
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Bootstrap -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+      integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
+      crossorigin="anonymous"
+    ></script>
+    <!-- Jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!-- Chart js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Owner code -->
+    <script src="../js/requests.js"></script>
+    <script src="../js/resolvers.js"></script>
+    <script src="../js/plots.js"></script>
+    <script src="../js/util.js"></script>
+
+    <!-- css -->
+    <style>
+      canvas {
+        margin: 0 auto;
+      }
+    </style>
+
+    <title>Starbridge</title>
+  </head>
+  <body style="background-color: rgba(204, 200, 200, 0.466)">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarNavAltMarkup"
+        aria-controls="navbarNavAltMarkup"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <a class="nav-link" href="../index.html"
+            >Início<span class="sr-only">(current)</span></a
+          >
+          <a class="nav-link" href="charts.html">Gáficos</a>
+          <a class="nav-link" href="about.html">Sobre</a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- path location -->
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item active" aria-current="page">Início</li>
+        <li class="breadcrumb-item active" aria-current="page">Dinâmico</li>
+      </ol>
+    </nav>
+
+    <!-- title -->
+    <h3 style="text-align: center">Análise de evolução dos jogadores</h3>
+    <p style="text-align: center">Análise aplicada sobre o universo br144</p>
+    <hr />
+
+    <!-- Filter Input -->
+    <div class="input-group flex-nowrap">
+        <span class="input-group-text">&#x1F50D</span>  <!-- &#x1F50D is the ASCII code for the search icon emoji -->
+        <input type="text" class="form-control" placeholder="Buscar jogador" id="PlayerFilterInput" aria-label="Search" aria-describedby="addon-wrapping">
+        <button type="button" class="btn btn-secondary" onclick="plot_player_statistics()">&#x1F50D Filter</button>
+      </div>
+    <hr />
+
+    <!-- SCORE CHARTS -->
+    <!-- TOTAL -->
+    <h5 id="total_score_chart_label"></h5>
+    <div id="total_score_chart">
+      <canvas id="TotalScoreChart" width="350" height="400"></canvas>
+    </div>
+
+    <!-- ECONOMY -->
+    <h5 id="economy_score_chart_label"></h5>
+    <div id="economy_score_chart">
+        <canvas id="EconomyScoreChart" width="350" height="400"></canvas>
+    </div>
+
+     <!-- RESEARCH -->
+     <h5 id="research_score_chart_label"></h5>
+     <div id="research_score_chart">
+        <canvas id="ResearchScoreChart" width="350" height="400"></canvas>
+    </div>
+
+     <!-- MILITARY -->
+     <h5 id="military_score_chart_label"></h5>
+     <div id="military_score_chart">
+        <canvas id="MilitaryScoreChart" width="350" height="400"></canvas>
+    </div>
+
+     <!-- MILITARY BUILT -->
+     <h5 id="military_built_score_chart_label"></h5>
+     <div id="military_built_score_chart">
+        <canvas id="MilitaryBuiltScoreChart" width="350" height="400"></canvas>
+    </div>
+
+     <!-- MILITARY DESTROYED -->
+     <h5 id="military_destroyed_score_chart_label"></h5>
+     <div id="military_destroyed_score_chart">
+        <canvas id="MilitaryDestroyedScoreChart" width="350" height="400"></canvas>
+    </div>
+
+     <!-- MILITARY LOST -->
+     <h5 id="military_lost_score_chart_label"></h5>
+     <div id="military_lost_score_chart">
+        <canvas id="MilitaryLostScoreChart" width="350" height="400"></canvas>
+    </div>
+
+     <!-- HONOR -->
+     <h5 id="honor_score_chart_label"></h5>
+     <div id="honor_score_chart">
+        <canvas id="HonorScoreChart" width="350" height="400"></canvas>
+    </div>
+  </body>
+</html>
