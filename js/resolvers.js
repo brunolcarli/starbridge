@@ -1,3 +1,7 @@
+function resolve_player_resume(player_name){
+    return get_player(player_name);
+}
+
 function resolve_player_by_attribute(player_name, attribute){
     return get_player(player_name).then(player => {
         if (player == undefined){

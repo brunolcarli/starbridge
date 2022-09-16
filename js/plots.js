@@ -1,3 +1,55 @@
+function reset_player_resume_table(){
+    var table = document.getElementById("player_resume_table");
+    table.innerHTML = '';
+    table.align = 'center';
+    table.className = 'table table-dark';
+
+    var header = table.insertRow(0);
+
+    var player_id = header.insertCell(0);
+    var name = header.insertCell(1);
+    var status = header.insertCell(2);
+    var rank = header.insertCell(3);
+    var score = header.insertCell(4);
+    var planets = header.insertCell(5);
+    var ally = header.insertCell(6);
+
+    player_id.innerHTML = 'ID';
+    name.innerHTML = 'Nome';
+    status.innerHTML = 'Status';
+    rank.innerHTML = 'Rank';
+    score.innerHTML = 'Pontos';
+    planets.innerHTML = 'Planetas';
+    ally.innerHTML = 'Aliança';
+}
+
+function draw_player_resume_table(player_name){
+    reset_player_resume_table();
+    return resolve_player_resume(player_name).then(data => {
+        var table = document.getElementById("player_resume_table");
+        var row = table.insertRow(table.rows.length);
+
+        var player_id = row.insertCell(0);
+        var name = row.insertCell(1);
+        var status = row.insertCell(2);
+        var rank = row.insertCell(3);
+        var score = row.insertCell(4);
+        var planets = row.insertCell(5);
+        var ally = row.insertCell(6);
+
+        // Add some text to the new cells:
+        player_id.innerHTML = data['playerId'];
+        name.innerHTML = data['name'];
+        status.innerHTML = 'WIP';
+        rank.innerHTML = 'WIP';
+        score.innerHTML = 'WIP';
+        planets.innerHTML = 'WIP';
+        ally.innerHTML = 'WIP';
+        
+
+    });
+}
+
 function reset_canvas(chart_id, div_id){
     // Resets the canvas state
     document.getElementById(chart_id).remove();
@@ -290,7 +342,7 @@ function plot_military_lost_score(player_name){
             }
         });
         document.getElementById("military_lost_score_chart_label").innerHTML = "<h5 id=\"military_lost_score_chart_label\">Militares perdidos</h5>";
-    return chart;
+        return chart;
     })
 }
 
@@ -335,6 +387,7 @@ function plot_honor_score(player_name){
 
 function plot_player_statistics(){
     var player_name = document.getElementById('PlayerFilterInput').value;
+    draw_player_resume_table(player_name);
     plot_total_score(player_name);
     plot_economy_score(player_name);
     plot_research_score(player_name);
