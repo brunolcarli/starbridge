@@ -83,13 +83,13 @@ function plot_total_score(player_name){
                     borderColor: 'rgb(175, 92, 99)',
                     tension: 0.1
                 },
-                {
-                    label: 'Rank',
-                    data: rank,
-                    fill: false,
-                    borderColor: 'rgb(75, 192, 192)',
-                    tension: 0.1
-                }
+                // {
+                //     label: 'Rank',
+                //     data: rank,
+                //     fill: false,
+                //     borderColor: 'rgb(75, 192, 192)',
+                //     tension: 0.1
+                // }
             ]
         };
         const chart = new Chart(ctx, {
@@ -122,13 +122,13 @@ function plot_economy_score(player_name){
                     borderColor: 'rgb(175, 92, 99)',
                     tension: 0.1
                 },
-                {
-                    label: 'Rank',
-                    data: rank,
-                    fill: false,
-                    borderColor: 'rgb(75, 192, 192)',
-                    tension: 0.1
-                }
+                // {
+                //     label: 'Rank',
+                //     data: rank,
+                //     fill: false,
+                //     borderColor: 'rgb(75, 192, 192)',
+                //     tension: 0.1
+                // }
             ]
         };
         const chart = new Chart(ctx, {
@@ -161,13 +161,13 @@ function plot_research_score(player_name){
                     borderColor: 'rgb(175, 92, 99)',
                     tension: 0.1
                 },
-                {
-                    label: 'Rank',
-                    data: rank,
-                    fill: false,
-                    borderColor: 'rgb(75, 192, 192)',
-                    tension: 0.1
-                }
+                // {
+                //     label: 'Rank',
+                //     data: rank,
+                //     fill: false,
+                //     borderColor: 'rgb(75, 192, 192)',
+                //     tension: 0.1
+                // }
             ]
         };
         const chart = new Chart(ctx, {
@@ -201,20 +201,20 @@ function plot_military_score(player_name){
                     borderColor: 'rgb(175, 92, 99)',
                     tension: 0.1
                 },
-                {
-                    label: 'Rank',
-                    data: rank,
-                    fill: false,
-                    borderColor: 'rgb(75, 192, 192)',
-                    tension: 0.1
-                },
-                {
-                    label: 'Ships',
-                    data: ships,
-                    fill: false,
-                    borderColor: 'rgb(75, 152, 122)',
-                    tension: 0.1
-                }
+                // {
+                //     label: 'Rank',
+                //     data: rank,
+                //     fill: false,
+                //     borderColor: 'rgb(75, 192, 192)',
+                //     tension: 0.1
+                // },
+                // {
+                //     label: 'Ships',
+                //     data: ships,
+                //     fill: false,
+                //     borderColor: 'rgb(75, 152, 122)',
+                //     tension: 0.1
+                // }
             ]
         };
         const chart = new Chart(ctx, {
@@ -247,13 +247,13 @@ function plot_military_built_score(player_name){
                     borderColor: 'rgb(175, 92, 99)',
                     tension: 0.1
                 },
-                {
-                    label: 'Rank',
-                    data: rank,
-                    fill: false,
-                    borderColor: 'rgb(75, 192, 192)',
-                    tension: 0.1
-                }
+                // {
+                //     label: 'Rank',
+                //     data: rank,
+                //     fill: false,
+                //     borderColor: 'rgb(75, 192, 192)',
+                //     tension: 0.1
+                // }
             ]
         };
         const chart = new Chart(ctx, {
@@ -286,13 +286,13 @@ function plot_military_destroyed_score(player_name){
                     borderColor: 'rgb(175, 92, 99)',
                     tension: 0.1
                 },
-                {
-                    label: 'Rank',
-                    data: rank,
-                    fill: false,
-                    borderColor: 'rgb(75, 192, 192)',
-                    tension: 0.1
-                }
+                // {
+                //     label: 'Rank',
+                //     data: rank,
+                //     fill: false,
+                //     borderColor: 'rgb(75, 192, 192)',
+                //     tension: 0.1
+                // }
             ]
             };
         const chart = new Chart(ctx, {
@@ -325,13 +325,13 @@ function plot_military_lost_score(player_name){
                     borderColor: 'rgb(175, 92, 99)',
                     tension: 0.1
                 },
-                {
-                    label: 'Rank',
-                    data: rank,
-                    fill: false,
-                    borderColor: 'rgb(75, 192, 192)',
-                    tension: 0.1
-                }
+                // {
+                //     label: 'Rank',
+                //     data: rank,
+                //     fill: false,
+                //     borderColor: 'rgb(75, 192, 192)',
+                //     tension: 0.1
+                // }
             ]
             };
         const chart = new Chart(ctx, {
@@ -364,13 +364,13 @@ function plot_honor_score(player_name){
                     borderColor: 'rgb(175, 92, 99)',
                     tension: 0.1
                 },
-                {
-                    label: 'Rank',
-                    data: rank,
-                    fill: false,
-                    borderColor: 'rgb(75, 192, 192)',
-                    tension: 0.1
-                }
+                // {
+                //     label: 'Rank',
+                //     data: rank,
+                //     fill: false,
+                //     borderColor: 'rgb(75, 192, 192)',
+                //     tension: 0.1
+                // }
             ]
             };
         const chart = new Chart(ctx, {
