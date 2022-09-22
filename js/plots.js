@@ -37,13 +37,16 @@ function draw_player_resume_table(player_name){
         var planets = row.insertCell(5);
         var ally = row.insertCell(6);
 
+        // get most recent total score
+        var total_score = data['scores'][data['scores'].length-1]['total']
+
         // Add some text to the new cells:
         player_id.innerHTML = data['playerId'];
         name.innerHTML = data['name'];
-        status.innerHTML = 'WIP';
-        rank.innerHTML = 'WIP';
-        score.innerHTML = 'WIP';
-        planets.innerHTML = 'WIP';
+        status.innerHTML = data['status'];
+        rank.innerHTML = total_score['rank'];
+        score.innerHTML = total_score['score'];
+        planets.innerHTML = data['planets']['planet'].length;
         ally.innerHTML = 'WIP';
         
 
