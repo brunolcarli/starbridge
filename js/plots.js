@@ -74,31 +74,21 @@ function reset_canvas(chart_id, div_id){
 }
 
 function plot_total_score(player_name){
-    let chart_id = 'TotalScoreChart';
-
     return resolve_player_total_score(player_name).then(dataset => {
-        const ctx = reset_canvas(chart_id, 'total_score_chart');
+        const ctx = reset_canvas('DynamicChart', 'dynamic_chart');
         const score = dataset['score'];
-        const rank = dataset['rank'];
         const dates = dataset['dates'];
 
         const data = {
             labels: dates,
             datasets: [
                 {
-                    label: 'Score',
+                    label: 'Total Score',
                     data: score,
                     fill: false,
                     borderColor: 'rgb(175, 92, 99)',
                     tension: 0.1
-                },
-                // {
-                //     label: 'Rank',
-                //     data: rank,
-                //     fill: false,
-                //     borderColor: 'rgb(75, 192, 192)',
-                //     tension: 0.1
-                // }
+                }
             ]
         };
         const chart = new Chart(ctx, {
@@ -108,7 +98,6 @@ function plot_total_score(player_name){
                 responsive: false
             }
         });
-    document.getElementById("total_score_chart_label").innerHTML = "<h5 id=\"total_score_chart_label\">Total</h5>";
     return chart;
     })
 }
@@ -116,28 +105,20 @@ function plot_total_score(player_name){
 
 function plot_economy_score(player_name){
     return resolve_player_economy_score(player_name).then(dataset => {
-        const ctx = reset_canvas('EconomyScoreChart', 'economy_score_chart');
+        const ctx = reset_canvas('DynamicChart', 'dynamic_chart');
         const score = dataset['score'];
-        const rank = dataset['rank'];
         const dates = dataset['dates'];
 
         const data = {
             labels: dates,
             datasets: [
                 {
-                    label: 'Score',
+                    label: 'Economy Score',
                     data: score,
                     fill: false,
                     borderColor: 'rgb(175, 92, 99)',
                     tension: 0.1
-                },
-                // {
-                //     label: 'Rank',
-                //     data: rank,
-                //     fill: false,
-                //     borderColor: 'rgb(75, 192, 192)',
-                //     tension: 0.1
-                // }
+                }
             ]
         };
         const chart = new Chart(ctx, {
@@ -147,7 +128,6 @@ function plot_economy_score(player_name){
                 responsive: false
             }
         });
-    document.getElementById("economy_score_chart_label").innerHTML = "<h5 id=\"economy_score_chart_label\">Economia</h5>";
     return chart;
     })
 }
@@ -155,28 +135,20 @@ function plot_economy_score(player_name){
 
 function plot_research_score(player_name){
     return resolve_player_research_score(player_name).then(dataset => {
-        const ctx = reset_canvas('ResearchScoreChart', 'research_score_chart');
+        const ctx = reset_canvas('DynamicChart', 'dynamic_chart');
         const score = dataset['score'];
-        const rank = dataset['rank'];
         const dates = dataset['dates'];
 
         const data = {
             labels: dates,
             datasets: [
                 {
-                    label: 'Score',
+                    label: 'Research Score',
                     data: score,
                     fill: false,
                     borderColor: 'rgb(175, 92, 99)',
                     tension: 0.1
-                },
-                // {
-                //     label: 'Rank',
-                //     data: rank,
-                //     fill: false,
-                //     borderColor: 'rgb(75, 192, 192)',
-                //     tension: 0.1
-                // }
+                }
             ]
         };
         const chart = new Chart(ctx, {
@@ -186,7 +158,6 @@ function plot_research_score(player_name){
                 responsive: false
             }
         });
-    document.getElementById("research_score_chart_label").innerHTML = "<h5 id=\"research_score_chart_label\">Pesquisa</h5>";
     return chart;
     })
 }
@@ -194,9 +165,37 @@ function plot_research_score(player_name){
 
 function plot_military_score(player_name){
     return resolve_player_military_score(player_name).then(dataset => {
-        const ctx = reset_canvas('MilitaryScoreChart', 'military_score_chart');
+        const ctx = reset_canvas('DynamicChart', 'dynamic_chart');
         const score = dataset['score'];
-        const rank = dataset['rank'];
+        const dates = dataset['dates'];
+
+        const data = {
+            labels: dates,
+            datasets: [
+                {
+                    label: 'Military Score',
+                    data: score,
+                    fill: false,
+                    borderColor: 'rgb(175, 92, 99)',
+                    tension: 0.1
+                }
+            ]
+        };
+        const chart = new Chart(ctx, {
+            type: 'line',
+            data: data,
+            options: {
+                responsive: false
+            }
+        });
+    return chart;
+    })
+}
+
+
+function plot_ship_score(player_name){
+    return resolve_player_military_score(player_name).then(dataset => {
+        const ctx = reset_canvas('DynamicChart', 'dynamic_chart');
         const ships = dataset['ships'];
         const dates = dataset['dates'];
 
@@ -204,26 +203,12 @@ function plot_military_score(player_name){
             labels: dates,
             datasets: [
                 {
-                    label: 'Score',
-                    data: score,
+                    label: 'Ship count',
+                    data: ships,
                     fill: false,
                     borderColor: 'rgb(175, 92, 99)',
                     tension: 0.1
-                },
-                // {
-                //     label: 'Rank',
-                //     data: rank,
-                //     fill: false,
-                //     borderColor: 'rgb(75, 192, 192)',
-                //     tension: 0.1
-                // },
-                // {
-                //     label: 'Ships',
-                //     data: ships,
-                //     fill: false,
-                //     borderColor: 'rgb(75, 152, 122)',
-                //     tension: 0.1
-                // }
+                }
             ]
         };
         const chart = new Chart(ctx, {
@@ -233,7 +218,6 @@ function plot_military_score(player_name){
                 responsive: false
             }
         });
-    document.getElementById("military_score_chart_label").innerHTML = "<h5 id=\"military_score_chart_label\">Militar</h5>";
     return chart;
     })
 }
@@ -241,28 +225,20 @@ function plot_military_score(player_name){
 
 function plot_military_built_score(player_name){
     return resolve_player_military_built_score(player_name).then(dataset => {
-        const ctx = reset_canvas('MilitaryBuiltScoreChart', 'military_built_score_chart');
+        const ctx = reset_canvas('DynamicChart', 'dynamic_chart');
         const score = dataset['score'];
-        const rank = dataset['rank'];
         const dates = dataset['dates'];
 
         const data = {
             labels: dates,
             datasets: [
                 {
-                    label: 'Score',
+                    label: 'Military Built Score',
                     data: score,
                     fill: false,
                     borderColor: 'rgb(175, 92, 99)',
                     tension: 0.1
-                },
-                // {
-                //     label: 'Rank',
-                //     data: rank,
-                //     fill: false,
-                //     borderColor: 'rgb(75, 192, 192)',
-                //     tension: 0.1
-                // }
+                }
             ]
         };
         const chart = new Chart(ctx, {
@@ -272,7 +248,6 @@ function plot_military_built_score(player_name){
                 responsive: false
             }
         });
-    document.getElementById("military_built_score_chart_label").innerHTML = "<h5 id=\"military_built_score_chart_label\">Militares construídos</h5>";
     return chart;
     })
 }
@@ -280,28 +255,20 @@ function plot_military_built_score(player_name){
 
 function plot_military_destroyed_score(player_name){
     return resolve_player_military_destroyed_score(player_name).then(dataset => {
-        const ctx = reset_canvas('MilitaryDestroyedScoreChart', 'military_destroyed_score_chart');
+        const ctx = reset_canvas('DynamicChart', 'dynamic_chart');
         const score = dataset['score'];
-        const rank = dataset['rank'];
         const dates = dataset['dates'];
 
         const data = {
             labels: dates,
             datasets: [
                 {
-                    label: 'Score',
+                    label: 'Military Destroyed Score',
                     data: score,
                     fill: false,
                     borderColor: 'rgb(175, 92, 99)',
                     tension: 0.1
-                },
-                // {
-                //     label: 'Rank',
-                //     data: rank,
-                //     fill: false,
-                //     borderColor: 'rgb(75, 192, 192)',
-                //     tension: 0.1
-                // }
+                }
             ]
             };
         const chart = new Chart(ctx, {
@@ -311,7 +278,6 @@ function plot_military_destroyed_score(player_name){
                 responsive: false
             }
         });
-    document.getElementById("military_destroyed_score_chart_label").innerHTML = "<h5 id=\"military_destroyed_score_chart_label\">Militares destruídos</h5>";
     return chart;
     })
 }
@@ -319,28 +285,20 @@ function plot_military_destroyed_score(player_name){
 
 function plot_military_lost_score(player_name){
     return resolve_player_military_lost_score(player_name).then(dataset => {
-        const ctx = reset_canvas('MilitaryLostScoreChart', 'military_lost_score_chart');
+        const ctx = reset_canvas('DynamicChart', 'dynamic_chart');
         const score = dataset['score'];
-        const rank = dataset['rank'];
         const dates = dataset['dates'];
 
         const data = {
             labels: dates,
             datasets: [
                 {
-                    label: 'Score',
+                    label: 'Military Lost Score',
                     data: score,
                     fill: false,
                     borderColor: 'rgb(175, 92, 99)',
                     tension: 0.1
-                },
-                // {
-                //     label: 'Rank',
-                //     data: rank,
-                //     fill: false,
-                //     borderColor: 'rgb(75, 192, 192)',
-                //     tension: 0.1
-                // }
+                }
             ]
             };
         const chart = new Chart(ctx, {
@@ -350,7 +308,6 @@ function plot_military_lost_score(player_name){
                 responsive: false
             }
         });
-        document.getElementById("military_lost_score_chart_label").innerHTML = "<h5 id=\"military_lost_score_chart_label\">Militares perdidos</h5>";
         return chart;
     })
 }
@@ -358,28 +315,20 @@ function plot_military_lost_score(player_name){
 
 function plot_honor_score(player_name){
     return resolve_player_honor_score(player_name).then(dataset => {
-        const ctx = reset_canvas('HonorScoreChart', 'honor_score_chart');
+        const ctx = reset_canvas('DynamicChart', 'dynamic_chart');
         const score = dataset['score'];
-        const rank = dataset['rank'];
         const dates = dataset['dates'];
 
         const data = {
             labels: dates,
             datasets: [
                 {
-                    label: 'Score',
+                    label: 'Honor Score',
                     data: score,
                     fill: false,
                     borderColor: 'rgb(175, 92, 99)',
                     tension: 0.1
-                },
-                // {
-                //     label: 'Rank',
-                //     data: rank,
-                //     fill: false,
-                //     borderColor: 'rgb(75, 192, 192)',
-                //     tension: 0.1
-                // }
+                }
             ]
             };
         const chart = new Chart(ctx, {
@@ -389,20 +338,342 @@ function plot_honor_score(player_name){
                 responsive: false
             }
         });
-    document.getElementById("honor_score_chart_label").innerHTML = "<h5 id=\"honor_score_chart_label\">Honra</h5>";
     return chart;
     })
 }
 
+
+function plot_total_activity(player_name){
+    return resolve_player_total_activity(player_name).then(dataset => {
+        const ctx = reset_canvas('DynamicChart', 'dynamic_chart');
+        const score = dataset['score'];
+        const dates = dataset['dates'];
+
+        const data = {
+            labels: dates,
+            datasets: [
+                {
+                    label: 'Total activity',
+                    data: score,
+                    fill: false,
+                    borderColor: 'rgb(175, 92, 99)',
+                    tension: 0.1
+                }
+            ]
+            };
+        const chart = new Chart(ctx, {
+            type: 'line',
+            data: data,
+            options: {
+                responsive: false
+            }
+        });
+    return chart;
+    })
+}
+
+
+function plot_economy_activity(player_name){
+    return resolve_player_economy_activity(player_name).then(dataset => {
+        const ctx = reset_canvas('DynamicChart', 'dynamic_chart');
+        const score = dataset['score'];
+        const dates = dataset['dates'];
+
+        const data = {
+            labels: dates,
+            datasets: [
+                {
+                    label: 'Economy activity',
+                    data: score,
+                    fill: false,
+                    borderColor: 'rgb(175, 92, 99)',
+                    tension: 0.1
+                }
+            ]
+            };
+        const chart = new Chart(ctx, {
+            type: 'line',
+            data: data,
+            options: {
+                responsive: false
+            }
+        });
+    return chart;
+    })
+}
+
+
+function plot_research_activity(player_name){
+    return resolve_player_research_activity(player_name).then(dataset => {
+        const ctx = reset_canvas('DynamicChart', 'dynamic_chart');
+        const score = dataset['score'];
+        const dates = dataset['dates'];
+
+        const data = {
+            labels: dates,
+            datasets: [
+                {
+                    label: 'Research activity',
+                    data: score,
+                    fill: false,
+                    borderColor: 'rgb(175, 92, 99)',
+                    tension: 0.1
+                }
+            ]
+            };
+        const chart = new Chart(ctx, {
+            type: 'line',
+            data: data,
+            options: {
+                responsive: false
+            }
+        });
+    return chart;
+    })
+}
+
+
+function plot_military_activity(player_name){
+    return resolve_player_military_activity(player_name).then(dataset => {
+        const ctx = reset_canvas('DynamicChart', 'dynamic_chart');
+        const score = dataset['score'];
+        const dates = dataset['dates'];
+
+        const data = {
+            labels: dates,
+            datasets: [
+                {
+                    label: 'Military activity',
+                    data: score,
+                    fill: false,
+                    borderColor: 'rgb(175, 92, 99)',
+                    tension: 0.1
+                }
+            ]
+            };
+        const chart = new Chart(ctx, {
+            type: 'line',
+            data: data,
+            options: {
+                responsive: false
+            }
+        });
+    return chart;
+    })
+}
+
+
+function plot_ships_activity(player_name){
+    return resolve_player_ships_activity(player_name).then(dataset => {
+        const ctx = reset_canvas('DynamicChart', 'dynamic_chart');
+        const score = dataset['score'];
+        const dates = dataset['dates'];
+
+        const data = {
+            labels: dates,
+            datasets: [
+                {
+                    label: 'Ships activity',
+                    data: score,
+                    fill: false,
+                    borderColor: 'rgb(175, 92, 99)',
+                    tension: 0.1
+                }
+            ]
+            };
+        const chart = new Chart(ctx, {
+            type: 'line',
+            data: data,
+            options: {
+                responsive: false
+            }
+        });
+    return chart;
+    })
+}
+
+
+function plot_military_built_activity(player_name){
+    return resolve_player_military_built_activity(player_name).then(dataset => {
+        const ctx = reset_canvas('DynamicChart', 'dynamic_chart');
+        const score = dataset['score'];
+        const dates = dataset['dates'];
+
+        const data = {
+            labels: dates,
+            datasets: [
+                {
+                    label: 'Military built activity',
+                    data: score,
+                    fill: false,
+                    borderColor: 'rgb(175, 92, 99)',
+                    tension: 0.1
+                }
+            ]
+            };
+        const chart = new Chart(ctx, {
+            type: 'line',
+            data: data,
+            options: {
+                responsive: false
+            }
+        });
+    return chart;
+    })
+}
+
+
+function plot_military_destroyed_activity(player_name){
+    return resolve_player_military_destroyed_activity(player_name).then(dataset => {
+        const ctx = reset_canvas('DynamicChart', 'dynamic_chart');
+        const score = dataset['score'];
+        const dates = dataset['dates'];
+
+        const data = {
+            labels: dates,
+            datasets: [
+                {
+                    label: 'Military destroyed activity',
+                    data: score,
+                    fill: false,
+                    borderColor: 'rgb(175, 92, 99)',
+                    tension: 0.1
+                }
+            ]
+            };
+        const chart = new Chart(ctx, {
+            type: 'line',
+            data: data,
+            options: {
+                responsive: false
+            }
+        });
+    return chart;
+    })
+}
+
+
+function plot_military_lost_activity(player_name){
+    return resolve_player_military_lost_activity(player_name).then(dataset => {
+        const ctx = reset_canvas('DynamicChart', 'dynamic_chart');
+        const score = dataset['score'];
+        const dates = dataset['dates'];
+
+        const data = {
+            labels: dates,
+            datasets: [
+                {
+                    label: 'Military lost activity',
+                    data: score,
+                    fill: false,
+                    borderColor: 'rgb(175, 92, 99)',
+                    tension: 0.1
+                }
+            ]
+            };
+        const chart = new Chart(ctx, {
+            type: 'line',
+            data: data,
+            options: {
+                responsive: false
+            }
+        });
+    return chart;
+    })
+}
+
+
+function plot_honor_activity(player_name){
+    return resolve_player_honor_activity(player_name).then(dataset => {
+        const ctx = reset_canvas('DynamicChart', 'dynamic_chart');
+        const score = dataset['score'];
+        const dates = dataset['dates'];
+
+        const data = {
+            labels: dates,
+            datasets: [
+                {
+                    label: 'Honor activity',
+                    data: score,
+                    fill: false,
+                    borderColor: 'rgb(175, 92, 99)',
+                    tension: 0.1
+                }
+            ]
+            };
+        const chart = new Chart(ctx, {
+            type: 'line',
+            data: data,
+            options: {
+                responsive: false
+            }
+        });
+    return chart;
+    })
+}
+
+
+function update_dynamic_chart(player_name, value){
+    if (value == 'TOTAL_SCORE'){
+        plot_total_score(player_name);
+    }
+    else if (value == 'ECONOMY_SCORE'){
+        plot_economy_score(player_name);
+    }
+    else if (value == 'RESEARCH_SCORE'){
+        plot_research_score(player_name);
+    }
+    else if (value == 'MILITARY_SCORE'){
+        plot_military_score(player_name);
+    }
+    else if (value == 'SHIP_COUNT'){
+        plot_ship_score(player_name);
+    }
+    else if (value == 'MILITARY_BUILT_SCORE'){
+        plot_military_built_score(player_name);
+    }
+    else if (value == 'MILITARY_DESTROYED_SCORE'){
+        plot_military_destroyed_score(player_name);
+    }
+    else if (value == 'MILITARY_LOST_SCORE'){
+        plot_military_lost_score(player_name);
+    }
+    else if (value == 'HONOR_SCORE'){
+        plot_honor_score(player_name);
+    }
+    else if (value == 'TOTAL_ACTIVITY'){
+        plot_total_activity(player_name);
+    }
+    else if (value == 'ECONOMY_ACTIVITY'){
+        plot_economy_activity(player_name);
+    }
+    else if (value == 'RESEARCH_ACTIVITY'){
+        plot_research_activity(player_name);
+    }
+    else if (value == 'MILITARY_ACTIVITY'){
+        plot_military_activity(player_name);
+    }
+    else if (value == 'SHIP_ACTIVITY'){
+        plot_ships_activity(player_name);
+    }
+    else if (value == 'MILITARY_BUILT_ACTIVITY'){
+        plot_military_built_activity(player_name);
+    }
+    else if (value == 'MILITARY_DESTROYED_ACTIVITY'){
+        plot_military_destroyed_activity(player_name);
+    }
+    else if (value == 'MILITARY_LOST_ACTIVITY'){
+        plot_military_lost_activity(player_name);
+    }
+    else if (value == 'HONOR_ACTIVITY'){
+        plot_honor_activity(player_name);
+    }
+}
+
+
 function plot_player_statistics(){
     var player_name = document.getElementById('PlayerFilterInput').value;
+    var chart_type = document.getElementById('chart_selection').value;
     draw_player_resume_table(player_name);
-    plot_total_score(player_name);
-    plot_economy_score(player_name);
-    plot_research_score(player_name);
-    plot_military_score(player_name);
-    plot_military_built_score(player_name);
-    plot_military_destroyed_score(player_name);
-    plot_military_lost_score(player_name);
-    plot_honor_score(player_name);
+    update_dynamic_chart(player_name, chart_type);
 }

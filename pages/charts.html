@@ -90,58 +90,40 @@
       </div>
     <hr />
 
+    <!-- CHART SELECTION -->
+    <h3 style="text-align: center">Seleção de gráfico</h3>
+    <div style="text-align: center">
+      <label for="chart_selection">Selecionar gráfico:</label>
+      <select name="chart_selection" id="chart_selection">
+        <option value="TOTAL_SCORE">Pontuação total</option>
+        <option value="ECONOMY_SCORE">Pontuação em economia</option>
+        <option value="RESEARCH_SCORE">Pontuação em pesquisa</option>
+        <option value="MILITARY_SCORE">Pontuação militar</option>
+        <option value="SHIP_COUNT">Contagem da frota</option>
+        <option value="MILITARY_BUILT_SCORE">Pontuação por construções militares</option>
+        <option value="MILITARY_DESTROYED_SCORE">Pontuação por destruições militares</option>
+        <option value="MILITARY_LOST_SCORE">Pontuação por perdas militares</option>
+        <option value="HONOR_SCORE">Pontuação por honra</option>
+        <option value="TOTAL_ACTIVITY">Atividade total</option>
+        <option value="ECONOMY_ACTIVITY">Atividade por economia</option>
+        <option value="RESEARCH_ACTIVITY">Atividade por pesquisa</option>
+        <option value="MILITARY_ACTIVITY">Atividade militar</option>
+        <option value="SHIP_ACTIVITY">Atividade por frota</option>
+        <option value="MILITARY_BUILT_ACTIVITY">Atividade por construções militares</option>
+        <option value="MILITARY_DESTROYED_ACTIVITY">Atividade por destruições militares</option>
+        <option value="MILITARY_LOST_ACTIVITY">Atividade por perdas militares</option>
+        <option value="HONOR_ACTIVITY">Atividade por honra</option>
+      </select>
+    </div>
+
     <!-- PLAYER RESUME -->
     <div align="'center">
-        <table id="player_resume_table"></table>
+      <table id="player_resume_table"></table>
     </div>
 
-    <!-- SCORE CHARTS -->
-    <!-- TOTAL -->
-    <h5 id="total_score_chart_label"></h5>
-    <div id="total_score_chart">
-      <canvas id="TotalScoreChart" width="350" height="400"></canvas>
-    </div>
-
-    <!-- ECONOMY -->
-    <h5 id="economy_score_chart_label"></h5>
-    <div id="economy_score_chart">
-        <canvas id="EconomyScoreChart" width="350" height="400"></canvas>
-    </div>
-
-     <!-- RESEARCH -->
-     <h5 id="research_score_chart_label"></h5>
-     <div id="research_score_chart">
-        <canvas id="ResearchScoreChart" width="350" height="400"></canvas>
-    </div>
-
-     <!-- MILITARY -->
-     <h5 id="military_score_chart_label"></h5>
-     <div id="military_score_chart">
-        <canvas id="MilitaryScoreChart" width="350" height="400"></canvas>
-    </div>
-
-     <!-- MILITARY BUILT -->
-     <h5 id="military_built_score_chart_label"></h5>
-     <div id="military_built_score_chart">
-        <canvas id="MilitaryBuiltScoreChart" width="350" height="400"></canvas>
-    </div>
-
-     <!-- MILITARY DESTROYED -->
-     <h5 id="military_destroyed_score_chart_label"></h5>
-     <div id="military_destroyed_score_chart">
-        <canvas id="MilitaryDestroyedScoreChart" width="350" height="400"></canvas>
-    </div>
-
-     <!-- MILITARY LOST -->
-     <h5 id="military_lost_score_chart_label"></h5>
-     <div id="military_lost_score_chart">
-        <canvas id="MilitaryLostScoreChart" width="350" height="400"></canvas>
-    </div>
-
-     <!-- HONOR -->
-     <h5 id="honor_score_chart_label"></h5>
-     <div id="honor_score_chart">
-        <canvas id="HonorScoreChart" width="350" height="400"></canvas>
+    <!-- DYNAMIC CHRAT -->
+    <div id="dynamic_chart">
+      <canvas id="DynamicChart" width="350" height="400"></canvas>
     </div>
   </body>
 </html>
