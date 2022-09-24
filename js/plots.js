@@ -66,8 +66,8 @@ function reset_canvas(chart_id, div_id){
         'canvas'
     );
     canvas.setAttribute('id', chart_id);
-    canvas.setAttribute('width', '400');
-    canvas.setAttribute('height', '400');
+    canvas.setAttribute('width', '680');
+    canvas.setAttribute('height', '420');
     document.getElementById(div_id).appendChild(canvas);
 
     return document.getElementById(chart_id).getContext('2d');
