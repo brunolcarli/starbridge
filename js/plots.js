@@ -38,7 +38,15 @@ function draw_player_resume_table(player_name){
         var ally = row.insertCell(6);
 
         // get most recent total score
-        var total_score = data['scores'][data['scores'].length-1]['total']
+        var total_score = data['scores'][data['scores'].length-1]['total'];
+
+        // get player alliance data if exists
+        var player_ally = data['alliance'];
+        if (player_ally == undefined){
+            player_ally = 'No Ally';
+        } else {
+            player_ally = `[${player_ally['tag']}] ${player_ally['name']}`;
+        }
 
         // Add some text to the new cells:
         player_id.innerHTML = data['playerId'];
@@ -47,9 +55,7 @@ function draw_player_resume_table(player_name){
         rank.innerHTML = total_score['rank'];
         score.innerHTML = total_score['score'];
         planets.innerHTML = data['planets']['planet'].length;
-        ally.innerHTML = 'WIP';
-        
-
+        ally.innerHTML = player_ally;
     });
 }
 
