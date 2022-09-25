@@ -140,3 +140,19 @@ function resolve_player_military_lost_activity(player_name){
 function resolve_player_honor_activity(player_name){
     return resolve_player_activity(player_name, 'honor');
 }
+
+
+function resolve_average_weekday_progress(player_name){
+    return get_player(player_name).then(player => {
+        if (player == undefined){
+            return {};
+        }
+        let activity = player['weekdayMeanActivity'];
+        
+        if (activity == undefined){
+            return {'score': [], 'dates': []};
+        }
+
+        return {'score': activity['averageProgress'], 'dates': activity['weekdays']};
+    });
+}

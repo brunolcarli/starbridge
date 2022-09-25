@@ -5,7 +5,7 @@ function json(response) {
 
 function get_player(player_name){
     const query = `players(name_Icontains: \\\"${player_name}\\\")`;
-    const payload = '{"query": "query{' + query + '{name playerId status planets scoreDiff { datetime total economy research military ships militaryBuilt militaryDestroyed militaryLost honor} alliance { name tag } scores{ timestamp datetime total economy research  military  militaryBuilt  militaryDestroyed militaryLost honor }}}"}';
+    const payload = '{"query": "query{' + query + '{name playerId status planets weekdayMeanActivity{ weekdays averageProgress } scoreDiff { datetime total economy research military ships militaryBuilt militaryDestroyed militaryLost honor} alliance { name tag } scores{ timestamp datetime total economy research  military  militaryBuilt  militaryDestroyed militaryLost honor }}}"}';
     const options = {
         method: 'POST',
         headers: {

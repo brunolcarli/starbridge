@@ -1,3 +1,9 @@
+//////////////////////////////////////
+//
+//          TABLE RESUME
+//
+//////////////////////////////////////
+
 function reset_player_resume_table(){
     var table = document.getElementById("player_resume_table");
     table.innerHTML = '';
@@ -22,6 +28,7 @@ function reset_player_resume_table(){
     planets.innerHTML = 'Planetas';
     ally.innerHTML = 'Aliança';
 }
+
 
 function draw_player_resume_table(player_name){
     reset_player_resume_table();
@@ -59,6 +66,13 @@ function draw_player_resume_table(player_name){
     });
 }
 
+
+/////////////////////////////////////////
+//
+//           CANVAS RESET
+//
+/////////////////////////////////////////
+
 function reset_canvas(chart_id, div_id){
     // Resets the canvas state
     document.getElementById(chart_id).remove();
@@ -72,6 +86,13 @@ function reset_canvas(chart_id, div_id){
 
     return document.getElementById(chart_id).getContext('2d');
 }
+
+
+/////////////////////////////////////////
+//
+//           SCORE PLOTS
+//
+/////////////////////////////////////////
 
 function plot_total_score(player_name){
     return resolve_player_total_score(player_name).then(dataset => {
@@ -340,6 +361,53 @@ function plot_honor_score(player_name){
         });
     return chart;
     })
+}
+
+
+///////////////////////////////////////////////
+//
+//           ACTIVITY PLOTS
+//
+///////////////////////////////////////////////
+
+function plot_average_weekday_progress(player_name){
+    return resolve_average_weekday_progress(player_name).then(dataset => {
+        const ctx = reset_canvas('DynamicChart', 'dynamic_chart');
+
+        const chart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: dataset['dates'],
+                datasets: [{
+                label: 'Média de progresso por dia da semana',
+                data: dataset['score'],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(255, 159, 64, 0.2)',
+                    'rgba(255, 205, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(201, 203, 207, 0.2)'
+                ],
+                borderColor: [
+                    'rgb(255, 99, 132)',
+                    'rgb(255, 159, 64)',
+                    'rgb(255, 205, 86)',
+                    'rgb(75, 192, 192)',
+                    'rgb(54, 162, 235)',
+                    'rgb(153, 102, 255)',
+                    'rgb(201, 203, 207)'
+                ],
+                borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: false
+            }
+        });
+        return chart;
+    });
 }
 
 
@@ -667,6 +735,9 @@ function update_dynamic_chart(player_name, value){
     }
     else if (value == 'HONOR_ACTIVITY'){
         plot_honor_activity(player_name);
+    }
+    else if (value == 'WEEKDAY_ACTIVITY'){
+        plot_average_weekday_progress(player_name);
     }
 }
 
