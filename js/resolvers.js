@@ -156,3 +156,35 @@ function resolve_average_weekday_progress(player_name){
         return {'score': activity['averageProgress'], 'dates': activity['weekdays']};
     });
 }
+
+
+function resolve_average_hour_progress(player_name){
+    return get_player(player_name).then(player => {
+        if (player == undefined){
+            return {};
+        }
+        let activity = player['hourMeanActivity'];
+        
+        if (activity == undefined){
+            return {'score': [], 'dates': []};
+        }
+
+        return {'score': activity['averageProgress'], 'dates': activity['hours']};
+    });
+}
+
+
+function resolve_average_halfhour_progress(player_name){
+    return get_player(player_name).then(player => {
+        if (player == undefined){
+            return {};
+        }
+        let activity = player['halfhourMeanActivity'];
+        
+        if (activity == undefined){
+            return {'score': [], 'dates': []};
+        }
+
+        return {'score': activity['averageProgress'], 'dates': activity['hours']};
+    });
+}

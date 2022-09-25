@@ -411,6 +411,88 @@ function plot_average_weekday_progress(player_name){
 }
 
 
+function plot_average_hour_progress(player_name){
+    return resolve_average_hour_progress(player_name).then(dataset => {
+        const ctx = reset_canvas('DynamicChart', 'dynamic_chart');
+
+        const chart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: dataset['dates'],
+                datasets: [{
+                label: 'Média de progresso por hora do dia (Período de 1H)',
+                data: dataset['score'],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(255, 159, 64, 0.2)',
+                    'rgba(255, 205, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(201, 203, 207, 0.2)'
+                ],
+                borderColor: [
+                    'rgb(255, 99, 132)',
+                    'rgb(255, 159, 64)',
+                    'rgb(255, 205, 86)',
+                    'rgb(75, 192, 192)',
+                    'rgb(54, 162, 235)',
+                    'rgb(153, 102, 255)',
+                    'rgb(201, 203, 207)'
+                ],
+                borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: false
+            }
+        });
+        return chart;
+    });
+}
+
+
+function plot_average_halfhour_progress(player_name){
+    return resolve_average_halfhour_progress(player_name).then(dataset => {
+        const ctx = reset_canvas('DynamicChart', 'dynamic_chart');
+
+        const chart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: dataset['dates'],
+                datasets: [{
+                label: 'Média de progresso por hora do dia (Período 30min)',
+                data: dataset['score'],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(255, 159, 64, 0.2)',
+                    'rgba(255, 205, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(201, 203, 207, 0.2)'
+                ],
+                borderColor: [
+                    'rgb(255, 99, 132)',
+                    'rgb(255, 159, 64)',
+                    'rgb(255, 205, 86)',
+                    'rgb(75, 192, 192)',
+                    'rgb(54, 162, 235)',
+                    'rgb(153, 102, 255)',
+                    'rgb(201, 203, 207)'
+                ],
+                borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: false
+            }
+        });
+        return chart;
+    });
+}
+
+
 function plot_total_activity(player_name){
     return resolve_player_total_activity(player_name).then(dataset => {
         const ctx = reset_canvas('DynamicChart', 'dynamic_chart');
@@ -738,6 +820,12 @@ function update_dynamic_chart(player_name, value){
     }
     else if (value == 'WEEKDAY_ACTIVITY'){
         plot_average_weekday_progress(player_name);
+    }
+    else if (value == 'HOUR_ACTIVITY'){
+        plot_average_hour_progress(player_name);
+    }
+    else if (value == 'HALFHOUR_ACTIVITY'){
+        plot_average_halfhour_progress(player_name);
     }
 }
 
