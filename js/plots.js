@@ -763,6 +763,63 @@ function plot_honor_activity(player_name){
 }
 
 
+//////////////////////////////////////////////
+//
+//         Machine Learning Predictions
+//
+//////////////////////////////////////////////
+
+
+function plot_score_prediction(player_name){
+    return resolve_score_prediction(player_name).then(dataset => {
+        const ctx = reset_canvas('DynamicChart', 'dynamic_chart');
+        let predicted = dataset['predicted'];
+        let future_dates = dataset['future_dates'];
+        let prev_scores = dataset['prev_scores'];
+        let prev_dates = dataset['prev_dates'];
+
+        let filler = new Array(prev_scores.length-1).fill(null);
+        predicted = filler.concat(predicted);
+        let date_labels = prev_dates.concat(future_dates);
+
+        const data = {
+            labels: date_labels,
+            datasets: [
+                {
+                    label: 'Pontuação atual',
+                    data: prev_scores,
+                    fill: false,
+                    borderColor: 'rgb(175, 92, 99)',
+                    tension: 0.1
+                },
+                {
+                    label: 'Pontuação Prevista',
+                    data: predicted,
+                    fill: false,
+                    borderColor: 'rgb(175, 192, 12)',
+                    tension: 0.1
+                }
+            ]
+        };
+        const chart = new Chart(ctx, {
+            type: 'line',
+            data: data,
+            options: {
+                responsive: false
+            }
+        });
+    return chart;
+    })
+}
+
+
+//////////////////////////////////////////////
+//
+//           Dynamic Chart handler
+//
+//////////////////////////////////////////////
+
+
 function update_dynamic_chart(player_name, value){
     if (value == 'TOTAL_SCORE'){
         plot_total_score(player_name);
@@ -826,6 +883,9 @@ function update_dynamic_chart(player_name, value){
     }
     else if (value == 'HALFHOUR_ACTIVITY'){
         plot_average_halfhour_progress(player_name);
+    }
+    else if (value == 'SCORE_PREDICTION'){
+        plot_score_prediction(player_name);
     }
 }
 

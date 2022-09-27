@@ -188,3 +188,24 @@ function resolve_average_halfhour_progress(player_name){
         return {'score': activity['averageProgress'], 'dates': activity['hours']};
     });
 }
+
+
+function resolve_score_prediction(player_name){
+    return get_player_score_prediction(player_name).then(player => {
+        if (player == undefined){
+            return {};
+        }
+        let pred = player['scorePrediction'];
+        
+        if (pred == undefined){
+            return {'predicted': [], 'future_dates': [], 'prev_scores': [], 'prev_dates': []};
+        }
+
+        return {
+            'predicted': pred['scorePredictions'],
+            'future_dates': pred['futureDates'],
+            'prev_scores': pred['sampleScores'],
+            'prev_dates': pred['sampleDates']
+        };
+    });
+}
