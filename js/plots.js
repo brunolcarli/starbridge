@@ -55,10 +55,16 @@ function draw_player_resume_table(player_name){
             player_ally = `[${player_ally['tag']}] ${player_ally['name']}`;
         }
 
+        // parse player status
+        var player_status = data['status'];
+        if (player_status == 'nan'){
+            player_status = 'Active';
+        }
+
         // Add some text to the new cells:
         player_id.innerHTML = data['playerId'];
         name.innerHTML = data['name'];
-        status.innerHTML = data['status'];
+        status.innerHTML = player_status;
         rank.innerHTML = total_score['rank'];
         score.innerHTML = total_score['score'];
         planets.innerHTML = data['planets']['planet'].length;

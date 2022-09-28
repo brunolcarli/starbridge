@@ -1,5 +1,5 @@
 function resolve_player_resume(player_name){
-    return get_player(player_name);
+    return get_player_resume(player_name);
 }
 
 function resolve_player_by_attribute(player_name, attribute){
