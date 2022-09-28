@@ -493,272 +493,160 @@ function plot_average_halfhour_progress(player_name){
 }
 
 
-function plot_total_activity(player_name){
-    return resolve_player_total_activity(player_name).then(dataset => {
+function plot_activity(player_name){
+    return resolve_player_activities(player_name).then(dataset => {
         const ctx = reset_canvas('DynamicChart', 'dynamic_chart');
-        const score = dataset['score'];
-        const dates = dataset['dates'];
-
-        const data = {
-            labels: dates,
-            datasets: [
-                {
-                    label: 'Total activity',
-                    data: score,
-                    fill: false,
-                    borderColor: 'rgb(175, 92, 99)',
-                    tension: 0.1
-                }
-            ]
-            };
-        const chart = new Chart(ctx, {
-            type: 'line',
-            data: data,
+        const mixedChart = new Chart(ctx, {
+            type: 'scatter',
+            data: {
+                labels: dataset['dates'],
+                datasets: [
+                    {
+                        type: 'bar',
+                        label: 'Total (bar)',
+                        data: dataset['total'],
+                        fill: true,
+                        barPercentage: 0.8,
+                        barThickness: 2,
+                        maxBarThickness: 3,
+                        minBarLength: 2,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                        ],
+                        borderColor: [
+                            'rgb(54, 162, 235)',
+                        ],
+                        borderWidth: 1
+                    },
+                    {
+                        type: 'bar',
+                        label: 'Economy (bar)',
+                        data: dataset['economy'],
+                        fill: true,
+                        barPercentage: 0.8,
+                        barThickness: 2,
+                        maxBarThickness: 3,
+                        minBarLength: 2,
+                        backgroundColor: [
+                            'rgba(255, 199, 162, 0.2)',
+                        ],
+                        borderColor: [
+                            'rgb(154, 162, 235)',
+                        ],
+                        borderWidth: 1
+                    },
+                    {
+                        type: 'bar',
+                        label: 'Research (bar)',
+                        data: dataset['research'],
+                        fill: true,
+                        barPercentage: 0.8,
+                        barThickness: 2,
+                        maxBarThickness: 3,
+                        minBarLength: 2,
+                        backgroundColor: [
+                            'rgba(255, 159, 14, 0.2)',
+                        ],
+                        borderColor: [
+                            'rgb(54, 62, 235)',
+                        ],
+                        borderWidth: 1
+                    },
+                    {
+                        type: 'bar',
+                        label: 'Military (bar)',
+                        data: dataset['military'],
+                        fill: true,
+                        barPercentage: 0.8,
+                        barThickness: 2,
+                        maxBarThickness: 3,
+                        minBarLength: 2,
+                        backgroundColor: [
+                            'rgba(55, 15, 64, 0.2)',
+                        ],
+                        borderColor: [
+                            'rgb(201, 203, 7)'
+                        ],
+                        borderWidth: 1
+                    },
+                    {
+                        type: 'line',
+                        label: 'Economy activity',
+                        data: dataset['economy'],
+                        fill: false,
+                        borderColor: 'rgb(75, 52, 99)',
+                        tension: 0.1
+                    },
+                    {
+                        type: 'line',
+                        label: 'Research activity',
+                        data: dataset['research'],
+                        fill: false,
+                        borderColor: 'rgb(200, 52, 129)',
+                        tension: 0.1
+                    },
+                    {
+                        type: 'line',
+                        label: 'Military activity',
+                        data: dataset['military'],
+                        fill: false,
+                        borderColor: 'rgb(57, 25, 99)',
+                        tension: 0.1
+                    },
+                    {
+                        label: 'Fleet count activity',
+                        data: dataset['ships'],
+                        fill: false,
+                        borderColor: 'rgb(65, 252, 190)',
+                        tension: 0.1
+                    },
+                    {
+                        type: 'line',
+                        label: 'Military built activity',
+                        data: dataset['mil_built'],
+                        fill: false,
+                        borderColor: 'rgb(255, 52, 200)',
+                        tension: 0.1
+                    },
+                    {
+                        type: 'line',
+                        label: 'Military destroyed activity',
+                        data: dataset['mil_dest'],
+                        fill: false,
+                        borderColor: 'rgb(100, 52, 199)',
+                        tension: 0.1
+                    },
+                    {
+                        type: 'line',
+                        label: 'Military Lost activity',
+                        data: dataset['mil_lost'],
+                        fill: false,
+                        borderColor: 'rgb(75, 152, 199)',
+                        tension: 0.1
+                    },
+                    {
+                        type: 'line',
+                        label: 'Honor activity',
+                        data: dataset['honor'],
+                        fill: false,
+                        borderColor: 'rgb(175, 152, 199)',
+                        tension: 0.1
+                    },
+                    {
+                        type: 'line',
+                        label: 'Total activity',
+                        data: dataset['total'],
+                        fill: false,
+                        borderColor: 'rgb(175, 92, 99)',
+                        tension: 0.1
+                    },
+                ]
+            },
             options: {
-                responsive: false
+                responsive: true
             }
         });
-    return chart;
-    })
-}
-
-
-function plot_economy_activity(player_name){
-    return resolve_player_economy_activity(player_name).then(dataset => {
-        const ctx = reset_canvas('DynamicChart', 'dynamic_chart');
-        const score = dataset['score'];
-        const dates = dataset['dates'];
-
-        const data = {
-            labels: dates,
-            datasets: [
-                {
-                    label: 'Economy activity',
-                    data: score,
-                    fill: false,
-                    borderColor: 'rgb(175, 92, 99)',
-                    tension: 0.1
-                }
-            ]
-            };
-        const chart = new Chart(ctx, {
-            type: 'line',
-            data: data,
-            options: {
-                responsive: false
-            }
-        });
-    return chart;
-    })
-}
-
-
-function plot_research_activity(player_name){
-    return resolve_player_research_activity(player_name).then(dataset => {
-        const ctx = reset_canvas('DynamicChart', 'dynamic_chart');
-        const score = dataset['score'];
-        const dates = dataset['dates'];
-
-        const data = {
-            labels: dates,
-            datasets: [
-                {
-                    label: 'Research activity',
-                    data: score,
-                    fill: false,
-                    borderColor: 'rgb(175, 92, 99)',
-                    tension: 0.1
-                }
-            ]
-            };
-        const chart = new Chart(ctx, {
-            type: 'line',
-            data: data,
-            options: {
-                responsive: false
-            }
-        });
-    return chart;
-    })
-}
-
-
-function plot_military_activity(player_name){
-    return resolve_player_military_activity(player_name).then(dataset => {
-        const ctx = reset_canvas('DynamicChart', 'dynamic_chart');
-        const score = dataset['score'];
-        const dates = dataset['dates'];
-
-        const data = {
-            labels: dates,
-            datasets: [
-                {
-                    label: 'Military activity',
-                    data: score,
-                    fill: false,
-                    borderColor: 'rgb(175, 92, 99)',
-                    tension: 0.1
-                }
-            ]
-            };
-        const chart = new Chart(ctx, {
-            type: 'line',
-            data: data,
-            options: {
-                responsive: false
-            }
-        });
-    return chart;
-    })
-}
-
-
-function plot_ships_activity(player_name){
-    return resolve_player_ships_activity(player_name).then(dataset => {
-        const ctx = reset_canvas('DynamicChart', 'dynamic_chart');
-        const score = dataset['score'];
-        const dates = dataset['dates'];
-
-        const data = {
-            labels: dates,
-            datasets: [
-                {
-                    label: 'Ships activity',
-                    data: score,
-                    fill: false,
-                    borderColor: 'rgb(175, 92, 99)',
-                    tension: 0.1
-                }
-            ]
-            };
-        const chart = new Chart(ctx, {
-            type: 'line',
-            data: data,
-            options: {
-                responsive: false
-            }
-        });
-    return chart;
-    })
-}
-
-
-function plot_military_built_activity(player_name){
-    return resolve_player_military_built_activity(player_name).then(dataset => {
-        const ctx = reset_canvas('DynamicChart', 'dynamic_chart');
-        const score = dataset['score'];
-        const dates = dataset['dates'];
-
-        const data = {
-            labels: dates,
-            datasets: [
-                {
-                    label: 'Military built activity',
-                    data: score,
-                    fill: false,
-                    borderColor: 'rgb(175, 92, 99)',
-                    tension: 0.1
-                }
-            ]
-            };
-        const chart = new Chart(ctx, {
-            type: 'line',
-            data: data,
-            options: {
-                responsive: false
-            }
-        });
-    return chart;
-    })
-}
-
-
-function plot_military_destroyed_activity(player_name){
-    return resolve_player_military_destroyed_activity(player_name).then(dataset => {
-        const ctx = reset_canvas('DynamicChart', 'dynamic_chart');
-        const score = dataset['score'];
-        const dates = dataset['dates'];
-
-        const data = {
-            labels: dates,
-            datasets: [
-                {
-                    label: 'Military destroyed activity',
-                    data: score,
-                    fill: false,
-                    borderColor: 'rgb(175, 92, 99)',
-                    tension: 0.1
-                }
-            ]
-            };
-        const chart = new Chart(ctx, {
-            type: 'line',
-            data: data,
-            options: {
-                responsive: false
-            }
-        });
-    return chart;
-    })
-}
-
-
-function plot_military_lost_activity(player_name){
-    return resolve_player_military_lost_activity(player_name).then(dataset => {
-        const ctx = reset_canvas('DynamicChart', 'dynamic_chart');
-        const score = dataset['score'];
-        const dates = dataset['dates'];
-
-        const data = {
-            labels: dates,
-            datasets: [
-                {
-                    label: 'Military lost activity',
-                    data: score,
-                    fill: false,
-                    borderColor: 'rgb(175, 92, 99)',
-                    tension: 0.1
-                }
-            ]
-            };
-        const chart = new Chart(ctx, {
-            type: 'line',
-            data: data,
-            options: {
-                responsive: false
-            }
-        });
-    return chart;
-    })
-}
-
-
-function plot_honor_activity(player_name){
-    return resolve_player_honor_activity(player_name).then(dataset => {
-        const ctx = reset_canvas('DynamicChart', 'dynamic_chart');
-        const score = dataset['score'];
-        const dates = dataset['dates'];
-
-        const data = {
-            labels: dates,
-            datasets: [
-                {
-                    label: 'Honor activity',
-                    data: score,
-                    fill: false,
-                    borderColor: 'rgb(175, 92, 99)',
-                    tension: 0.1
-                }
-            ]
-            };
-        const chart = new Chart(ctx, {
-            type: 'line',
-            data: data,
-            options: {
-                responsive: false
-            }
-        });
-    return chart;
+        return mixedChart;
     })
 }
 
@@ -848,32 +736,8 @@ function update_dynamic_chart(player_name, value){
     else if (value == 'HONOR_SCORE'){
         plot_honor_score(player_name);
     }
-    else if (value == 'TOTAL_ACTIVITY'){
-        plot_total_activity(player_name);
-    }
-    else if (value == 'ECONOMY_ACTIVITY'){
-        plot_economy_activity(player_name);
-    }
-    else if (value == 'RESEARCH_ACTIVITY'){
-        plot_research_activity(player_name);
-    }
-    else if (value == 'MILITARY_ACTIVITY'){
-        plot_military_activity(player_name);
-    }
-    else if (value == 'SHIP_ACTIVITY'){
-        plot_ships_activity(player_name);
-    }
-    else if (value == 'MILITARY_BUILT_ACTIVITY'){
-        plot_military_built_activity(player_name);
-    }
-    else if (value == 'MILITARY_DESTROYED_ACTIVITY'){
-        plot_military_destroyed_activity(player_name);
-    }
-    else if (value == 'MILITARY_LOST_ACTIVITY'){
-        plot_military_lost_activity(player_name);
-    }
-    else if (value == 'HONOR_ACTIVITY'){
-        plot_honor_activity(player_name);
+    else if (value == 'PLAYER_ACTIVITY'){
+        plot_activity(player_name);
     }
     else if (value == 'WEEKDAY_ACTIVITY'){
         plot_average_weekday_progress(player_name);
