@@ -196,14 +196,25 @@ function resolve_score_prediction(player_name){
         let pred = player['scorePrediction'];
         
         if (pred == undefined){
-            return {'predicted': [], 'future_dates': [], 'prev_scores': [], 'prev_dates': []};
+            return {
+                'predicted': [],
+                'future_dates': [],
+                'prev_scores': [],
+                'prev_dates': [],
+                'prev_preds': [],
+                'prev_pred_dates': []
+            };
         }
+
+        let prev_preds = pred['lastPredictions'];
 
         return {
             'predicted': pred['scorePredictions'],
             'future_dates': pred['futureDates'],
             'prev_scores': pred['sampleScores'],
-            'prev_dates': pred['sampleDates']
+            'prev_dates': pred['sampleDates'],
+            'prev_preds': prev_preds['predictions'],
+            'prev_pred_dates': prev_preds['dates']
         };
     });
 }

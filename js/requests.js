@@ -54,7 +54,7 @@ function get_player_resume(player_name){
 
 function get_player_score_prediction(player_name){
     const query = `player(name_Icontains: \\\"${player_name}\\\")`;
-    const payload = '{"query": "query{' + query + '{name playerId status planets alliance { name tag } scorePrediction{ sampleDates sampleScores futureDates scorePredictions } }}"}';
+    const payload = '{"query": "query{' + query + '{name playerId status planets alliance { name tag } scorePrediction{ sampleDates sampleScores futureDates scorePredictions lastPredictions { dates  predictions } } }}"}';
     const options = {
         method: 'POST',
         headers: {

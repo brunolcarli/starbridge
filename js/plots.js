@@ -671,23 +671,39 @@ function plot_score_prediction(player_name){
         let future_dates = dataset['future_dates'];
         let prev_scores = dataset['prev_scores'];
         let prev_dates = dataset['prev_dates'];
+        let prev_preds = dataset['prev_preds'];
+        let prev_pred_dates = dataset['prev_pred_dates'];
 
+        // Fill blank spaces to fit prediction in the correct chart position
         let filler = new Array(prev_scores.length-1).fill(null);
         predicted = filler.concat(predicted);
+
+        // fill blank spaces to fit previous prediction in the correct chart position
+        filler = new Array(prev_dates.indexOf(prev_pred_dates[0])).fill(null);
+        prev_preds = filler.concat(prev_preds);
+
         let date_labels = prev_dates.concat(future_dates);
 
         const data = {
             labels: date_labels,
             datasets: [
                 {
-                    label: 'Pontuação atual',
+                    label: 'Pontuação média atual',
                     data: prev_scores,
                     fill: false,
                     borderColor: 'rgb(175, 92, 99)',
                     tension: 0.1
                 },
                 {
-                    label: 'Pontuação Prevista',
+                    label: 'Última previsão realizada',
+                    data: prev_preds,
+                    fill: false,
+                    borderColor: 'rgb(75, 192, 199)',
+                    tension: 0.1,
+                    type: 'scatter'
+                },
+                {
+                    label: 'Pontuação média Prevista',
                     data: predicted,
                     fill: false,
                     borderColor: 'rgb(175, 192, 12)',
