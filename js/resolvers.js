@@ -207,3 +207,23 @@ function resolve_score_prediction(player_name){
         };
     });
 }
+
+
+///////////////////////////////
+//
+//   Miscellaneous Tools
+//
+///////////////////////////////
+
+
+function resolve_datetime_input(range){
+    if (range == 'ALL'){
+        return '';
+    }
+
+    const today = new Date();
+    const start_point = new Date(today);
+    start_point.setDate(start_point.getDate() - range);
+
+    return ` datetime_Gte: \\\"${start_point.toISOString()}\\\" `;
+}

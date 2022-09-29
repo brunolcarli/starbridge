@@ -764,6 +764,7 @@ function plot_player_statistics(){
     var player_name = document.getElementById('PlayerFilterInput').value;
     var chart_type = document.getElementById('chart_selection').value;
 
+
     if (!player_name){
         alert('Necessário informar o nome do jogador!');
         return;

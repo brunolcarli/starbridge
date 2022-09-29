@@ -83,10 +83,16 @@
 
     <!-- Filter Input -->
     <div class="input-group flex-nowrap">
+        <select name="date_range_selection" id="date_range_selection">
+          <option value="7">Últimos 7 dias</option>
+          <option value="15">Últimos 15 dias</option>
+          <option value="30">Últimos 30 dias</option>
+          <option value="ALL">Tudo</option>
+        </select>
         <span class="input-group-text">&#x1F50D</span>  <!-- &#x1F50D is the ASCII code for the search icon emoji -->
         <input type="text" class="form-control" placeholder="Buscar jogador" id="PlayerFilterInput" aria-label="Search" aria-describedby="addon-wrapping">
         <button type="button" class="btn btn-secondary" onclick="plot_player_statistics()">&#x1F50D Filter</button>
-      </div>
+    </div>
     <hr />
 
     <!-- CHART SELECTION -->

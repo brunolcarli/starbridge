@@ -4,7 +4,10 @@ function json(response) {
 
 
 function get_player(player_name){
-    const query = `player(name_Icontains: \\\"${player_name}\\\")`;
+    var date_range = document.getElementById('date_range_selection').value;
+    date_range = resolve_datetime_input(date_range);
+
+    const query = `player(name_Icontains: \\\"${player_name}\\\" ${date_range} )`;
     const payload = '{"query": "query{' + query + '{name playerId status planets halfhourMeanActivity{ hours averageProgress } hourMeanActivity{ hours averageProgress } weekdayMeanActivity{ weekdays averageProgress } scoreDiff { datetime total economy research military ships militaryBuilt militaryDestroyed militaryLost honor} alliance { name tag } scores{ timestamp datetime total economy research  military  militaryBuilt  militaryDestroyed militaryLost honor }}}"}';
     const options = {
         method: 'POST',
