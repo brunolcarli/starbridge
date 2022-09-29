@@ -4,7 +4,7 @@ function json(response) {
 
 
 function get_player(player_name){
-    const query = `players(name_Icontains: \\\"${player_name}\\\")`;
+    const query = `player(name_Icontains: \\\"${player_name}\\\")`;
     const payload = '{"query": "query{' + query + '{name playerId status planets halfhourMeanActivity{ hours averageProgress } hourMeanActivity{ hours averageProgress } weekdayMeanActivity{ weekdays averageProgress } scoreDiff { datetime total economy research military ships militaryBuilt militaryDestroyed militaryLost honor} alliance { name tag } scores{ timestamp datetime total economy research  military  militaryBuilt  militaryDestroyed militaryLost honor }}}"}';
     const options = {
         method: 'POST',
@@ -17,7 +17,7 @@ function get_player(player_name){
     return fetch("https://invictus.brunolcarli.repl.co/graphql/", options)
     .then(json)
     .then(response => {
-        let player_data = response['data']['players'].values().next().value;
+        let player_data = response['data']['player'];
         return player_data;
     })
     .catch(err => {
@@ -27,7 +27,7 @@ function get_player(player_name){
 
 
 function get_player_resume(player_name){
-  const query = `players(name_Icontains: \\\"${player_name}\\\")`;
+  const query = `player(name_Icontains: \\\"${player_name}\\\")`;
   const payload = '{"query": "query{' + query + '{name playerId status planets alliance { name tag } scores{ total }}}"}';
   const options = {
       method: 'POST',
@@ -40,7 +40,7 @@ function get_player_resume(player_name){
   return fetch("https://invictus.brunolcarli.repl.co/graphql/", options)
   .then(json)
   .then(response => {
-      let player_data = response['data']['players'].values().next().value;
+      let player_data = response['data']['player'];
       return player_data;
   })
   .catch(err => {
@@ -50,7 +50,7 @@ function get_player_resume(player_name){
 
 
 function get_player_score_prediction(player_name){
-    const query = `players(name_Icontains: \\\"${player_name}\\\")`;
+    const query = `player(name_Icontains: \\\"${player_name}\\\")`;
     const payload = '{"query": "query{' + query + '{name playerId status planets alliance { name tag } scorePrediction{ sampleDates sampleScores futureDates scorePredictions } }}"}';
     const options = {
         method: 'POST',
@@ -63,7 +63,7 @@ function get_player_score_prediction(player_name){
     return fetch("https://invictus.brunolcarli.repl.co/graphql/", options)
     .then(json)
     .then(response => {
-        let player_data = response['data']['players'].values().next().value;
+        let player_data = response['data']['player'];
         return player_data;
     })
     .catch(err => {
