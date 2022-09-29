@@ -763,6 +763,12 @@ function update_dynamic_chart(player_name, value){
 function plot_player_statistics(){
     var player_name = document.getElementById('PlayerFilterInput').value;
     var chart_type = document.getElementById('chart_selection').value;
+
+    if (!player_name){
+        alert('Necessário informar o nome do jogador!');
+        return;
+    }
+
     draw_player_resume_table(player_name);
     update_dynamic_chart(player_name, chart_type);
 }
