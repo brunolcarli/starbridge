@@ -223,7 +223,16 @@ function resolve_datetime_input(range){
 
     const today = new Date();
     const start_point = new Date(today);
-    start_point.setDate(start_point.getDate() - range);
+
+    if (range == '0'){
+        start_point.setHours(0, 0, 0);
+    }
+    else if (range == 'L24'){
+        start_point.setHours(start_point.getHours() - 24);
+    }
+    else {
+        start_point.setDate(start_point.getDate() - range);
+    }
 
     return ` datetime_Gte: \\\"${start_point.toISOString()}\\\" `;
 }
