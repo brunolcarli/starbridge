@@ -114,7 +114,7 @@ function plot_total_score(player_name){
                     data: score,
                     fill: false,
                     borderColor: 'rgb(175, 92, 99)',
-                    tension: 0.1
+                    tension: 0.5
                 }
             ]
         };
@@ -144,7 +144,7 @@ function plot_economy_score(player_name){
                     data: score,
                     fill: false,
                     borderColor: 'rgb(175, 92, 99)',
-                    tension: 0.1
+                    tension: 0.5
                 }
             ]
         };
@@ -174,7 +174,7 @@ function plot_research_score(player_name){
                     data: score,
                     fill: false,
                     borderColor: 'rgb(175, 92, 99)',
-                    tension: 0.1
+                    tension: 0.5
                 }
             ]
         };
@@ -204,7 +204,7 @@ function plot_military_score(player_name){
                     data: score,
                     fill: false,
                     borderColor: 'rgb(175, 92, 99)',
-                    tension: 0.1
+                    tension: 0.5
                 }
             ]
         };
@@ -234,7 +234,7 @@ function plot_ship_score(player_name){
                     data: ships,
                     fill: false,
                     borderColor: 'rgb(175, 92, 99)',
-                    tension: 0.1
+                    tension: 0.5
                 }
             ]
         };
@@ -264,7 +264,7 @@ function plot_military_built_score(player_name){
                     data: score,
                     fill: false,
                     borderColor: 'rgb(175, 92, 99)',
-                    tension: 0.1
+                    tension: 0.5
                 }
             ]
         };
@@ -294,7 +294,7 @@ function plot_military_destroyed_score(player_name){
                     data: score,
                     fill: false,
                     borderColor: 'rgb(175, 92, 99)',
-                    tension: 0.1
+                    tension: 0.5
                 }
             ]
             };
@@ -324,7 +324,7 @@ function plot_military_lost_score(player_name){
                     data: score,
                     fill: false,
                     borderColor: 'rgb(175, 92, 99)',
-                    tension: 0.1
+                    tension: 0.5
                 }
             ]
             };
@@ -354,7 +354,7 @@ function plot_honor_score(player_name){
                     data: score,
                     fill: false,
                     borderColor: 'rgb(175, 92, 99)',
-                    tension: 0.1
+                    tension: 0.5
                 }
             ]
             };
@@ -384,29 +384,39 @@ function plot_average_weekday_progress(player_name){
             type: 'bar',
             data: {
                 labels: dataset['dates'],
-                datasets: [{
-                label: 'Média de progresso por dia da semana',
-                data: dataset['score'],
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(255, 159, 64, 0.2)',
-                    'rgba(255, 205, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(201, 203, 207, 0.2)'
-                ],
-                borderColor: [
-                    'rgb(255, 99, 132)',
-                    'rgb(255, 159, 64)',
-                    'rgb(255, 205, 86)',
-                    'rgb(75, 192, 192)',
-                    'rgb(54, 162, 235)',
-                    'rgb(153, 102, 255)',
-                    'rgb(201, 203, 207)'
-                ],
-                borderWidth: 1
-                }]
+                datasets: [
+                    {
+                    label: 'Média de progresso por dia da semana',
+                    data: dataset['score'],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 205, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(201, 203, 207, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgb(255, 99, 132)',
+                        'rgb(255, 159, 64)',
+                        'rgb(255, 205, 86)',
+                        'rgb(75, 192, 192)',
+                        'rgb(54, 162, 235)',
+                        'rgb(153, 102, 255)',
+                        'rgb(201, 203, 207)'
+                    ],
+                    borderWidth: 1
+                    },
+                    {
+                        label: 'Progresso',
+                        data: dataset['score'],
+                        fill: false,
+                        borderColor: 'rgb(175, 92, 128)',
+                        tension: 0.5,
+                        type: 'line'
+                    }
+                ]
             },
             options: {
                 responsive: false
@@ -425,29 +435,39 @@ function plot_average_hour_progress(player_name){
             type: 'bar',
             data: {
                 labels: dataset['dates'],
-                datasets: [{
-                label: 'Média de progresso por hora do dia (Período de 1H)',
-                data: dataset['score'],
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(255, 159, 64, 0.2)',
-                    'rgba(255, 205, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(201, 203, 207, 0.2)'
-                ],
-                borderColor: [
-                    'rgb(255, 99, 132)',
-                    'rgb(255, 159, 64)',
-                    'rgb(255, 205, 86)',
-                    'rgb(75, 192, 192)',
-                    'rgb(54, 162, 235)',
-                    'rgb(153, 102, 255)',
-                    'rgb(201, 203, 207)'
-                ],
-                borderWidth: 1
-                }]
+                datasets: [
+                    {
+                        label: 'Média de progresso por hora do dia (Período de 1H)',
+                        data: dataset['score'],
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(255, 159, 64, 0.2)',
+                            'rgba(255, 205, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(201, 203, 207, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgb(255, 99, 132)',
+                            'rgb(255, 159, 64)',
+                            'rgb(255, 205, 86)',
+                            'rgb(75, 192, 192)',
+                            'rgb(54, 162, 235)',
+                            'rgb(153, 102, 255)',
+                            'rgb(201, 203, 207)'
+                        ],
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'Progresso',
+                        data: dataset['score'],
+                        fill: false,
+                        borderColor: 'rgb(175, 192, 128)',
+                        tension: 0.5,
+                        type: 'line'
+                    }
+                ]
             },
             options: {
                 responsive: false
@@ -466,29 +486,39 @@ function plot_average_halfhour_progress(player_name){
             type: 'bar',
             data: {
                 labels: dataset['dates'],
-                datasets: [{
-                label: 'Média de progresso por hora do dia (Período 30min)',
-                data: dataset['score'],
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(255, 159, 64, 0.2)',
-                    'rgba(255, 205, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(201, 203, 207, 0.2)'
-                ],
-                borderColor: [
-                    'rgb(255, 99, 132)',
-                    'rgb(255, 159, 64)',
-                    'rgb(255, 205, 86)',
-                    'rgb(75, 192, 192)',
-                    'rgb(54, 162, 235)',
-                    'rgb(153, 102, 255)',
-                    'rgb(201, 203, 207)'
-                ],
-                borderWidth: 1
-                }]
+                datasets: [
+                    {
+                        label: 'Média de progresso por hora do dia (Período 30min)',
+                        data: dataset['score'],
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(255, 159, 64, 0.2)',
+                            'rgba(255, 205, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(201, 203, 207, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgb(255, 99, 132)',
+                            'rgb(255, 159, 64)',
+                            'rgb(255, 205, 86)',
+                            'rgb(75, 192, 192)',
+                            'rgb(54, 162, 235)',
+                            'rgb(153, 102, 255)',
+                            'rgb(201, 203, 207)'
+                        ],
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'Progresso',
+                        data: dataset['score'],
+                        fill: false,
+                        borderColor: 'rgb(75, 192, 128)',
+                        tension: 0.5,
+                        type: 'line'
+                    }
+                ]
             },
             options: {
                 responsive: false
@@ -581,7 +611,7 @@ function plot_activity(player_name){
                         data: dataset['economy'],
                         fill: false,
                         borderColor: 'rgb(75, 52, 99)',
-                        tension: 0.1
+                        tension: 0.5
                     },
                     {
                         type: 'line',
@@ -589,7 +619,7 @@ function plot_activity(player_name){
                         data: dataset['research'],
                         fill: false,
                         borderColor: 'rgb(200, 52, 129)',
-                        tension: 0.1
+                        tension: 0.5
                     },
                     {
                         type: 'line',
@@ -597,14 +627,14 @@ function plot_activity(player_name){
                         data: dataset['military'],
                         fill: false,
                         borderColor: 'rgb(57, 25, 99)',
-                        tension: 0.1
+                        tension: 0.5
                     },
                     {
                         label: 'Fleet count activity',
                         data: dataset['ships'],
                         fill: false,
                         borderColor: 'rgb(65, 252, 190)',
-                        tension: 0.1
+                        tension: 0.5
                     },
                     {
                         type: 'line',
@@ -612,7 +642,7 @@ function plot_activity(player_name){
                         data: dataset['mil_built'],
                         fill: false,
                         borderColor: 'rgb(255, 52, 200)',
-                        tension: 0.1
+                        tension: 0.5
                     },
                     {
                         type: 'line',
@@ -620,7 +650,7 @@ function plot_activity(player_name){
                         data: dataset['mil_dest'],
                         fill: false,
                         borderColor: 'rgb(100, 52, 199)',
-                        tension: 0.1
+                        tension: 0.5
                     },
                     {
                         type: 'line',
@@ -628,7 +658,7 @@ function plot_activity(player_name){
                         data: dataset['mil_lost'],
                         fill: false,
                         borderColor: 'rgb(75, 152, 199)',
-                        tension: 0.1
+                        tension: 0.5
                     },
                     {
                         type: 'line',
@@ -636,7 +666,7 @@ function plot_activity(player_name){
                         data: dataset['honor'],
                         fill: false,
                         borderColor: 'rgb(175, 152, 199)',
-                        tension: 0.1
+                        tension: 0.5
                     },
                     {
                         type: 'line',
@@ -644,7 +674,7 @@ function plot_activity(player_name){
                         data: dataset['total'],
                         fill: false,
                         borderColor: 'rgb(175, 92, 99)',
-                        tension: 0.1
+                        tension: 0.5
                     },
                 ]
             },
@@ -692,14 +722,14 @@ function plot_score_prediction(player_name){
                     data: prev_scores,
                     fill: false,
                     borderColor: 'rgb(175, 92, 99)',
-                    tension: 0.1
+                    tension: 0.5
                 },
                 {
-                    label: 'Última previsão realizada',
+                    label: 'Última média prevista',
                     data: prev_preds,
                     fill: false,
                     borderColor: 'rgb(75, 192, 199)',
-                    tension: 0.1,
+                    tension: 0.5,
                     type: 'scatter'
                 },
                 {
@@ -707,7 +737,7 @@ function plot_score_prediction(player_name){
                     data: predicted,
                     fill: false,
                     borderColor: 'rgb(175, 192, 12)',
-                    tension: 0.1
+                    tension: 0.5
                 }
             ]
         };
