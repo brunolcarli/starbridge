@@ -67,7 +67,7 @@ function draw_player_resume_table(player_name){
         status.innerHTML = player_status;
         rank.innerHTML = total_score['rank'];
         score.innerHTML = total_score['score'];
-        planets.innerHTML = data['planets']['planet'].length;
+        planets.innerHTML = data['planetsCount'];
         ally.innerHTML = player_ally;
     });
 }

@@ -8,7 +8,7 @@ function get_player(player_name){
     date_range = resolve_datetime_input(date_range);
 
     const query = `player(name_Icontains: \\\"${player_name}\\\" ${date_range} )`;
-    const payload = '{"query": "query{' + query + '{name playerId status planets halfhourMeanActivity{ hours averageProgress } hourMeanActivity{ hours averageProgress } weekdayMeanActivity{ weekdays averageProgress } scoreDiff { datetime total economy research military ships militaryBuilt militaryDestroyed militaryLost honor} alliance { name tag } scores{ timestamp datetime total economy research  military  militaryBuilt  militaryDestroyed militaryLost honor }}}"}';
+    const payload = '{"query": "query{' + query + '{name playerId status planetsCount halfhourMeanActivity{ hours averageProgress } hourMeanActivity{ hours averageProgress } weekdayMeanActivity{ weekdays averageProgress } scoreDiff { datetime total economy research military ships militaryBuilt militaryDestroyed militaryLost honor} alliance { name tag } scores{ timestamp datetime total economy research  military  militaryBuilt  militaryDestroyed militaryLost honor }}}"}';
     const options = {
         method: 'POST',
         headers: {
@@ -31,7 +31,7 @@ function get_player(player_name){
 
 function get_player_resume(player_name){
   const query = `player(name_Icontains: \\\"${player_name}\\\")`;
-  const payload = '{"query": "query{' + query + '{name playerId status planets alliance { name tag } scores{ total }}}"}';
+  const payload = '{"query": "query{' + query + '{name playerId status planetsCount alliance { name tag } scores{ total }}}"}';
   const options = {
       method: 'POST',
       headers: {
@@ -54,7 +54,7 @@ function get_player_resume(player_name){
 
 function get_player_score_prediction(player_name){
     const query = `player(name_Icontains: \\\"${player_name}\\\")`;
-    const payload = '{"query": "query{' + query + '{name playerId status planets alliance { name tag } scorePrediction{ sampleDates sampleScores futureDates scorePredictions lastPredictions { dates  predictions } } }}"}';
+    const payload = '{"query": "query{' + query + '{name playerId status planetsCount alliance { name tag } scorePrediction{ sampleDates sampleScores futureDates scorePredictions lastPredictions { dates  predictions } } }}"}';
     const options = {
         method: 'POST',
         headers: {
