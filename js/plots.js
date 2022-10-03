@@ -1029,3 +1029,112 @@ function plot_ally_statistics(){
     draw_ally_resume_table(ally_name);
     update_ally_chart(ally_name, chart_type);
 }
+
+
+function plot_universe_overview(){
+    return get_universe_overview().then(dataset => {
+        const ctx = reset_canvas('UniverseOverviewChart', 'universe_overview_chart');
+
+        let collection = {
+            top100: [],
+            top200: [],
+            top300: [],
+            rest: [],
+            inatives: [],
+        };
+
+        let rank = null;
+        let status = null;
+        let key = null;
+        let planets = null;
+        let temp = null;
+
+        for (let i in dataset){
+            rank = dataset[i]['rank'];
+            planets = dataset[i]['planets'];
+            if (rank == null || planets == null){continue}
+
+            status = dataset[i]['status'];
+            if (status == 'i' || status == 'I'){
+                key = 'inatives';
+            }
+            else if (rank <= 100) {
+                key = 'top100';
+            }
+            else if (rank > 100 && rank <= 200) {
+                key = 'top200';
+            }
+            else if (rank > 200 && rank <= 300) {
+                key = 'top300';
+            }
+            else{
+                key = 'rest';
+            }
+
+            for (let j in planets){
+                temp = `${planets[j]['galaxy']}.${planets[j]['position']}`;
+                collection[key].push(
+                    {y: parseFloat(temp), x: planets[j]['solarSystem']}
+                );
+            }
+        }
+
+        const data = {
+            labels: Array.from({length: 499}, (_, i) => i + 1),
+            datasets: [
+                {
+                    label: 'Top 100',
+                    data: collection['top100'],
+                    type: 'scatter',
+                    borderColor: 'rgb(242, 27, 12)',
+                },
+                {
+                    label: 'Top 200',
+                    data: collection['top200'],
+                    type: 'scatter',
+                    borderColor: 'rgb(242, 131, 12)',
+                },
+                {
+                    label: 'Top 300',
+                    data: collection['top300'],
+                    type: 'scatter',
+                    borderColor: 'rgb(242, 211, 12)',
+                },
+                {
+                    label: 'Rank > 400',
+                    data: collection['rest'],
+                    type: 'scatter',
+                    borderColor: 'rgb(12, 242, 100)',
+                },
+                {
+                    label: 'Inativos',
+                    data: collection['inatives'],
+                    type: 'scatter',
+                    borderColor: 'rgb(111, 112, 112)',
+                }
+            ]
+        };
+        const chart = new Chart(ctx, {
+            type: 'scatter',
+            data: data,
+            options: {
+                responsive: false,
+                scales: {
+                    y: {
+                      title: {
+                        display: true,
+                        text: 'Galaxy'
+                      }
+                    },
+                    x: {
+                        title: {
+                          display: true,
+                          text: 'Solar System'
+                        }
+                      }
+                  }    
+            }
+        });
+        return chart;
+    })
+}

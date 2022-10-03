@@ -44,7 +44,7 @@
 
     <title>Starbridge</title>
   </head>
-  <body style="background-color: rgba(204, 200, 200, 0.466)">
+  <body style="background-color: rgba(204, 200, 200, 0.466)" onload="plot_universe_overview()">
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <button
@@ -180,5 +180,22 @@
 
   <hr />
 
+  <!-- ######################################################################
+  #
+  #                          Universe Overview
+  #
+  ###################################################################### -->
+
+  <!-- title -->
+  <h3 style="text-align: center">Overview do universo</h3>
+  <p style="text-align: center">Coordenadas de todos os planetas do universo</p>
+  <hr />
+
+  <!-- Universe overview CHART -->
+  <div id="universe_overview_chart">
+    <canvas id="UniverseOverviewChart" width="550" height="500"></canvas>
+  </div>
+  <p style="text-align: center">Sistemas solares no eixo X</p>
+  <p style="text-align: center">Galáxias e posição do planeta no eixo Y</p>
   </body>
 </html>
