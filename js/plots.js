@@ -829,7 +829,7 @@ function plot_ally_planets(ally_name){
         for (let i in planets){
             solar_systems.push(planets[i]['solarSystem']);
             temp = `${planets[i]['galaxy']}.${planets[i]['position']}`;
-            galaxy_pos.push(parseFloat(temp));
+            galaxy_pos.push({y: parseFloat(temp), x: planets[i]['solarSystem']});
         }
 
         const data = {
