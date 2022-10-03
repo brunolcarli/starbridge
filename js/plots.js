@@ -117,6 +117,17 @@ function draw_ally_resume_table(ally_name){
         planets_count.innerHTML = data['planetsCount'];
         ships_count.innerHTML = data['shipsCount'];
         founder.innerHTML = data['founder']['name'];
+        
+        var members = data['members'];
+        var temp = null;
+        for (i in members){
+            row = table.insertRow(table.rows.length);
+            temp = row.insertCell(0)
+            temp.innerHTML = 'Membro:';
+            temp = row.insertCell(1);
+            temp.innerHTML = members[i]['name'];
+        }
+
     });
 }
 
