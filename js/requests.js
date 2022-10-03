@@ -73,3 +73,32 @@ function get_player_score_prediction(player_name){
         console.error(err);
     });
 }
+
+
+///////////////////////////////////
+//
+//         ALLY
+//
+///////////////////////////////////
+
+function get_ally(ally_name){
+  const query = `alliance(name_Icontains: \\\"${ally_name}\\\")`;
+  const payload = '{"query": "query{' + query + '{name tag founder{ name } members{ name } planetsDistributionCoords{ galaxy solarSystem position } planetsDistributionByGalaxy playersCount planetsCount shipsCount}}"}';
+  const options = {
+      method: 'POST',
+      headers: {
+        cookie: 'csrftoken=pgrjljBkHdbd9hySxmJaFUlewPM1IdYJ09nZstz9N6bCf8pfuctT4ftl2girhj6t',
+        'Content-Type': 'application/json'
+      },
+      body: payload
+    };
+  return fetch("https://invictus.brunolcarli.repl.co/graphql/", options)
+  .then(json)
+  .then(response => {
+      let ally_data = response['data']['alliance'];
+      return ally_data;
+  })
+  .catch(err => {
+      console.error(err);
+  });
+}

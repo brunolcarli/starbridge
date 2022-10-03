@@ -76,6 +76,12 @@
       </ol>
     </nav>
 
+    <!-- ######################################################################
+    #
+    #                          PLAYER ANALYSIS
+    #
+    ###################################################################### -->
+
     <!-- title -->
     <h3 style="text-align: center">Análise de evolução dos jogadores</h3>
     <p style="text-align: center">Análise aplicada sobre o universo br144</p>
@@ -126,9 +132,52 @@
       <table id="player_resume_table"></table>
     </div>
 
-    <!-- DYNAMIC CHRAT -->
+    <!-- DYNAMIC CHART -->
     <div id="dynamic_chart">
       <canvas id="DynamicChart" width="350" height="400"></canvas>
     </div>
+
+    <hr />
+
+    <!-- ######################################################################
+    #
+    #                          ALLIANCE ANALYSIS
+    #
+    ###################################################################### -->
+
+    <!-- title -->
+    <h3 style="text-align: center">Análise de Alianças</h3>
+    <p style="text-align: center">Análise aplicada sobre o universo br144</p>
+    <hr />
+
+    <!-- Filter Input -->
+    <div class="input-group flex-nowrap">
+      <span class="input-group-text">&#x1F50D</span>  <!-- &#x1F50D is the ASCII code for the search icon emoji -->
+      <input type="text" class="form-control" placeholder="Buscar Aliança" id="AllyFilterInput" aria-label="Search" aria-describedby="addon-wrapping">
+      <button type="button" class="btn btn-secondary" onclick="plot_ally_statistics()">&#x1F50D Filter</button>
+  </div>
+
+  <!-- CHART SELECTION -->
+  <h3 style="text-align: center">Seleção de gráfico</h3>
+  <div style="text-align: center">
+    <label for="ally_chart_selection">Selecionar gráfico:</label>
+    <select name="ally_chart_selection" id="ally_chart_selection">
+      <option value="PLANETS">Coordenadas de planetas</option>
+    </select>
+  </div>
+  <hr />
+
+  <!-- ALLY RESUME -->
+  <div align="center">
+    <table id="ally_resume_table"></table>
+  </div>
+
+  <!-- AllY CHART -->
+  <div id="ally_chart">
+    <canvas id="AllyChart" width="350" height="400"></canvas>
+  </div>
+
+  <hr />
+
   </body>
 </html>

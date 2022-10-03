@@ -73,6 +73,54 @@ function draw_player_resume_table(player_name){
 }
 
 
+function reset_ally_resume_table(){
+    var table = document.getElementById("ally_resume_table");
+    table.innerHTML = '';
+    table.align = 'center';
+    table.className = 'table table-dark';
+
+    var header = table.insertRow(0);
+
+    var name = header.insertCell(0);
+    var tag = header.insertCell(1);
+    var players_count = header.insertCell(2);
+    var planets_count = header.insertCell(3);
+    var ships_count = header.insertCell(4);
+    var founder = header.insertCell(5);
+
+    name.innerHTML = 'Nome';
+    tag.innerHTML = 'TAG';
+    players_count.innerHTML = 'Membros';
+    planets_count.innerHTML = 'Planetas';
+    ships_count.innerHTML = 'Naves';
+    founder.innerHTML = 'Fundador';
+}
+
+
+function draw_ally_resume_table(ally_name){
+    reset_ally_resume_table();
+    return get_ally(ally_name).then(data => {
+        var table = document.getElementById("ally_resume_table");
+        var row = table.insertRow(table.rows.length);
+
+        var name = row.insertCell(0);
+        var tag = row.insertCell(1);
+        var players_count = row.insertCell(2);
+        var planets_count = row.insertCell(3);
+        var ships_count = row.insertCell(4);
+        var founder = row.insertCell(5);
+
+        // Add some text to the new cells:
+        name.innerHTML = data['name'];
+        tag.innerHTML = data['tag'];
+        players_count.innerHTML = data['playersCount'];
+        planets_count.innerHTML = data['planetsCount'];
+        ships_count.innerHTML = data['shipsCount'];
+        founder.innerHTML = data['founder']['name'];
+    });
+}
+
+
 /////////////////////////////////////////
 //
 //           CANVAS RESET
@@ -755,6 +803,64 @@ function plot_score_prediction(player_name){
 
 //////////////////////////////////////////////
 //
+//           Alliance plots
+//
+//////////////////////////////////////////////
+
+function plot_ally_planets(ally_name){
+    return get_ally(ally_name).then(dataset => {
+        const ctx = reset_canvas('AllyChart', 'ally_chart');
+        const planets = dataset['planetsDistributionCoords'];
+        const solar_systems = [];
+        const galaxy_pos = [];
+        let temp = null;
+
+        for (let i in planets){
+            solar_systems.push(planets[i]['solarSystem']);
+            temp = `${planets[i]['galaxy']}.${planets[i]['position']}`;
+            galaxy_pos.push(parseFloat(temp));
+        }
+
+        const data = {
+            labels: solar_systems,
+            datasets: [
+                {
+                    label: 'Coord',
+                    data: galaxy_pos,
+                    type: 'scatter',
+                    borderColor: 'rgb(175, 92, 122)',
+                }
+            ]
+            };
+        const chart = new Chart(ctx, {
+            type: 'scatter',
+            data: data,
+            options: {
+                responsive: false,
+                scales: {
+                    y: {
+                      title: {
+                        display: true,
+                        text: 'Galaxy'
+                      }
+                    },
+                    x: {
+                        title: {
+                          display: true,
+                          text: 'Solar System'
+                        }
+                      }
+                  }    
+            }
+        });
+    return chart;
+    })
+}
+
+
+
+//////////////////////////////////////////////
+//
 //           Dynamic Chart handler
 //
 //////////////////////////////////////////////
@@ -818,4 +924,29 @@ function plot_player_statistics(){
 
     draw_player_resume_table(player_name);
     update_dynamic_chart(player_name, chart_type);
+}
+
+
+function update_ally_chart(ally_name, value){
+    if (value == 'PLANETS'){
+        plot_ally_planets(ally_name);
+    }
+    // else if (value == 'ECONOMY_SCORE'){
+    //     plot_economy_score(player_name);
+    // }
+}
+
+
+
+function plot_ally_statistics(){
+    var ally_name = document.getElementById('AllyFilterInput').value;
+    var chart_type = document.getElementById('ally_chart_selection').value;
+
+
+    if (!ally_name){
+        alert('Necessário informar o nome da aliança!');
+        return;
+    }
+    draw_ally_resume_table(ally_name);
+    update_ally_chart(ally_name, chart_type);
 }
