@@ -858,6 +858,74 @@ function plot_ally_planets(ally_name){
 }
 
 
+function plot_ally_galaxy_distribution(player_name){
+    return get_ally(player_name).then(dataset => {
+        const ctx = reset_canvas('AllyChart', 'ally_chart');
+
+        const distribution = dataset['planetsDistributionByGalaxy'];
+        const galaxies = [1, 2, 3, 4, 5];
+        const count = [
+            distribution['1'],
+            distribution['2'],
+            distribution['3'],
+            distribution['4'],
+            distribution['5'],
+        ];
+
+        const chart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: galaxies,
+                datasets: [
+                    {
+                        label: 'Planetas por galáxia',
+                        data: count,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(255, 159, 64, 0.2)',
+                            'rgba(255, 205, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(201, 203, 207, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgb(255, 99, 132)',
+                            'rgb(255, 159, 64)',
+                            'rgb(255, 205, 86)',
+                            'rgb(75, 192, 192)',
+                            'rgb(54, 162, 235)',
+                            'rgb(153, 102, 255)',
+                            'rgb(201, 203, 207)'
+                        ],
+                        borderWidth: 1
+                    },
+                ]
+            },
+            options: {
+                responsive: false,
+                scales: {
+                    y: {
+                      title: {
+                        display: true,
+                        text: 'N˚ de planetas'
+                      }
+                    },
+                    x: {
+                        title: {
+                          display: true,
+                          text: 'Galáxia'
+                        }
+                      }
+                  } 
+            }
+        });
+        return chart;
+    });
+}
+
+
+
 
 //////////////////////////////////////////////
 //
@@ -931,9 +999,9 @@ function update_ally_chart(ally_name, value){
     if (value == 'PLANETS'){
         plot_ally_planets(ally_name);
     }
-    // else if (value == 'ECONOMY_SCORE'){
-    //     plot_economy_score(player_name);
-    // }
+    else if (value == 'GALAXY_DISTRIBUTION'){
+        plot_ally_galaxy_distribution(ally_name);
+    }
 }
 
 
