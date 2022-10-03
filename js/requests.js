@@ -28,6 +28,28 @@ function get_player(player_name){
     });
 }
 
+function get_player_planets(player_name){
+  const query = `player(name_Icontains: \\\"${player_name}\\\")`;
+  const payload = '{"query": "query{' + query + '{planets{ galaxy solarSystem position name rawCoord }}}"}';
+  const options = {
+      method: 'POST',
+      headers: {
+        cookie: 'csrftoken=pgrjljBkHdbd9hySxmJaFUlewPM1IdYJ09nZstz9N6bCf8pfuctT4ftl2girhj6t',
+        'Content-Type': 'application/json'
+      },
+      body: payload
+    };
+  return fetch("https://invictus.brunolcarli.repl.co/graphql/", options)
+  .then(json)
+  .then(response => {
+      let player_data = response['data']['player'];
+      return player_data;
+  })
+  .catch(err => {
+      console.error(err);
+  });
+}
+
 
 function get_player_resume(player_name){
   const query = `player(name_Icontains: \\\"${player_name}\\\")`;
@@ -83,7 +105,7 @@ function get_player_score_prediction(player_name){
 
 function get_ally(ally_name){
   const query = `alliance(name_Icontains: \\\"${ally_name}\\\")`;
-  const payload = '{"query": "query{' + query + '{name tag founder{ name } members{ name } planetsDistributionCoords{ galaxy solarSystem position } planetsDistributionByGalaxy playersCount planetsCount shipsCount}}"}';
+  const payload = '{"query": "query{' + query + '{name tag founder{ name } members{ name } planetsDistributionCoords{ galaxy solarSystem position rawCoord } planetsDistributionByGalaxy playersCount planetsCount shipsCount}}"}';
   const options = {
       method: 'POST',
       headers: {
@@ -105,7 +127,7 @@ function get_ally(ally_name){
 
 
 function get_universe_overview(){
-  const payload = '{"query": "query{ players{ status rank planets{ galaxy solarSystem position } } }"}';
+  const payload = '{"query": "query{ players{ status rank planets{ galaxy solarSystem position rawCoord} } }"}';
   const options = {
       method: 'POST',
       headers: {

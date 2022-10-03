@@ -811,25 +811,22 @@ function plot_score_prediction(player_name){
     })
 }
 
-
-//////////////////////////////////////////////
-//
-//           Alliance plots
-//
-//////////////////////////////////////////////
-
-function plot_ally_planets(ally_name){
-    return get_ally(ally_name).then(dataset => {
-        const ctx = reset_canvas('AllyChart', 'ally_chart');
-        const planets = dataset['planetsDistributionCoords'];
+function plot_player_planets(player_name){
+    return get_player_planets(player_name).then(dataset => {
+        const ctx = reset_canvas('DynamicChart', 'dynamic_chart');
+        const planets = dataset['planets'];
         const solar_systems = [];
         const galaxy_pos = [];
+        const planet_names = [];
         let temp = null;
+        let position = null;
 
         for (let i in planets){
             solar_systems.push(planets[i]['solarSystem']);
-            temp = `${planets[i]['galaxy']}.${planets[i]['position']}`;
-            galaxy_pos.push({y: parseFloat(temp), x: planets[i]['solarSystem']});
+            position = `${planets[i]['position']}`;
+            temp = `${planets[i]['galaxy']}.${position}`;
+            galaxy_pos.push({y: parseFloat(temp).toFixed(2), x: planets[i]['solarSystem']});
+            planet_names.push({name: planets[i]['name'], coord: planets[i]['rawCoord']});
         }
 
         const data = {
@@ -837,6 +834,7 @@ function plot_ally_planets(ally_name){
             datasets: [
                 {
                     label: 'Coord',
+                    labels: planet_names,
                     data: galaxy_pos,
                     type: 'scatter',
                     borderColor: 'rgb(175, 92, 122)',
@@ -861,7 +859,92 @@ function plot_ally_planets(ally_name){
                           text: 'Solar System'
                         }
                       }
-                  }    
+                  },
+                  plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function(ctx) {
+                                // console.log(ctx);
+                                let name = ctx.dataset.labels[ctx.dataIndex]['name'];
+                                let coord = ctx.dataset.labels[ctx.dataIndex]['coord'];
+                                return name + ' [' + coord + ']';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    return chart;
+    })
+}
+
+
+//////////////////////////////////////////////
+//
+//           Alliance plots
+//
+//////////////////////////////////////////////
+
+function plot_ally_planets(ally_name){
+    return get_ally(ally_name).then(dataset => {
+        const ctx = reset_canvas('AllyChart', 'ally_chart');
+        const planets = dataset['planetsDistributionCoords'];
+        const solar_systems = [];
+        const galaxy_pos = [];
+        let temp = null;
+        let position = null;
+        let raw_coords = [];
+
+        for (let i in planets){
+            solar_systems.push(planets[i]['solarSystem']);
+            position = `${planets[i]['position']}`;
+
+            temp = `${planets[i]['galaxy']}.${position}`;
+            galaxy_pos.push({y: parseFloat(temp).toFixed(2), x: planets[i]['solarSystem']});
+            raw_coords.push(planets[i]['rawCoord']);
+        }
+
+        const data = {
+            labels: solar_systems,
+            datasets: [
+                {
+                    label: 'Coord',
+                    labels: raw_coords,
+                    data: galaxy_pos,
+                    type: 'scatter',
+                    borderColor: 'rgb(175, 92, 122)',
+                }
+            ]
+            };
+        const chart = new Chart(ctx, {
+            type: 'scatter',
+            data: data,
+            options: {
+                responsive: false,
+                scales: {
+                    y: {
+                      title: {
+                        display: true,
+                        text: 'Galaxy'
+                      }
+                    },
+                    x: {
+                        title: {
+                          display: true,
+                          text: 'Solar System'
+                        }
+                      }
+                  } ,
+                  plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function(ctx) {
+                                let coord = ctx.dataset.labels[ctx.dataIndex];
+                                return '[' + coord + ']';
+                            }
+                        }
+                    }
+                }   
             }
         });
     return chart;
@@ -988,6 +1071,9 @@ function update_dynamic_chart(player_name, value){
     else if (value == 'SCORE_PREDICTION'){
         plot_score_prediction(player_name);
     }
+    else if (value == 'PLANETS'){
+        plot_player_planets(player_name);
+    }
 }
 
 
@@ -1048,6 +1134,7 @@ function plot_universe_overview(){
         let key = null;
         let planets = null;
         let temp = null;
+        let position = null;
 
         for (let i in dataset){
             rank = dataset[i]['rank'];
@@ -1072,9 +1159,10 @@ function plot_universe_overview(){
             }
 
             for (let j in planets){
-                temp = `${planets[j]['galaxy']}.${planets[j]['position']}`;
+                position = `${planets[j]['position']}`;
+                temp = `${planets[j]['galaxy']}.${position}`;
                 collection[key].push(
-                    {y: parseFloat(temp), x: planets[j]['solarSystem']}
+                    {y: parseFloat(temp).toFixed(2), x: planets[j]['solarSystem']}
                 );
             }
         }
@@ -1132,7 +1220,7 @@ function plot_universe_overview(){
                           text: 'Solar System'
                         }
                       }
-                  }    
+                  } , 
             }
         });
         return chart;
