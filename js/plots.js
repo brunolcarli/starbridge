@@ -4,6 +4,66 @@
 //
 //////////////////////////////////////
 
+function reset_players_list(){
+    var table = document.getElementById("player_list_table");
+    table.innerHTML = '';
+    table.align = 'center';
+    table.className = 'table table-dark';
+
+    var header = table.insertRow(0);
+
+    var name = header.insertCell(0);
+    var status = header.insertCell(1);
+    var planets = header.insertCell(2);
+    var rank = header.insertCell(3);
+    var ally = header.insertCell(4);
+
+    name.innerHTML = 'Nome';
+    status.innerHTML = 'Status';
+    rank.innerHTML = 'Rank';
+    planets.innerHTML = 'Planetas';
+    ally.innerHTML = 'Aliança';
+}
+
+function draw_players_list(){
+    reset_players_list();
+    return list_players().then(data => {
+        var table = document.getElementById("player_list_table");
+        for (let i in data){
+            var row = table.insertRow(table.rows.length);
+            var player_ally = data[i][['alliance']];
+            var player_status = data[i][['status']];
+
+            if (!player_ally){
+                player_ally = 'No Ally';
+            }
+            else {
+                player_ally = `[${player_ally['tag']}] ${player_ally['name']}`;
+            }
+
+            if (player_status == 'a'){
+                player_status = 'Game Admin';
+            }
+            else if (player_status == 'nan') {
+                player_status = 'Ativo';
+            }
+
+            var name = row.insertCell(0);
+            var status = row.insertCell(1);
+            var planets = row.insertCell(2);
+            var rank = row.insertCell(3);
+            var ally = row.insertCell(4);
+
+            name.innerHTML = data[i]['name'];
+            status.innerHTML = player_status;
+            rank.innerHTML = data[i]['rank'];
+            planets.innerHTML = data[i]['planetsCount'];
+            ally.innerHTML = player_ally;
+        }
+    });
+}
+
+
 function reset_player_resume_table(){
     var table = document.getElementById("player_resume_table");
     table.innerHTML = '';

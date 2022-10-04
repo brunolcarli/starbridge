@@ -247,3 +247,52 @@ function resolve_datetime_input(range){
 
     return ` datetime_Gte: \\\"${start_point.toISOString()}\\\" `;
 }
+
+
+///////////////////////////////
+//
+//   Listing table resolvers
+//
+///////////////////////////////
+
+
+function list_players(){
+    // Status filters
+    var status_list = '';
+    var input_elements = document.getElementsByClassName('form-check-input');
+    for(var i=0; input_elements[i]; ++i){
+        if(input_elements[i].checked){
+            checkbox_value = ` \\\"${input_elements[i].value}\\\" `;
+            status_list += checkbox_value;
+        }
+    }
+    if (Boolean(status_list)){
+        status_list = ` status_In: [ ${status_list} ] `;
+    }
+    
+    // Rank filters
+    var min_rank = document.getElementById('MinRankInput').value;
+    var max_rank = document.getElementById('MaxRankInput').value;
+
+    if (Boolean(min_rank)){
+        if (min_rank < 1){
+            alert('Rank deve ser maior que 1!');
+            return;
+        }
+        min_rank = ` rank_Gte: ${min_rank} `;
+    }
+
+    if (Boolean(max_rank)){
+        if (max_rank < 1){
+            alert('Rank deve ser maior que 1!');
+            return;
+        }
+        max_rank = ` rank_Lte: ${max_rank} `;
+    }
+
+    var query_filter = `${min_rank}${max_rank}${status_list}`;
+    if (Boolean(query_filter)){
+        query_filter = `( ${query_filter} )`;
+    }
+    return get_players_list(query_filter);
+}

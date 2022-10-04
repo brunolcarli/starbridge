@@ -146,3 +146,25 @@ function get_universe_overview(){
       console.error(err);
   });
 }
+
+
+function get_players_list(query_filters){
+  const payload = '{"query": "query{players' + query_filters + '{name status planetsCount rank alliance { name tag } }}"}';
+  const options = {
+    method: 'POST',
+    headers: {
+      cookie: 'csrftoken=pgrjljBkHdbd9hySxmJaFUlewPM1IdYJ09nZstz9N6bCf8pfuctT4ftl2girhj6t',
+      'Content-Type': 'application/json'
+    },
+    body: payload
+  };
+  return fetch("https://invictus.brunolcarli.repl.co/graphql/", options)
+  .then(json)
+  .then(response => {
+      let player_data = response['data']['players'];
+      return player_data;
+  })
+  .catch(err => {
+      console.error(err);
+  });
+}
