@@ -28,6 +28,34 @@ function get_player(player_name){
     });
 }
 
+
+
+function get_player_future_activity(player_name){
+  var date_range = document.getElementById('date_range_selection').value;
+  date_range = resolve_datetime_input(date_range);
+
+  const query = `player(name_Icontains: \\\"${player_name}\\\" ${date_range} )`;
+  const payload = '{"query": "query{' + query + '{ activityPrediction }}"}';
+  const options = {
+      method: 'POST',
+      headers: {
+        cookie: 'csrftoken=pgrjljBkHdbd9hySxmJaFUlewPM1IdYJ09nZstz9N6bCf8pfuctT4ftl2girhj6t',
+        'Content-Type': 'application/json'
+      },
+      body: payload
+    };
+  return fetch("https://invictus.brunolcarli.repl.co/graphql/", options)
+  .then(json)
+  .then(response => {
+      let player_data = response['data']['player'];
+      return player_data;
+  })
+  .catch(err => {
+      console.error(err);
+  });
+}
+
+
 function get_player_planets(player_name){
   const query = `player(name_Icontains: \\\"${player_name}\\\")`;
   const payload = '{"query": "query{' + query + '{planets{ galaxy solarSystem position name rawCoord }}}"}';
@@ -66,6 +94,27 @@ function get_player_resume(player_name){
   .then(json)
   .then(response => {
       let player_data = response['data']['player'];
+      return player_data;
+  })
+  .catch(err => {
+      console.error(err);
+  });
+}
+
+function get_players_list(query_filters){
+  const payload = '{"query": "query{players' + query_filters + '{name status planetsCount rank alliance { name tag } }}"}';
+  const options = {
+    method: 'POST',
+    headers: {
+      cookie: 'csrftoken=pgrjljBkHdbd9hySxmJaFUlewPM1IdYJ09nZstz9N6bCf8pfuctT4ftl2girhj6t',
+      'Content-Type': 'application/json'
+    },
+    body: payload
+  };
+  return fetch("https://invictus.brunolcarli.repl.co/graphql/", options)
+  .then(json)
+  .then(response => {
+      let player_data = response['data']['players'];
       return player_data;
   })
   .catch(err => {
@@ -126,6 +175,13 @@ function get_ally(ally_name){
 }
 
 
+///////////////////////////////////
+//
+//         Universe
+//
+///////////////////////////////////
+
+
 function get_universe_overview(){
   const payload = '{"query": "query{ players{ status rank planets{ galaxy solarSystem position rawCoord} } }"}';
   const options = {
@@ -136,28 +192,6 @@ function get_universe_overview(){
       },
       body: payload
     };
-  return fetch("https://invictus.brunolcarli.repl.co/graphql/", options)
-  .then(json)
-  .then(response => {
-      let player_data = response['data']['players'];
-      return player_data;
-  })
-  .catch(err => {
-      console.error(err);
-  });
-}
-
-
-function get_players_list(query_filters){
-  const payload = '{"query": "query{players' + query_filters + '{name status planetsCount rank alliance { name tag } }}"}';
-  const options = {
-    method: 'POST',
-    headers: {
-      cookie: 'csrftoken=pgrjljBkHdbd9hySxmJaFUlewPM1IdYJ09nZstz9N6bCf8pfuctT4ftl2girhj6t',
-      'Content-Type': 'application/json'
-    },
-    body: payload
-  };
   return fetch("https://invictus.brunolcarli.repl.co/graphql/", options)
   .then(json)
   .then(response => {

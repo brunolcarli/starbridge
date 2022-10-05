@@ -188,6 +188,20 @@ function resolve_average_halfhour_progress(player_name){
 }
 
 
+function resolve_player_future_activity(player_name){
+    return get_player_future_activity(player_name).then(player => {
+        if (player == undefined){
+            return {};
+        }
+        let activity = player['activityPrediction'];
+        if (activity == undefined){
+            return {};
+        }
+        return activity;
+    });
+}
+
+
 function resolve_score_prediction(player_name){
     return get_player_score_prediction(player_name).then(player => {
         if (player == undefined){
@@ -246,6 +260,13 @@ function resolve_datetime_input(range){
     }
 
     return ` datetime_Gte: \\\"${start_point.toISOString()}\\\" `;
+}
+
+
+function randint(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 

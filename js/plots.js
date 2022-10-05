@@ -871,6 +871,58 @@ function plot_score_prediction(player_name){
     })
 }
 
+
+function plot_player_future_activity(player_name){
+    return resolve_player_future_activity(player_name).then(dataset => {
+        const ctx = reset_canvas('DynamicChart', 'dynamic_chart');
+
+        const weekdays = Object.keys(dataset);
+        let data = {
+            labels: Array.from({length: 24}, (_, i) => i),
+            datasets: []
+        };
+        let plot_data = null;
+        let weekday = null;
+
+        for (let i in weekdays){
+            weekday = weekdays[i];
+            plot_data = {
+                label: weekday,
+                data: dataset[weekday],
+                type: 'line',
+                borderColor: `rgb(${randint(1, 255)}, ${randint(1, 255)}, ${randint(1, 255)})`,
+                tension: 0.5
+            };
+            data['datasets'].push(plot_data);
+        }
+
+        const chart = new Chart(ctx, {
+            data: data,
+            options: {
+                responsive: false,
+                scales: {
+                    y: {
+                      title: {
+                        display: true,
+                        text: 'Indice de atividade'
+                      }
+                    },
+                    x: {
+                        title: {
+                          display: true,
+                          text: 'Hora do dia'
+                        }
+                      }
+                  }
+            }
+        });
+    return chart;
+    })
+}
+
+
+//////
+
 function plot_player_planets(player_name){
     return get_player_planets(player_name).then(dataset => {
         const ctx = reset_canvas('DynamicChart', 'dynamic_chart');
@@ -1133,6 +1185,9 @@ function update_dynamic_chart(player_name, value){
     }
     else if (value == 'PLANETS'){
         plot_player_planets(player_name);
+    }
+    else if (value == 'ACTIVITY_PREDICTION'){
+        plot_player_future_activity(player_name);
     }
 }
 
