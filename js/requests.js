@@ -81,7 +81,7 @@ function get_player_planets(player_name){
 
 function get_player_resume(player_name){
   const query = `player(name_Icontains: \\\"${player_name}\\\")`;
-  const payload = '{"query": "query{' + query + '{name playerId status planetsCount alliance { name tag } scores{ total }}}"}';
+  const payload = '{"query": "query{' + query + '{name playerId status planetsCount shipsCount alliance { name tag } scores{ total }}}"}';
   const options = {
       method: 'POST',
       headers: {
@@ -102,7 +102,7 @@ function get_player_resume(player_name){
 }
 
 function get_players_list(query_filters){
-  const payload = '{"query": "query{players' + query_filters + '{name status planetsCount rank alliance { name tag } }}"}';
+  const payload = '{"query": "query{players' + query_filters + '{name status planetsCount shipsCount rank alliance { name tag } }}"}';
   const options = {
     method: 'POST',
     headers: {

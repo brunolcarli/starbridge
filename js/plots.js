@@ -17,12 +17,14 @@ function reset_players_list(){
     var planets = header.insertCell(2);
     var rank = header.insertCell(3);
     var ally = header.insertCell(4);
+    var ships = header.insertCell(5);
 
     name.innerHTML = 'Nome';
     status.innerHTML = 'Status';
     rank.innerHTML = 'Rank';
     planets.innerHTML = 'Planetas';
     ally.innerHTML = 'Aliança';
+    ships.innerHTML = 'Naves';
 }
 
 function draw_players_list(){
@@ -53,12 +55,14 @@ function draw_players_list(){
             var planets = row.insertCell(2);
             var rank = row.insertCell(3);
             var ally = row.insertCell(4);
+            var ships = row.insertCell(5);
 
             name.innerHTML = data[i]['name'];
             status.innerHTML = player_status;
             rank.innerHTML = data[i]['rank'];
             planets.innerHTML = data[i]['planetsCount'];
             ally.innerHTML = player_ally;
+            ships.innerHTML = data[i]['shipsCount'];
         }
     });
 }
@@ -79,6 +83,7 @@ function reset_player_resume_table(){
     var score = header.insertCell(4);
     var planets = header.insertCell(5);
     var ally = header.insertCell(6);
+    var ships = header.insertCell(7);
 
     player_id.innerHTML = 'ID';
     name.innerHTML = 'Nome';
@@ -87,6 +92,7 @@ function reset_player_resume_table(){
     score.innerHTML = 'Pontos';
     planets.innerHTML = 'Planetas';
     ally.innerHTML = 'Aliança';
+    ships.innerHTML = 'Naves';
 }
 
 
@@ -103,6 +109,7 @@ function draw_player_resume_table(player_name){
         var score = row.insertCell(4);
         var planets = row.insertCell(5);
         var ally = row.insertCell(6);
+        var ships = row.insertCell(7);
 
         // get most recent total score
         var total_score = data['scores'][data['scores'].length-1]['total'];
@@ -129,6 +136,7 @@ function draw_player_resume_table(player_name){
         score.innerHTML = total_score['score'];
         planets.innerHTML = data['planetsCount'];
         ally.innerHTML = player_ally;
+        ships.innerHTML = data['shipsCount'];
     });
 }
 
