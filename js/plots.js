@@ -1172,54 +1172,26 @@ function plot_ally_galaxy_distribution(player_name){
 
 
 function update_dynamic_chart(player_name, value){
-    if (value == 'TOTAL_SCORE'){
-        plot_total_score(player_name);
-    }
-    else if (value == 'ECONOMY_SCORE'){
-        plot_economy_score(player_name);
-    }
-    else if (value == 'RESEARCH_SCORE'){
-        plot_research_score(player_name);
-    }
-    else if (value == 'MILITARY_SCORE'){
-        plot_military_score(player_name);
-    }
-    else if (value == 'SHIP_COUNT'){
-        plot_ship_score(player_name);
-    }
-    else if (value == 'MILITARY_BUILT_SCORE'){
-        plot_military_built_score(player_name);
-    }
-    else if (value == 'MILITARY_DESTROYED_SCORE'){
-        plot_military_destroyed_score(player_name);
-    }
-    else if (value == 'MILITARY_LOST_SCORE'){
-        plot_military_lost_score(player_name);
-    }
-    else if (value == 'HONOR_SCORE'){
-        plot_honor_score(player_name);
-    }
-    else if (value == 'PLAYER_ACTIVITY'){
-        plot_activity(player_name);
-    }
-    else if (value == 'WEEKDAY_ACTIVITY'){
-        plot_average_weekday_progress(player_name);
-    }
-    else if (value == 'HOUR_ACTIVITY'){
-        plot_average_hour_progress(player_name);
-    }
-    else if (value == 'HALFHOUR_ACTIVITY'){
-        plot_average_halfhour_progress(player_name);
-    }
-    else if (value == 'SCORE_PREDICTION'){
-        plot_score_prediction(player_name);
-    }
-    else if (value == 'PLANETS'){
-        plot_player_planets(player_name);
-    }
-    else if (value == 'ACTIVITY_PREDICTION'){
-        plot_player_future_activity(player_name);
-    }
+
+    const valid_options = {
+        TOTAL_SCORE: plot_total_score,
+        ECONOMY_SCORE: plot_economy_score,
+        RESEARCH_SCORE: plot_research_score,
+        MILITARY_SCORE: plot_military_score,
+        SHIP_COUNT: plot_ship_score,
+        MILITARY_BUILT_SCORE: plot_military_built_score,
+        MILITARY_DESTROYED_SCORE: plot_military_destroyed_score,
+        MILITARY_LOST_SCORE: plot_military_lost_score,
+        HONOR_SCORE: plot_honor_score,
+        PLAYER_ACTIVITY: plot_activity,
+        WEEKDAY_ACTIVITY: plot_average_weekday_progress,
+        HOUR_ACTIVITY: plot_average_hour_progress,
+        HALFHOUR_ACTIVITY: plot_average_halfhour_progress,
+        SCORE_PREDICTION: plot_score_prediction,
+        PLANETS: plot_player_planets,
+        ACTIVITY_PREDICTION: plot_player_future_activity
+    };
+    valid_options[value](player_name);
 }
 
 
