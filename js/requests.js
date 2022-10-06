@@ -154,7 +154,7 @@ function get_player_score_prediction(player_name){
 
 function get_ally(ally_name){
   const query = `alliance(name_Icontains: \\\"${ally_name}\\\")`;
-  const payload = '{"query": "query{' + query + '{name tag founder{ name } members{ name } planetsDistributionCoords{ galaxy solarSystem position rawCoord } planetsDistributionByGalaxy playersCount planetsCount shipsCount}}"}';
+  const payload = '{"query": "query{' + query + '{name tag founder{ name } members{ name shipsCount rank planetsCount } planetsDistributionCoords{ galaxy solarSystem position rawCoord } planetsDistributionByGalaxy playersCount planetsCount shipsCount}}"}';
   const options = {
       method: 'POST',
       headers: {

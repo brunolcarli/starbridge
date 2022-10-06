@@ -145,7 +145,7 @@ function reset_ally_resume_table(){
     var table = document.getElementById("ally_resume_table");
     table.innerHTML = '';
     table.align = 'center';
-    table.className = 'table table-dark';
+    table.className = 'table table-secondary';
 
     var header = table.insertRow(0);
 
@@ -156,12 +156,12 @@ function reset_ally_resume_table(){
     var ships_count = header.insertCell(4);
     var founder = header.insertCell(5);
 
-    name.innerHTML = 'Nome';
-    tag.innerHTML = 'TAG';
-    players_count.innerHTML = 'Membros';
-    planets_count.innerHTML = 'Planetas';
-    ships_count.innerHTML = 'Naves';
-    founder.innerHTML = 'Fundador';
+    name.innerHTML = '<b><u>Nome</u></b>';
+    tag.innerHTML = '<b><u>TAG</u></b>';
+    players_count.innerHTML = '<b><u>Membros</u></b>';
+    planets_count.innerHTML = '<b><u>Planetas</u></b>';
+    ships_count.innerHTML = '<b><u>Naves</u></b>';
+    founder.innerHTML = '<b><u>Fundador</u></b>';
 }
 
 
@@ -186,14 +186,37 @@ function draw_ally_resume_table(ally_name){
         ships_count.innerHTML = data['shipsCount'];
         founder.innerHTML = data['founder']['name'];
         
-        var members = data['members'];
         var temp = null;
+        row = table.insertRow(table.rows.length);
+        row.className = 'table-dark';
+        temp = row.insertCell(0);
+        temp.innerHTML = '<b><u>Membro</u></b>';
+        temp = row.insertCell(1);
+        temp.innerHTML = '<b>-</b>';
+        temp = row.insertCell(2);
+        temp.innerHTML = '<b>-</b>';
+        temp = row.insertCell(3);
+        temp.innerHTML = '<b><u>Planetas</u></b>';
+        temp = row.insertCell(4);
+        temp.innerHTML = '<b><u>Naves</u></b>';
+        temp = row.insertCell(5);
+        temp.innerHTML = '<b><u>Rank</u></b>';
+
+        var members = data['members'];
         for (i in members){
             row = table.insertRow(table.rows.length);
-            temp = row.insertCell(0)
-            temp.innerHTML = 'Membro:';
-            temp = row.insertCell(1);
+            temp = row.insertCell(0);
             temp.innerHTML = members[i]['name'];
+            temp = row.insertCell(1);
+            temp.innerHTML = '-';
+            temp = row.insertCell(2);
+            temp.innerHTML = '-';
+            temp = row.insertCell(3);
+            temp.innerHTML = members[i]['planetsCount'];
+            temp = row.insertCell(4);
+            temp.innerHTML = members[i]['shipsCount'];
+            temp = row.insertCell(5);
+            temp.innerHTML = members[i]['rank'];
         }
 
     });
