@@ -18,6 +18,7 @@ function reset_players_list(){
     var rank = header.insertCell(3);
     var ally = header.insertCell(4);
     var ships = header.insertCell(5);
+    var combat_reports = header.insertCell(6);
 
     name.innerHTML = 'Nome';
     status.innerHTML = 'Status';
@@ -25,7 +26,10 @@ function reset_players_list(){
     planets.innerHTML = 'Planetas';
     ally.innerHTML = 'Aliança';
     ships.innerHTML = 'Naves';
+    combat_reports.innerHTML = 'Relatórios de Combate';
+
 }
+
 
 function draw_players_list(){
     reset_players_list();
@@ -50,12 +54,33 @@ function draw_players_list(){
                 player_status = 'Ativo';
             }
 
+            var reports_count = data[i]['combatReportsCount'];
+            var reports = data[i]['combatReports'];
+            
+
+            if (reports_count > 0){
+                var report_select = '<div class="dropdown">';
+                report_select += '<button class="btn dropdown-toggle" type="button" data-toggle="dropdown"> ';
+                report_select += `${reports_count}<span class="caret"></span></button>`;
+                report_select += '<ul class="dropdown-menu">';
+  
+                for (let j in reports){
+                    var url = reports[j]['url'];
+                    var title = reports[j]['title'];
+                    report_select += `<li><hr /><a href="${url}" target="_blank"> - ${title}</a></li>`;
+                }
+                report_select += '</ul></div>';
+            } else {
+                var report_select = `${reports_count}`;
+            }
+
             var name = row.insertCell(0);
             var status = row.insertCell(1);
             var planets = row.insertCell(2);
             var rank = row.insertCell(3);
             var ally = row.insertCell(4);
             var ships = row.insertCell(5);
+            var combat_reports = row.insertCell(6);
 
             name.innerHTML = data[i]['name'];
             status.innerHTML = player_status;
@@ -63,6 +88,7 @@ function draw_players_list(){
             planets.innerHTML = data[i]['planetsCount'];
             ally.innerHTML = player_ally;
             ships.innerHTML = data[i]['shipsCount'];
+            combat_reports.innerHTML = report_select;
         }
     });
 }
