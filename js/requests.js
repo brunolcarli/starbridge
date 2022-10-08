@@ -55,15 +55,15 @@ function get_request_options(payload){
 ///////////////////////////////////
 
 
-function get_player(player_name){
+function get_player(query_filter){
     /*
-      Retrieve a single player data by a partial name value.
+      Retrieve a single player data by a partial name value or player id.
       The score may be filtered by a start datetime.
     */
     var date_range = document.getElementById('date_range_selection').value;
     date_range = resolve_datetime_input(date_range);
 
-    const query = `player(name_Icontains: \\\"${player_name}\\\" ${date_range} )`;
+    const query = `player(${query_filter} ${date_range} )`;
     const payload = '{"query": "query{' + query + '{name playerId status planetsCount halfhourMeanActivity{ hours averageProgress } hourMeanActivity{ hours averageProgress } weekdayMeanActivity{ weekdays averageProgress } scoreDiff { datetime total economy research military ships militaryBuilt militaryDestroyed militaryLost honor} alliance { name tag } scores{ timestamp datetime total economy research  military  militaryBuilt  militaryDestroyed militaryLost honor }}}"}';
     const options = get_request_options(payload);
     return fetch(URL, options)
@@ -78,10 +78,10 @@ function get_player(player_name){
 }
 
 
-function get_player_future_activity(player_name){
+function get_player_future_activity(query_filter){
   /*
     Retrieve a single player 24 hour activity prediction for the next 7 days.
-    Player is filtered by a partial name value
+    Player is filtered by a partial name value or player id
     The model train data is based on the past scores over the weekdays
     and day hours, so the result may change if a starting datetime is input,
     making the model fits over the dates ranged by the start datetime until now.
@@ -89,7 +89,7 @@ function get_player_future_activity(player_name){
   var date_range = document.getElementById('date_range_selection').value;
   date_range = resolve_datetime_input(date_range);
 
-  const query = `player(name_Icontains: \\\"${player_name}\\\" ${date_range} )`;
+  const query = `player(${query_filter} ${date_range} )`;
   const payload = '{"query": "query{' + query + '{ activityPrediction }}"}';
   const options = get_request_options(payload);
   return fetch(URL, options)
@@ -104,12 +104,12 @@ function get_player_future_activity(player_name){
 }
 
 
-function get_player_planets(player_name){
+function get_player_planets(query_filter){
   /*
     Retrieve a single player planets location data. 
-    The player is filtered by a partial name value.
+    The player is filtered by a partial name value or player id.
   */
-  const query = `player(name_Icontains: \\\"${player_name}\\\")`;
+  const query = `player(${query_filter})`;
   const payload = '{"query": "query{' + query + '{planets{ galaxy solarSystem position name rawCoord }}}"}';
   const options = get_request_options(payload);
   return fetch(URL, options)
@@ -124,12 +124,12 @@ function get_player_planets(player_name){
 }
 
 
-function get_player_resume(player_name){
+function get_player_resume(query_filter){
   /*
     Retrieve a single player data necessary only to fil the player resume table.
-    The player is filtered by a partial name value.
+    The player is filtered by a partial name value or player id.
   */
-  const query = `player(name_Icontains: \\\"${player_name}\\\")`;
+  const query = `player(${query_filter})`;
   const payload = '{"query": "query{' + query + '{name playerId status planetsCount shipsCount alliance { name tag } scores{ total } combatReportsCount combatReports{ title url } }}"}';
   const options = get_request_options(payload);
   return fetch(URL, options)
@@ -164,14 +164,14 @@ function get_players_list(query_filters){
 }
 
 
-function get_player_score_prediction(player_name){
+function get_player_score_prediction(query_filter){
     /*
       Retrieve a single player current and future mean score prediction data.
-      Player is filtered by a partial name value
+      Player is filtered by a partial name value or player id
       The model prediction shows 14 days in the future and retrieve the last
       prediction made tow days past.
     */
-    const query = `player(name_Icontains: \\\"${player_name}\\\")`;
+    const query = `player(${query_filter})`;
     const payload = '{"query": "query{' + query + '{name playerId status planetsCount alliance { name tag } scorePrediction{ sampleDates sampleScores futureDates scorePredictions lastPredictions { dates  predictions } } }}"}';
     const options = get_request_options(payload);
     return fetch(URL, options)

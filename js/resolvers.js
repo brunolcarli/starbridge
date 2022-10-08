@@ -1,9 +1,9 @@
-function resolve_player_resume(player_name){
-    return get_player_resume(player_name);
+function resolve_player_resume(query_filter){
+    return get_player_resume(query_filter);
 }
 
-function resolve_player_by_attribute(player_name, attribute){
-    return get_player(player_name).then(player => {
+function resolve_player_by_attribute(query_filter, attribute){
+    return get_player(query_filter).then(player => {
         if (player == undefined){
             return {};
         }
@@ -29,23 +29,23 @@ function resolve_player_by_attribute(player_name, attribute){
 /////////////////////////////////////////
 
 
-function resolve_player_total_score(player_name){
-    return resolve_player_by_attribute(player_name, 'total');
+function resolve_player_total_score(query_filter){
+    return resolve_player_by_attribute(query_filter, 'total');
 }
 
 
-function resolve_player_economy_score(player_name){
-    return resolve_player_by_attribute(player_name, 'economy');
+function resolve_player_economy_score(query_filter){
+    return resolve_player_by_attribute(query_filter, 'economy');
 }
 
 
-function resolve_player_research_score(player_name){
-    return resolve_player_by_attribute(player_name, 'research');
+function resolve_player_research_score(query_filter){
+    return resolve_player_by_attribute(query_filter, 'research');
 }
 
 
-function resolve_player_military_score(player_name){
-    return get_player(player_name).then(player => {
+function resolve_player_military_score(query_filter){
+    return get_player(query_filter).then(player => {
         if (player == undefined){
             return {};
         }
@@ -67,23 +67,23 @@ function resolve_player_military_score(player_name){
 }
 
 
-function resolve_player_military_built_score(player_name){
-    return resolve_player_by_attribute(player_name, 'militaryBuilt');
+function resolve_player_military_built_score(query_filter){
+    return resolve_player_by_attribute(query_filter, 'militaryBuilt');
 }
 
 
-function resolve_player_military_destroyed_score(player_name){
-    return resolve_player_by_attribute(player_name, 'militaryDestroyed');
+function resolve_player_military_destroyed_score(query_filter){
+    return resolve_player_by_attribute(query_filter, 'militaryDestroyed');
 }
 
 
-function resolve_player_military_lost_score(player_name){
-    return resolve_player_by_attribute(player_name, 'militaryLost');
+function resolve_player_military_lost_score(query_filter){
+    return resolve_player_by_attribute(query_filter, 'militaryLost');
 }
 
 
-function resolve_player_honor_score(player_name){
-    return resolve_player_by_attribute(player_name, 'honor');
+function resolve_player_honor_score(query_filter){
+    return resolve_player_by_attribute(query_filter, 'honor');
 }
 
 
@@ -94,8 +94,8 @@ function resolve_player_honor_score(player_name){
 /////////////////////////////////////////
 
 
-function resolve_player_activities(player_name){
-    return get_player(player_name).then(player => {
+function resolve_player_activities(query_filter){
+    return get_player(query_filter).then(player => {
         if (player == undefined){
             return {};
         }
@@ -140,8 +140,8 @@ function resolve_player_activities(player_name){
 }
 
 
-function resolve_average_weekday_progress(player_name){
-    return get_player(player_name).then(player => {
+function resolve_average_weekday_progress(query_filter){
+    return get_player(query_filter).then(player => {
         if (player == undefined){
             return {};
         }
@@ -156,8 +156,8 @@ function resolve_average_weekday_progress(player_name){
 }
 
 
-function resolve_average_hour_progress(player_name){
-    return get_player(player_name).then(player => {
+function resolve_average_hour_progress(query_filter){
+    return get_player(query_filter).then(player => {
         if (player == undefined){
             return {};
         }
@@ -172,8 +172,8 @@ function resolve_average_hour_progress(player_name){
 }
 
 
-function resolve_average_halfhour_progress(player_name){
-    return get_player(player_name).then(player => {
+function resolve_average_halfhour_progress(query_filter){
+    return get_player(query_filter).then(player => {
         if (player == undefined){
             return {};
         }
@@ -188,8 +188,8 @@ function resolve_average_halfhour_progress(player_name){
 }
 
 
-function resolve_player_future_activity(player_name){
-    return get_player_future_activity(player_name).then(player => {
+function resolve_player_future_activity(query_filter){
+    return get_player_future_activity(query_filter).then(player => {
         if (player == undefined){
             return {};
         }
@@ -202,8 +202,8 @@ function resolve_player_future_activity(player_name){
 }
 
 
-function resolve_score_prediction(player_name){
-    return get_player_score_prediction(player_name).then(player => {
+function resolve_score_prediction(query_filter){
+    return get_player_score_prediction(query_filter).then(player => {
         if (player == undefined){
             return {};
         }

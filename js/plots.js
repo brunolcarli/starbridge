@@ -128,9 +128,9 @@ function reset_player_resume_table(){
 }
 
 
-function draw_player_resume_table(player_name){
+function draw_player_resume_table(query_filter){
     reset_player_resume_table();
-    return resolve_player_resume(player_name).then(data => {
+    return resolve_player_resume(query_filter).then(data => {
         var table = document.getElementById("player_resume_table");
         var row = table.insertRow(table.rows.length);
 
@@ -304,8 +304,8 @@ function reset_canvas(chart_id, div_id){
 //
 /////////////////////////////////////////
 
-function plot_total_score(player_name){
-    return resolve_player_total_score(player_name).then(dataset => {
+function plot_total_score(query_filter){
+    return resolve_player_total_score(query_filter).then(dataset => {
         const ctx = reset_canvas('DynamicChart', 'dynamic_chart');
         const score = dataset['score'];
         const dates = dataset['dates'];
@@ -334,8 +334,8 @@ function plot_total_score(player_name){
 }
 
 
-function plot_economy_score(player_name){
-    return resolve_player_economy_score(player_name).then(dataset => {
+function plot_economy_score(query_filter){
+    return resolve_player_economy_score(query_filter).then(dataset => {
         const ctx = reset_canvas('DynamicChart', 'dynamic_chart');
         const score = dataset['score'];
         const dates = dataset['dates'];
@@ -364,8 +364,8 @@ function plot_economy_score(player_name){
 }
 
 
-function plot_research_score(player_name){
-    return resolve_player_research_score(player_name).then(dataset => {
+function plot_research_score(query_filter){
+    return resolve_player_research_score(query_filter).then(dataset => {
         const ctx = reset_canvas('DynamicChart', 'dynamic_chart');
         const score = dataset['score'];
         const dates = dataset['dates'];
@@ -394,8 +394,8 @@ function plot_research_score(player_name){
 }
 
 
-function plot_military_score(player_name){
-    return resolve_player_military_score(player_name).then(dataset => {
+function plot_military_score(query_filter){
+    return resolve_player_military_score(query_filter).then(dataset => {
         const ctx = reset_canvas('DynamicChart', 'dynamic_chart');
         const score = dataset['score'];
         const dates = dataset['dates'];
@@ -424,8 +424,8 @@ function plot_military_score(player_name){
 }
 
 
-function plot_ship_score(player_name){
-    return resolve_player_military_score(player_name).then(dataset => {
+function plot_ship_score(query_filter){
+    return resolve_player_military_score(query_filter).then(dataset => {
         const ctx = reset_canvas('DynamicChart', 'dynamic_chart');
         const ships = dataset['ships'];
         const dates = dataset['dates'];
@@ -454,8 +454,8 @@ function plot_ship_score(player_name){
 }
 
 
-function plot_military_built_score(player_name){
-    return resolve_player_military_built_score(player_name).then(dataset => {
+function plot_military_built_score(query_filter){
+    return resolve_player_military_built_score(query_filter).then(dataset => {
         const ctx = reset_canvas('DynamicChart', 'dynamic_chart');
         const score = dataset['score'];
         const dates = dataset['dates'];
@@ -484,8 +484,8 @@ function plot_military_built_score(player_name){
 }
 
 
-function plot_military_destroyed_score(player_name){
-    return resolve_player_military_destroyed_score(player_name).then(dataset => {
+function plot_military_destroyed_score(query_filter){
+    return resolve_player_military_destroyed_score(query_filter).then(dataset => {
         const ctx = reset_canvas('DynamicChart', 'dynamic_chart');
         const score = dataset['score'];
         const dates = dataset['dates'];
@@ -514,8 +514,8 @@ function plot_military_destroyed_score(player_name){
 }
 
 
-function plot_military_lost_score(player_name){
-    return resolve_player_military_lost_score(player_name).then(dataset => {
+function plot_military_lost_score(query_filter){
+    return resolve_player_military_lost_score(query_filter).then(dataset => {
         const ctx = reset_canvas('DynamicChart', 'dynamic_chart');
         const score = dataset['score'];
         const dates = dataset['dates'];
@@ -544,8 +544,8 @@ function plot_military_lost_score(player_name){
 }
 
 
-function plot_honor_score(player_name){
-    return resolve_player_honor_score(player_name).then(dataset => {
+function plot_honor_score(query_filter){
+    return resolve_player_honor_score(query_filter).then(dataset => {
         const ctx = reset_canvas('DynamicChart', 'dynamic_chart');
         const score = dataset['score'];
         const dates = dataset['dates'];
@@ -580,8 +580,8 @@ function plot_honor_score(player_name){
 //
 ///////////////////////////////////////////////
 
-function plot_average_weekday_progress(player_name){
-    return resolve_average_weekday_progress(player_name).then(dataset => {
+function plot_average_weekday_progress(query_filter){
+    return resolve_average_weekday_progress(query_filter).then(dataset => {
         const ctx = reset_canvas('DynamicChart', 'dynamic_chart');
 
         const chart = new Chart(ctx, {
@@ -631,8 +631,8 @@ function plot_average_weekday_progress(player_name){
 }
 
 
-function plot_average_hour_progress(player_name){
-    return resolve_average_hour_progress(player_name).then(dataset => {
+function plot_average_hour_progress(query_filter){
+    return resolve_average_hour_progress(query_filter).then(dataset => {
         const ctx = reset_canvas('DynamicChart', 'dynamic_chart');
 
         const chart = new Chart(ctx, {
@@ -682,8 +682,8 @@ function plot_average_hour_progress(player_name){
 }
 
 
-function plot_average_halfhour_progress(player_name){
-    return resolve_average_halfhour_progress(player_name).then(dataset => {
+function plot_average_halfhour_progress(query_filter){
+    return resolve_average_halfhour_progress(query_filter).then(dataset => {
         const ctx = reset_canvas('DynamicChart', 'dynamic_chart');
 
         const chart = new Chart(ctx, {
@@ -733,8 +733,8 @@ function plot_average_halfhour_progress(player_name){
 }
 
 
-function plot_activity(player_name){
-    return resolve_player_activities(player_name).then(dataset => {
+function plot_activity(query_filter){
+    return resolve_player_activities(query_filter).then(dataset => {
         const ctx = reset_canvas('DynamicChart', 'dynamic_chart');
         const mixedChart = new Chart(ctx, {
             type: 'scatter',
@@ -898,8 +898,8 @@ function plot_activity(player_name){
 //////////////////////////////////////////////
 
 
-function plot_score_prediction(player_name){
-    return resolve_score_prediction(player_name).then(dataset => {
+function plot_score_prediction(query_filter){
+    return resolve_score_prediction(query_filter).then(dataset => {
         const ctx = reset_canvas('DynamicChart', 'dynamic_chart');
         let predicted = dataset['predicted'];
         let future_dates = dataset['future_dates'];
@@ -957,8 +957,8 @@ function plot_score_prediction(player_name){
 }
 
 
-function plot_player_future_activity(player_name){
-    return resolve_player_future_activity(player_name).then(dataset => {
+function plot_player_future_activity(query_filter){
+    return resolve_player_future_activity(query_filter).then(dataset => {
         const ctx = reset_canvas('DynamicChart', 'dynamic_chart');
 
         const weekdays = Object.keys(dataset);
@@ -1008,8 +1008,8 @@ function plot_player_future_activity(player_name){
 
 //////
 
-function plot_player_planets(player_name){
-    return get_player_planets(player_name).then(dataset => {
+function plot_player_planets(query_filter){
+    return get_player_planets(query_filter).then(dataset => {
         const ctx = reset_canvas('DynamicChart', 'dynamic_chart');
         const planets = dataset['planets'];
         const solar_systems = [];
@@ -1149,8 +1149,8 @@ function plot_ally_planets(ally_name){
 }
 
 
-function plot_ally_galaxy_distribution(player_name){
-    return get_ally(player_name).then(dataset => {
+function plot_ally_galaxy_distribution(query_filter){
+    return get_ally(query_filter).then(dataset => {
         const ctx = reset_canvas('AllyChart', 'ally_chart');
 
         const distribution = dataset['planetsDistributionByGalaxy'];
@@ -1225,7 +1225,7 @@ function plot_ally_galaxy_distribution(player_name){
 //////////////////////////////////////////////
 
 
-function update_dynamic_chart(player_name, value){
+function update_dynamic_chart(query_filter, value){
 
     const valid_options = {
         TOTAL_SCORE: plot_total_score,
@@ -1245,22 +1245,28 @@ function update_dynamic_chart(player_name, value){
         PLANETS: plot_player_planets,
         ACTIVITY_PREDICTION: plot_player_future_activity
     };
-    valid_options[value](player_name);
+    valid_options[value](query_filter);
 }
 
 
 function plot_player_statistics(){
-    var player_name = document.getElementById('PlayerFilterInput').value;
+    var filter_name = document.querySelector('input[class="chart_filter"]:checked').value;
+    var filter_value = document.getElementById('PlayerFilterInput').value;
     var chart_type = document.getElementById('chart_selection').value;
 
-
-    if (!player_name){
-        alert('Necessário informar o nome do jogador!');
+    if (!filter_value){
+        alert('Necessário informar o filtro do jogador!');
         return;
     }
 
-    draw_player_resume_table(player_name);
-    update_dynamic_chart(player_name, chart_type);
+    if (filter_name == 'name_Icontains'){
+        var query_filter = ` ${filter_name}: \\\"${filter_value}\\\" `;
+    }
+    else {
+        var query_filter = ` ${filter_name}: ${filter_value} `;
+    }
+    draw_player_resume_table(query_filter);
+    update_dynamic_chart(query_filter, chart_type);
 }
 
 
