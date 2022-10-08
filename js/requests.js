@@ -150,7 +150,7 @@ function get_players_list(query_filters){
     The players may be filtered by a rank range, from min to max rank.
     The players may be filtered by a list os possible status.
   */
-  const payload = '{"query": "query{players' + query_filters + '{name status planetsCount shipsCount rank alliance { name tag } combatReportsCount combatReports{ title url } }}"}';
+  const payload = '{"query": "query{players' + query_filters + '{name playerId status planetsCount shipsCount rank alliance { name tag } combatReportsCount combatReports{ title url } }}"}';
   const options = get_request_options(payload);
   return fetch(URL, options)
   .then(json)

@@ -12,14 +12,16 @@ function reset_players_list(){
 
     var header = table.insertRow(0);
 
-    var name = header.insertCell(0);
-    var status = header.insertCell(1);
-    var planets = header.insertCell(2);
-    var rank = header.insertCell(3);
-    var ally = header.insertCell(4);
-    var ships = header.insertCell(5);
-    var combat_reports = header.insertCell(6);
+    var player_id = header.insertCell(0);
+    var name = header.insertCell(1);
+    var status = header.insertCell(2);
+    var planets = header.insertCell(3);
+    var rank = header.insertCell(4);
+    var ally = header.insertCell(5);
+    var ships = header.insertCell(6);
+    var combat_reports = header.insertCell(7);
 
+    player_id.innerHTML = 'ID';
     name.innerHTML = 'Nome';
     status.innerHTML = 'Status';
     rank.innerHTML = 'Rank';
@@ -74,14 +76,16 @@ function draw_players_list(){
                 var report_select = `${reports_count}`;
             }
 
-            var name = row.insertCell(0);
-            var status = row.insertCell(1);
-            var planets = row.insertCell(2);
-            var rank = row.insertCell(3);
-            var ally = row.insertCell(4);
-            var ships = row.insertCell(5);
-            var combat_reports = row.insertCell(6);
+            var player_id = row.insertCell(0);
+            var name = row.insertCell(1);
+            var status = row.insertCell(2);
+            var planets = row.insertCell(3);
+            var rank = row.insertCell(4);
+            var ally = row.insertCell(5);
+            var ships = row.insertCell(6);
+            var combat_reports = row.insertCell(7);
 
+            player_id.innerHTML = data[i]['playerId'];
             name.innerHTML = data[i]['name'];
             status.innerHTML = player_status;
             rank.innerHTML = data[i]['rank'];
