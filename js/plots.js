@@ -110,6 +110,7 @@ function reset_player_resume_table(){
     var planets = header.insertCell(5);
     var ally = header.insertCell(6);
     var ships = header.insertCell(7);
+    var combat_reports = header.insertCell(8);
 
     player_id.innerHTML = 'ID';
     name.innerHTML = 'Nome';
@@ -119,6 +120,7 @@ function reset_player_resume_table(){
     planets.innerHTML = 'Planetas';
     ally.innerHTML = 'Aliança';
     ships.innerHTML = 'Naves';
+    combat_reports.innerHTML = 'Relatórios de Combate';
 }
 
 
@@ -136,6 +138,7 @@ function draw_player_resume_table(player_name){
         var planets = row.insertCell(5);
         var ally = row.insertCell(6);
         var ships = row.insertCell(7);
+        var combat_reports = row.insertCell(8);
 
         // get most recent total score
         var total_score = data['scores'][data['scores'].length-1]['total'];
@@ -154,7 +157,27 @@ function draw_player_resume_table(player_name){
             player_status = 'Active';
         }
 
-        // Add some text to the new cells:
+        // get player combat reports
+        var reports_count = data['combatReportsCount'];
+        var reports = data['combatReports'];
+        
+
+        if (reports_count > 0){
+            var report_select = '<div class="dropdown">';
+            report_select += '<button class="btn dropdown-toggle" type="button" data-toggle="dropdown"> ';
+            report_select += `${reports_count}<span class="caret"></span></button>`;
+            report_select += '<ul class="dropdown-menu">';
+
+            for (let j in reports){
+                var url = reports[j]['url'];
+                var title = reports[j]['title'];
+                report_select += `<li><hr /><a href="${url}" target="_blank"> - ${title}</a></li>`;
+            }
+            report_select += '</ul></div>';
+        } else {
+            var report_select = `${reports_count}`;
+        }
+
         player_id.innerHTML = data['playerId'];
         name.innerHTML = data['name'];
         status.innerHTML = player_status;
@@ -163,6 +186,7 @@ function draw_player_resume_table(player_name){
         planets.innerHTML = data['planetsCount'];
         ally.innerHTML = player_ally;
         ships.innerHTML = data['shipsCount'];
+        combat_reports.innerHTML = report_select;
     });
 }
 

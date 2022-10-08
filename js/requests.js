@@ -130,7 +130,7 @@ function get_player_resume(player_name){
     The player is filtered by a partial name value.
   */
   const query = `player(name_Icontains: \\\"${player_name}\\\")`;
-  const payload = '{"query": "query{' + query + '{name playerId status planetsCount shipsCount alliance { name tag } scores{ total }}}"}';
+  const payload = '{"query": "query{' + query + '{name playerId status planetsCount shipsCount alliance { name tag } scores{ total } combatReportsCount combatReports{ title url } }}"}';
   const options = get_request_options(payload);
   return fetch(URL, options)
   .then(json)
