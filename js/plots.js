@@ -246,7 +246,7 @@ function draw_ally_resume_table(ally_name){
         temp = row.insertCell(0);
         temp.innerHTML = '<b><u>Membro</u></b>';
         temp = row.insertCell(1);
-        temp.innerHTML = '<b>-</b>';
+        temp.innerHTML = '<b><u>ID</u></b>';
         temp = row.insertCell(2);
         temp.innerHTML = '<b>-</b>';
         temp = row.insertCell(3);
@@ -262,7 +262,7 @@ function draw_ally_resume_table(ally_name){
             temp = row.insertCell(0);
             temp.innerHTML = members[i]['name'];
             temp = row.insertCell(1);
-            temp.innerHTML = '-';
+            temp.innerHTML =  members[i]['playerId'];
             temp = row.insertCell(2);
             temp.innerHTML = '-';
             temp = row.insertCell(3);
