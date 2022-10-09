@@ -631,69 +631,18 @@ function plot_player_weekday_relative_freq(query_filter){
 }
 
 
-// function plot_average_weekday_progress(query_filter){
-//     return resolve_average_weekday_progress(query_filter).then(dataset => {
-//         const ctx = reset_canvas('DynamicChart', 'dynamic_chart');
-
-//         const chart = new Chart(ctx, {
-//             type: 'bar',
-//             data: {
-//                 labels: dataset['dates'],
-//                 datasets: [
-//                     {
-//                     label: 'Média de progresso por dia da semana',
-//                     data: dataset['score'],
-//                     backgroundColor: [
-//                         'rgba(255, 99, 132, 0.2)',
-//                         'rgba(255, 159, 64, 0.2)',
-//                         'rgba(255, 205, 86, 0.2)',
-//                         'rgba(75, 192, 192, 0.2)',
-//                         'rgba(54, 162, 235, 0.2)',
-//                         'rgba(153, 102, 255, 0.2)',
-//                         'rgba(201, 203, 207, 0.2)'
-//                     ],
-//                     borderColor: [
-//                         'rgb(255, 99, 132)',
-//                         'rgb(255, 159, 64)',
-//                         'rgb(255, 205, 86)',
-//                         'rgb(75, 192, 192)',
-//                         'rgb(54, 162, 235)',
-//                         'rgb(153, 102, 255)',
-//                         'rgb(201, 203, 207)'
-//                     ],
-//                     borderWidth: 1
-//                     },
-//                     {
-//                         label: 'Progresso',
-//                         data: dataset['score'],
-//                         fill: false,
-//                         borderColor: 'rgb(175, 92, 128)',
-//                         tension: 0.5,
-//                         type: 'line'
-//                     }
-//                 ]
-//             },
-//             options: {
-//                 responsive: false
-//             }
-//         });
-//         return chart;
-//     });
-// }
-
-
-function plot_average_hour_progress(query_filter){
-    return resolve_average_hour_progress(query_filter).then(dataset => {
+function plot_player_hour_relative_freq(query_filter){
+    return get_player_hour_rel_freq(query_filter).then(dataset => {
         const ctx = reset_canvas('DynamicChart', 'dynamic_chart');
 
         const chart = new Chart(ctx, {
             type: 'bar',
             data: {
-                labels: dataset['dates'],
+                labels: dataset['hourRelativeFrequency']['hours'],
                 datasets: [
                     {
-                        label: 'Média de progresso por hora do dia (Período de 1H)',
-                        data: dataset['score'],
+                        label: 'Frequência relativa (%) hora do dia (Período 1H) [Barra]',
+                        data: dataset['hourRelativeFrequency']['relativeFrequency'],
                         backgroundColor: [
                             'rgba(255, 99, 132, 0.2)',
                             'rgba(255, 159, 64, 0.2)',
@@ -715,10 +664,10 @@ function plot_average_hour_progress(query_filter){
                         borderWidth: 1
                     },
                     {
-                        label: 'Progresso',
-                        data: dataset['score'],
+                        label: 'Frequência relativa (%) hora do dia (Período 1H) [Linha]',
+                        data: dataset['hourRelativeFrequency']['relativeFrequency'],
                         fill: false,
-                        borderColor: 'rgb(175, 192, 128)',
+                        borderColor: 'rgb(75, 192, 128)',
                         tension: 0.5,
                         type: 'line'
                     }
@@ -1290,7 +1239,7 @@ function update_dynamic_chart(query_filter, value){
         HONOR_SCORE: plot_honor_score,
         PLAYER_ACTIVITY: plot_activity,
         WEEKDAY_REL_FREQ: plot_player_weekday_relative_freq,
-        HOUR_ACTIVITY: plot_average_hour_progress,
+        HOUR_REL_FREQ: plot_player_hour_relative_freq,
         HALFHOUR_REL_FREQ: plot_player_halfhour_relative_freq,
         SCORE_PREDICTION: plot_score_prediction,
         PLANETS: plot_player_planets,
