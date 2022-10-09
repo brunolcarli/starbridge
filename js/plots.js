@@ -619,7 +619,15 @@ function plot_player_weekday_relative_freq(query_filter){
                         borderColor: 'rgb(175, 92, 128)',
                         tension: 0.5,
                         type: 'line'
-                    }
+                    },
+                    {
+                        label: 'Desvio Padrão',
+                        data: dataset['weekdayRelativeFrequency']['stdDeviation'],
+                        fill: false,
+                        borderColor: 'rgb(45, 142, 148)',
+                        tension: 0.5,
+                        type: 'line'
+                    },
                 ]
             },
             options: {
@@ -668,6 +676,14 @@ function plot_player_hour_relative_freq(query_filter){
                         data: dataset['hourRelativeFrequency']['relativeFrequency'],
                         fill: false,
                         borderColor: 'rgb(75, 192, 128)',
+                        tension: 0.5,
+                        type: 'line'
+                    },
+                    {
+                        label: 'Desvio Padrão',
+                        data: dataset['hourRelativeFrequency']['stdDeviation'],
+                        fill: false,
+                        borderColor: 'rgb(25, 92, 28)',
                         tension: 0.5,
                         type: 'line'
                     }
@@ -721,7 +737,15 @@ function plot_player_halfhour_relative_freq(query_filter){
                         borderColor: 'rgb(75, 192, 128)',
                         tension: 0.5,
                         type: 'line'
-                    }
+                    },
+                    {
+                        label: 'Desvio padrão',
+                        data: dataset['halfhourRelativeFrequency']['stdDeviation'],
+                        fill: false,
+                        borderColor: 'rgb(175, 192, 158)',
+                        tension: 0.5,
+                        type: 'line'
+                    },
                 ]
             },
             options: {
