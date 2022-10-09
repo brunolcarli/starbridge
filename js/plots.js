@@ -580,18 +580,18 @@ function plot_honor_score(query_filter){
 //
 ///////////////////////////////////////////////
 
-function plot_average_weekday_progress(query_filter){
-    return resolve_average_weekday_progress(query_filter).then(dataset => {
+function plot_player_weekday_relative_freq(query_filter){
+    return get_player_weekday_rel_freq(query_filter).then(dataset => {
         const ctx = reset_canvas('DynamicChart', 'dynamic_chart');
-
+        
         const chart = new Chart(ctx, {
             type: 'bar',
             data: {
-                labels: dataset['dates'],
+                labels: dataset['weekdayRelativeFrequency']['weekdays'],
                 datasets: [
                     {
-                    label: 'Média de progresso por dia da semana',
-                    data: dataset['score'],
+                    label: 'Frequência relativa por dia da semana (Barra)',
+                    data: dataset['weekdayRelativeFrequency']['relativeFrequency'],
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',
                         'rgba(255, 159, 64, 0.2)',
@@ -613,8 +613,8 @@ function plot_average_weekday_progress(query_filter){
                     borderWidth: 1
                     },
                     {
-                        label: 'Progresso',
-                        data: dataset['score'],
+                        label: 'Frequência relativa por dia da semana (Linha)',
+                        data: dataset['weekdayRelativeFrequency']['relativeFrequency'],
                         fill: false,
                         borderColor: 'rgb(175, 92, 128)',
                         tension: 0.5,
@@ -629,6 +629,57 @@ function plot_average_weekday_progress(query_filter){
         return chart;
     });
 }
+
+
+// function plot_average_weekday_progress(query_filter){
+//     return resolve_average_weekday_progress(query_filter).then(dataset => {
+//         const ctx = reset_canvas('DynamicChart', 'dynamic_chart');
+
+//         const chart = new Chart(ctx, {
+//             type: 'bar',
+//             data: {
+//                 labels: dataset['dates'],
+//                 datasets: [
+//                     {
+//                     label: 'Média de progresso por dia da semana',
+//                     data: dataset['score'],
+//                     backgroundColor: [
+//                         'rgba(255, 99, 132, 0.2)',
+//                         'rgba(255, 159, 64, 0.2)',
+//                         'rgba(255, 205, 86, 0.2)',
+//                         'rgba(75, 192, 192, 0.2)',
+//                         'rgba(54, 162, 235, 0.2)',
+//                         'rgba(153, 102, 255, 0.2)',
+//                         'rgba(201, 203, 207, 0.2)'
+//                     ],
+//                     borderColor: [
+//                         'rgb(255, 99, 132)',
+//                         'rgb(255, 159, 64)',
+//                         'rgb(255, 205, 86)',
+//                         'rgb(75, 192, 192)',
+//                         'rgb(54, 162, 235)',
+//                         'rgb(153, 102, 255)',
+//                         'rgb(201, 203, 207)'
+//                     ],
+//                     borderWidth: 1
+//                     },
+//                     {
+//                         label: 'Progresso',
+//                         data: dataset['score'],
+//                         fill: false,
+//                         borderColor: 'rgb(175, 92, 128)',
+//                         tension: 0.5,
+//                         type: 'line'
+//                     }
+//                 ]
+//             },
+//             options: {
+//                 responsive: false
+//             }
+//         });
+//         return chart;
+//     });
+// }
 
 
 function plot_average_hour_progress(query_filter){
@@ -682,18 +733,18 @@ function plot_average_hour_progress(query_filter){
 }
 
 
-function plot_average_halfhour_progress(query_filter){
-    return resolve_average_halfhour_progress(query_filter).then(dataset => {
+function plot_player_halfhour_relative_freq(query_filter){
+    return get_player_halfhour_rel_freq(query_filter).then(dataset => {
         const ctx = reset_canvas('DynamicChart', 'dynamic_chart');
 
         const chart = new Chart(ctx, {
             type: 'bar',
             data: {
-                labels: dataset['dates'],
+                labels: dataset['halfhourRelativeFrequency']['hours'],
                 datasets: [
                     {
-                        label: 'Média de progresso por hora do dia (Período 30min)',
-                        data: dataset['score'],
+                        label: 'Frequência relativa (%) hora do dia (Período 30min) [Barra]',
+                        data: dataset['halfhourRelativeFrequency']['relativeFrequency'],
                         backgroundColor: [
                             'rgba(255, 99, 132, 0.2)',
                             'rgba(255, 159, 64, 0.2)',
@@ -715,8 +766,8 @@ function plot_average_halfhour_progress(query_filter){
                         borderWidth: 1
                     },
                     {
-                        label: 'Progresso',
-                        data: dataset['score'],
+                        label: 'Frequência relativa (%) hora do dia (Período 30min) [Linha]',
+                        data: dataset['halfhourRelativeFrequency']['relativeFrequency'],
                         fill: false,
                         borderColor: 'rgb(75, 192, 128)',
                         tension: 0.5,
@@ -1238,9 +1289,9 @@ function update_dynamic_chart(query_filter, value){
         MILITARY_LOST_SCORE: plot_military_lost_score,
         HONOR_SCORE: plot_honor_score,
         PLAYER_ACTIVITY: plot_activity,
-        WEEKDAY_ACTIVITY: plot_average_weekday_progress,
+        WEEKDAY_REL_FREQ: plot_player_weekday_relative_freq,
         HOUR_ACTIVITY: plot_average_hour_progress,
-        HALFHOUR_ACTIVITY: plot_average_halfhour_progress,
+        HALFHOUR_REL_FREQ: plot_player_halfhour_relative_freq,
         SCORE_PREDICTION: plot_score_prediction,
         PLANETS: plot_player_planets,
         ACTIVITY_PREDICTION: plot_player_future_activity

@@ -54,6 +54,53 @@ function get_request_options(payload){
 //
 ///////////////////////////////////
 
+function get_player_weekday_rel_freq(query_filter){
+    /*
+      Retrieve a single player weekday relative frequency.
+      The query filter may be a player partial name value or player id.
+      The relative frequency may preset different values if a datetime filter
+      is given.
+    */
+    var date_range = document.getElementById('date_range_selection').value;
+    date_range = resolve_datetime_input(date_range);
+
+    const query = `player(${query_filter} ${date_range} )`;
+    const payload = '{"query": "query{' + query + '{weekdayRelativeFrequency{ weekdays relativeFrequency }}}"}';
+    const options = get_request_options(payload);
+    return fetch(URL, options)
+    .then(json)
+    .then(response => {
+        return response['data']['player'];
+    })
+    .catch(err => {
+        console.error(err);
+    });
+}
+
+
+function get_player_halfhour_rel_freq(query_filter){
+  /*
+    Retrieve a single player day hours relative frequency (30min period).
+    The query filter may be a player partial name value or player id.
+    The relative frequency may preset different values if a datetime filter
+    is given.
+  */
+  var date_range = document.getElementById('date_range_selection').value;
+  date_range = resolve_datetime_input(date_range);
+
+  const query = `player(${query_filter} ${date_range} )`;
+  const payload = '{"query": "query{' + query + '{halfhourRelativeFrequency{ hours relativeFrequency }}}"}';
+  const options = get_request_options(payload);
+  return fetch(URL, options)
+  .then(json)
+  .then(response => {
+      return response['data']['player'];
+  })
+  .catch(err => {
+      console.error(err);
+  });
+}
+
 
 function get_player(query_filter){
     /*
