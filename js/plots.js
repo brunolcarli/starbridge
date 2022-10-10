@@ -590,44 +590,50 @@ function plot_player_weekday_relative_freq(query_filter){
                 labels: dataset['weekdayRelativeFrequency']['weekdays'],
                 datasets: [
                     {
-                    label: 'Frequência relativa por dia da semana (Barra)',
-                    data: dataset['weekdayRelativeFrequency']['relativeFrequency'],
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(255, 159, 64, 0.2)',
-                        'rgba(255, 205, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(153, 102, 255, 0.2)',
-                        'rgba(201, 203, 207, 0.2)'
-                    ],
-                    borderColor: [
-                        'rgb(255, 99, 132)',
-                        'rgb(255, 159, 64)',
-                        'rgb(255, 205, 86)',
-                        'rgb(75, 192, 192)',
-                        'rgb(54, 162, 235)',
-                        'rgb(153, 102, 255)',
-                        'rgb(201, 203, 207)'
-                    ],
-                    borderWidth: 1
+                        label: 'Fr %',
+                        data: dataset['weekdayRelativeFrequency']['relativeFrequency'],
+                        backgroundColor: ['rgb(36, 252, 3, 0.2)'],
+                        borderColor: ['rgb(255, 159, 64)'],
+                        borderWidth: 1
                     },
+                    {
+                        label: 'STD +',
+                        data: dataset['weekdayRelativeFrequency']['highStd'],
+                        backgroundColor: ['rgba(252, 3, 3, 0.2)'],
+                        borderColor: ['rgb(255, 99, 132)'],
+                        borderWidth: 1
+                    },
+                    {
+                        label: 'STD -',
+                        data: dataset['weekdayRelativeFrequency']['lowStd'],
+                        backgroundColor: ['rgba(3, 211, 252, 0.2)'],
+                        borderColor: ['rgb(1, 199, 142)'],
+                        borderWidth: 1
+                        },
                     {
                         label: 'Frequência relativa por dia da semana (Linha)',
                         data: dataset['weekdayRelativeFrequency']['relativeFrequency'],
                         fill: false,
-                        borderColor: 'rgb(175, 92, 128)',
+                        borderColor: 'rgb(36, 252, 3)',
                         tension: 0.5,
                         type: 'line'
                     },
                     {
-                        label: 'Desvio Padrão',
-                        data: dataset['weekdayRelativeFrequency']['stdDeviation'],
+                        label: 'Desvio Padrão + (High)',
+                        data: dataset['weekdayRelativeFrequency']['highStd'],
                         fill: false,
-                        borderColor: 'rgb(45, 142, 148)',
+                        borderColor: 'rgb(252, 3, 3)',
                         tension: 0.5,
                         type: 'line'
                     },
+                    {
+                        label: 'Desvio Padrão - (Low)',
+                        data: dataset['weekdayRelativeFrequency']['lowStd'],
+                        fill: false,
+                        borderColor: 'rgb(3, 211, 252)',
+                        tension: 0.5,
+                        type: 'line'
+                    }
                 ]
             },
             options: {
@@ -649,7 +655,7 @@ function plot_player_hour_relative_freq(query_filter){
                 labels: dataset['hourRelativeFrequency']['hours'],
                 datasets: [
                     {
-                        label: 'Frequência relativa (%) hora do dia (Período 1H) [Barra]',
+                        label: 'Fr %',
                         data: dataset['hourRelativeFrequency']['relativeFrequency'],
                         backgroundColor: [
                             'rgba(255, 99, 132, 0.2)',
@@ -675,15 +681,23 @@ function plot_player_hour_relative_freq(query_filter){
                         label: 'Frequência relativa (%) hora do dia (Período 1H) [Linha]',
                         data: dataset['hourRelativeFrequency']['relativeFrequency'],
                         fill: false,
-                        borderColor: 'rgb(75, 192, 128)',
+                        borderColor: 'rgb(36, 252, 3)',
                         tension: 0.5,
                         type: 'line'
                     },
                     {
-                        label: 'Desvio Padrão',
-                        data: dataset['hourRelativeFrequency']['stdDeviation'],
+                        label: 'Desvio Padrão + (High)',
+                        data: dataset['hourRelativeFrequency']['highStd'],
                         fill: false,
-                        borderColor: 'rgb(25, 92, 28)',
+                        borderColor: 'rgb(252, 3, 3)',
+                        tension: 0.5,
+                        type: 'line'
+                    },
+                    {
+                        label: 'Desvio Padrão - (Low)',
+                        data: dataset['hourRelativeFrequency']['lowStd'],
+                        fill: false,
+                        borderColor: 'rgb(3, 211, 252)',
                         tension: 0.5,
                         type: 'line'
                     }
@@ -708,7 +722,7 @@ function plot_player_halfhour_relative_freq(query_filter){
                 labels: dataset['halfhourRelativeFrequency']['hours'],
                 datasets: [
                     {
-                        label: 'Frequência relativa (%) hora do dia (Período 30min) [Barra]',
+                        label: 'Fr %',
                         data: dataset['halfhourRelativeFrequency']['relativeFrequency'],
                         backgroundColor: [
                             'rgba(255, 99, 132, 0.2)',
@@ -734,15 +748,23 @@ function plot_player_halfhour_relative_freq(query_filter){
                         label: 'Frequência relativa (%) hora do dia (Período 30min) [Linha]',
                         data: dataset['halfhourRelativeFrequency']['relativeFrequency'],
                         fill: false,
-                        borderColor: 'rgb(75, 192, 128)',
+                        borderColor: 'rgb(36, 252, 3)',
                         tension: 0.5,
                         type: 'line'
                     },
                     {
-                        label: 'Desvio padrão',
-                        data: dataset['halfhourRelativeFrequency']['stdDeviation'],
+                        label: 'Desvio Padrão + (High)',
+                        data: dataset['halfhourRelativeFrequency']['highStd'],
                         fill: false,
-                        borderColor: 'rgb(175, 192, 158)',
+                        borderColor: 'rgb(252, 3, 3)',
+                        tension: 0.5,
+                        type: 'line'
+                    },
+                    {
+                        label: 'Desvio Padrão - (Low)',
+                        data: dataset['halfhourRelativeFrequency']['lowStd'],
+                        fill: false,
+                        borderColor: 'rgb(3, 211, 252)',
                         tension: 0.5,
                         type: 'line'
                     },

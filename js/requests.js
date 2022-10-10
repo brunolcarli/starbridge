@@ -65,7 +65,7 @@ function get_player_weekday_rel_freq(query_filter){
     date_range = resolve_datetime_input(date_range);
 
     const query = `player(${query_filter} ${date_range} )`;
-    const payload = '{"query": "query{' + query + '{weekdayRelativeFrequency{ weekdays relativeFrequency variance stdDeviation }}}"}';
+    const payload = '{"query": "query{' + query + '{weekdayRelativeFrequency{ weekdays relativeFrequency highStd lowStd }}}"}';
     const options = get_request_options(payload);
     return fetch(URL, options)
     .then(json)
@@ -89,7 +89,7 @@ function get_player_halfhour_rel_freq(query_filter){
   date_range = resolve_datetime_input(date_range);
 
   const query = `player(${query_filter} ${date_range} )`;
-  const payload = '{"query": "query{' + query + '{halfhourRelativeFrequency{ hours relativeFrequency variance stdDeviation }}}"}';
+  const payload = '{"query": "query{' + query + '{halfhourRelativeFrequency{ hours relativeFrequency highStd lowStd }}}"}';
   const options = get_request_options(payload);
   return fetch(URL, options)
   .then(json)
@@ -113,7 +113,7 @@ function get_player_hour_rel_freq(query_filter){
   date_range = resolve_datetime_input(date_range);
 
   const query = `player(${query_filter} ${date_range} )`;
-  const payload = '{"query": "query{' + query + '{hourRelativeFrequency{ hours relativeFrequency variance stdDeviation}}}"}';
+  const payload = '{"query": "query{' + query + '{hourRelativeFrequency{ hours relativeFrequency highStd lowStd }}}"}';
   const options = get_request_options(payload);
   return fetch(URL, options)
   .then(json)
