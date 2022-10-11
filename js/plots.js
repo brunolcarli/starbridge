@@ -260,7 +260,7 @@ function draw_ally_resume_table(ally_name){
         temp = row.insertCell(1);
         temp.innerHTML = '<b><u>ID</u></b>';
         temp = row.insertCell(2);
-        temp.innerHTML = '<b>-</b>';
+        temp.innerHTML = '<b>Status</b>';
         temp = row.insertCell(3);
         temp.innerHTML = '<b><u>Planetas</u></b>';
         temp = row.insertCell(4);
@@ -269,14 +269,18 @@ function draw_ally_resume_table(ally_name){
         temp.innerHTML = '<b><u>Rank</u></b>';
 
         var members = data['members'];
-        for (i in members){
+        for (let i in members){
+            var player_status = members[i]['status'];
+            if (player_status == 'nan'){
+                player_status = 'Active';
+            }
             row = table.insertRow(table.rows.length);
             temp = row.insertCell(0);
             temp.innerHTML = members[i]['name'];
             temp = row.insertCell(1);
             temp.innerHTML =  members[i]['playerId'];
             temp = row.insertCell(2);
-            temp.innerHTML = '-';
+            temp.innerHTML = player_status;
             temp = row.insertCell(3);
             temp.innerHTML = members[i]['planetsCount'];
             temp = row.insertCell(4);
