@@ -673,6 +673,49 @@ function plot_player_weekday_relative_freq(query_filter){
 }
 
 
+function plot_player_fleet_relative_freq(query_filter){
+    return get_player_fleet_rel_freq(query_filter).then(dataset => {
+        const ctx = reset_canvas('DynamicChart', 'dynamic_chart');
+
+        const chart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: Object.keys(dataset['fleetRelativeFrequency']),
+                datasets: [
+                    {
+                        label: 'Fr% de naves utilizadas nos combates',
+                        data: Object.values(dataset['fleetRelativeFrequency']),
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(255, 159, 64, 0.2)',
+                            'rgba(255, 205, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(201, 203, 207, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgb(255, 99, 132)',
+                            'rgb(255, 159, 64)',
+                            'rgb(255, 205, 86)',
+                            'rgb(75, 192, 192)',
+                            'rgb(54, 162, 235)',
+                            'rgb(153, 102, 255)',
+                            'rgb(201, 203, 207)'
+                        ],
+                        borderWidth: 1
+                    }
+                ]
+            },
+            options: {
+                responsive: false
+            }
+        });
+        return chart;
+    });
+}
+
+
 function plot_player_hour_relative_freq(query_filter){
     return get_player_hour_rel_freq(query_filter).then(dataset => {
         const ctx = reset_canvas('DynamicChart', 'dynamic_chart');
@@ -1311,6 +1354,7 @@ function update_dynamic_chart(query_filter, value){
         WEEKDAY_REL_FREQ: plot_player_weekday_relative_freq,
         HOUR_REL_FREQ: plot_player_hour_relative_freq,
         HALFHOUR_REL_FREQ: plot_player_halfhour_relative_freq,
+        FLEET_REL_FREQ: plot_player_fleet_relative_freq,
         SCORE_PREDICTION: plot_score_prediction,
         PLANETS: plot_player_planets,
         ACTIVITY_PREDICTION: plot_player_future_activity

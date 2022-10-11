@@ -126,6 +126,28 @@ function get_player_hour_rel_freq(query_filter){
 }
 
 
+function get_player_fleet_rel_freq(query_filter){
+  /*
+    Retrieve a single player combat fleet composition relative frequency.
+    The query filter may be a player partial name value or player id.
+    The relative frequency is based on available combat reports posted on ogame
+    forum at the current universe threads.
+  */
+
+  const query = `player(${query_filter} )`;
+  const payload = '{"query": "query{' + query + '{fleetRelativeFrequency}}"}';
+  const options = get_request_options(payload);
+  return fetch(URL, options)
+  .then(json)
+  .then(response => {
+      return response['data']['player'];
+  })
+  .catch(err => {
+      console.error(err);
+  });
+}
+
+
 function get_player_military_score(query_filter){
   /*
     Retrieve a single player military score data by a partial name value or player id.
