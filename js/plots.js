@@ -197,6 +197,10 @@ function draw_player_resume_table(query_filter){
 
 function reset_ally_resume_table(){
     var table = document.getElementById("ally_resume_table");
+    var ally_logo = document.getElementById('AllyLogo');
+
+    ally_logo.innerHTML = '<img src="" align="center" width="150">';
+
     table.innerHTML = '';
     table.align = 'center';
     table.className = 'table table-secondary';
@@ -223,6 +227,14 @@ function draw_ally_resume_table(ally_name){
     reset_ally_resume_table();
     return get_ally(ally_name).then(data => {
         var table = document.getElementById("ally_resume_table");
+
+        var logo = data['logo'];
+        if (logo != 'nan'){
+            var ally_logo = document.getElementById('AllyLogo');
+            ally_logo.innerHTML = `<img src="${logo}" align="center" width="150">`;
+        }
+        
+        
         var row = table.insertRow(table.rows.length);
 
         var name = row.insertCell(0);
