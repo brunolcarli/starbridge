@@ -45,23 +45,31 @@ function resolve_player_research_score(query_filter){
 
 
 function resolve_player_military_score(query_filter){
-    return get_player(query_filter).then(player => {
+    return get_player_military_score(query_filter).then(player => {
         if (player == undefined){
             return {};
         }
-        let score_data = [];
-        let rank_data = [];
+        let military = [];
+        let military_destroyed = [];
+        let military_lost = [];
         let dates = [];
         let ships = [];
 
         let scores = player['scores'];
         for (let i in scores) {
-            score_data.push(scores[i]['military']['score']);
-            rank_data.push(scores[i]['military']['rank']);
+            military.push(scores[i]['military']['score']);
+            military_destroyed.push(scores[i]['militaryDestroyed']['score']);
+            military_lost.push(scores[i]['militaryLost']['score']);
             ships.push(scores[i]['military']['ships']);
             dates.push(scores[i]['datetime']);
         }
-        let data = {'score': score_data, 'rank': rank_data, 'dates': dates, 'ships': ships};
+        let data = {
+            'military': military,
+            'destroyed': military_destroyed,
+            'dates': dates,
+            'ships': ships,
+            'lost': military_lost
+        };
         return data;
     });
 }

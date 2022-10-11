@@ -413,19 +413,31 @@ function plot_research_score(query_filter){
 function plot_military_score(query_filter){
     return resolve_player_military_score(query_filter).then(dataset => {
         const ctx = reset_canvas('DynamicChart', 'dynamic_chart');
-        const score = dataset['score'];
-        const dates = dataset['dates'];
 
         const data = {
-            labels: dates,
+            labels: dataset['dates'],
             datasets: [
                 {
                     label: 'Military Score',
-                    data: score,
+                    data: dataset['military'],
                     fill: false,
                     borderColor: 'rgb(175, 92, 99)',
                     tension: 0.5
-                }
+                },
+                {
+                    label: 'Military Destroyed',
+                    data: dataset['destroyed'],
+                    fill: false,
+                    borderColor: 'rgb(15, 92, 9)',
+                    tension: 0.5
+                },
+                {
+                    label: 'Military Lost',
+                    data: dataset['lost'],
+                    fill: false,
+                    borderColor: 'rgb(155, 255, 99)',
+                    tension: 0.5
+                },
             ]
         };
         const chart = new Chart(ctx, {
@@ -1295,11 +1307,7 @@ function update_dynamic_chart(query_filter, value){
         RESEARCH_SCORE: plot_research_score,
         MILITARY_SCORE: plot_military_score,
         SHIP_COUNT: plot_ship_score,
-        MILITARY_BUILT_SCORE: plot_military_built_score,
-        MILITARY_DESTROYED_SCORE: plot_military_destroyed_score,
-        MILITARY_LOST_SCORE: plot_military_lost_score,
         HONOR_SCORE: plot_honor_score,
-        PLAYER_ACTIVITY: plot_activity,
         WEEKDAY_REL_FREQ: plot_player_weekday_relative_freq,
         HOUR_REL_FREQ: plot_player_hour_relative_freq,
         HALFHOUR_REL_FREQ: plot_player_halfhour_relative_freq,
