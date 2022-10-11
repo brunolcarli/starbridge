@@ -135,7 +135,7 @@ function get_player(query_filter){
     date_range = resolve_datetime_input(date_range);
 
     const query = `player(${query_filter} ${date_range} )`;
-    const payload = '{"query": "query{' + query + '{name playerId status planetsCount halfhourMeanActivity{ hours averageProgress } hourMeanActivity{ hours averageProgress } weekdayMeanActivity{ weekdays averageProgress } scoreDiff { datetime total economy research military ships militaryBuilt militaryDestroyed militaryLost honor} alliance { name tag } scores{ timestamp datetime total economy research  military  militaryBuilt  militaryDestroyed militaryLost honor }}}"}';
+    const payload = '{"query": "query{' + query + '{name playerId status planetsCount alliance { name tag } scores{ timestamp datetime total economy research  military  militaryBuilt  militaryDestroyed militaryLost honor }}}"}';
     const options = get_request_options(payload);
     return fetch(URL, options)
     .then(json)
