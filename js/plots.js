@@ -1297,11 +1297,10 @@ function update_ally_chart(ally_name, value){
     else if (value == 'GALAXY_DISTRIBUTION'){
         plot_ally_galaxy_distribution(ally_name);
     }
-    else if (value == 'ALLY_FLLET_REL_FREQ'){
+    else if (value == 'ALLY_FLEET_REL_FREQ'){
         plot_ally_fleet_relative_freq(ally_name);
     }
 }
-
 
 
 function plot_ally_statistics(){
@@ -1321,6 +1320,11 @@ function plot_ally_statistics(){
 function plot_universe_overview(){
     return get_universe_overview().then(dataset => {
         const ctx = reset_canvas('UniverseOverviewChart', 'universe_overview_chart');
+        let section_label = document.getElementById('universe_overview_label');
+        section_label.innerHTML = `
+            <p style="text-align: center">Sistemas solares no eixo X</p>
+            <p style="text-align: center">Galáxias e posição do planeta no eixo Y</p>
+        `;
 
         let collection = {
             top100: [],
@@ -1436,4 +1440,59 @@ function plot_universe_overview(){
         });
         return chart;
     })
+}
+
+
+function plot_universe_fleet_relative_freq(){
+    return get_universe_fleet_relative_frequency().then(dataset => {
+        const ctx = reset_canvas('UniverseOverviewChart', 'universe_overview_chart');
+        let section_label = document.getElementById('universe_overview_label');
+        section_label.innerHTML = '<p style="text-align: center">Frquência calcula sobre os relatorios de combate disponívis</p>';
+
+        const chart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: Object.keys(dataset),
+                datasets: [
+                    {
+                        label: 'Fr% de naves utilizadas nos combates',
+                        data: Object.values(dataset),
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(255, 159, 64, 0.2)',
+                            'rgba(255, 205, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(201, 203, 207, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgb(255, 99, 132)',
+                            'rgb(255, 159, 64)',
+                            'rgb(255, 205, 86)',
+                            'rgb(75, 192, 192)',
+                            'rgb(54, 162, 235)',
+                            'rgb(153, 102, 255)',
+                            'rgb(201, 203, 207)'
+                        ],
+                        borderWidth: 1
+                    }
+                ]
+            },
+            options: {
+                responsive: false
+            }
+        });
+        return chart;
+    });
+}
+
+
+function plot_random_universe_chart(){
+    let number = randint(1, 2);
+    const universe_charts = {
+        1: plot_universe_overview,
+        2: plot_universe_fleet_relative_freq
+    };
+    universe_charts[number]();
 }

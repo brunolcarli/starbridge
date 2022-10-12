@@ -352,3 +352,21 @@ function get_universe_overview(){
         console.error(err);
     });
 }
+
+
+function get_universe_fleet_relative_frequency(){
+  /*
+    Retrieve fleet ships relative frequency based on all universe players.
+    The frequency is calculated by existing and collected combat reports.
+  */
+  const payload = '{"query": "query{ universeFleetRelativeFrequency }"}';
+  const options = get_request_options(payload);
+  return fetch(URL, options)
+  .then(json)
+  .then(response => {
+      return response['data']['universeFleetRelativeFrequency'];
+  })
+  .catch(err => {
+      console.error(err);
+  });
+}
