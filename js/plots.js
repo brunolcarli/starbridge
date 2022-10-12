@@ -267,6 +267,9 @@ function draw_ally_resume_table(ally_name){
         temp.innerHTML = '<b><u>Naves</u></b>';
         temp = row.insertCell(5);
         temp.innerHTML = '<b><u>Rank</u></b>';
+        temp = row.insertCell(6);
+        temp.innerHTML = '<b><u>Relatorios</u></b>';
+
 
         var members = data['members'];
         for (let i in members){
@@ -274,6 +277,26 @@ function draw_ally_resume_table(ally_name){
             if (player_status == 'nan'){
                 player_status = 'Active';
             }
+
+            var reports_count = members[i]['combatReportsCount'];
+            var reports = members[i]['combatReports'];
+
+            if (reports_count > 0){
+                var report_select = '<div class="dropdown">';
+                report_select += '<button class="btn dropdown-toggle" type="button" data-toggle="dropdown"> ';
+                report_select += `${reports_count}<span class="caret"></span></button>`;
+                report_select += '<ul class="dropdown-menu">';
+  
+                for (let j in reports){
+                    var url = reports[j]['url'];
+                    var title = reports[j]['title'];
+                    report_select += `<li><hr /><a href="${url}" target="_blank"> - ${title}</a></li>`;
+                }
+                report_select += '</ul></div>';
+            } else {
+                var report_select = `${reports_count}`;
+            }
+
             row = table.insertRow(table.rows.length);
             temp = row.insertCell(0);
             temp.innerHTML = members[i]['name'];
@@ -287,8 +310,9 @@ function draw_ally_resume_table(ally_name){
             temp.innerHTML = members[i]['shipsCount'];
             temp = row.insertCell(5);
             temp.innerHTML = members[i]['rank'];
+            temp = row.insertCell(6);
+            temp.innerHTML = report_select;
         }
-
     });
 }
 
