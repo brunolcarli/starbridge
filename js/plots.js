@@ -850,160 +850,69 @@ function plot_player_halfhour_relative_freq(query_filter){
 }
 
 
-function plot_activity(query_filter){
-    return resolve_player_activities(query_filter).then(dataset => {
+function plot_player_planets(query_filter){
+    return get_player_planets(query_filter).then(dataset => {
         const ctx = reset_canvas('DynamicChart', 'dynamic_chart');
-        const mixedChart = new Chart(ctx, {
+        const planets = dataset['planets'];
+        const solar_systems = [];
+        const galaxy_pos = [];
+        const planet_names = [];
+        let temp = null;
+        let position = null;
+
+        for (let i in planets){
+            solar_systems.push(planets[i]['solarSystem']);
+            position = `${planets[i]['position']}`;
+            temp = `${planets[i]['galaxy']}.${position}`;
+            galaxy_pos.push({y: parseFloat(temp).toFixed(2), x: planets[i]['solarSystem']});
+            planet_names.push({name: planets[i]['name'], coord: planets[i]['rawCoord']});
+        }
+
+        const data = {
+            labels: solar_systems,
+            datasets: [
+                {
+                    label: 'Coord',
+                    labels: planet_names,
+                    data: galaxy_pos,
+                    type: 'scatter',
+                    borderColor: 'rgb(175, 92, 122)',
+                }
+            ]
+            };
+        const chart = new Chart(ctx, {
             type: 'scatter',
-            data: {
-                labels: dataset['dates'],
-                datasets: [
-                    {
-                        type: 'bar',
-                        label: 'Total (bar)',
-                        data: dataset['total'],
-                        fill: true,
-                        barPercentage: 0.8,
-                        barThickness: 2,
-                        maxBarThickness: 3,
-                        minBarLength: 2,
-                        backgroundColor: [
-                            'rgba(255, 99, 132, 0.2)',
-                        ],
-                        borderColor: [
-                            'rgb(54, 162, 235)',
-                        ],
-                        borderWidth: 1
-                    },
-                    {
-                        type: 'bar',
-                        label: 'Economy (bar)',
-                        data: dataset['economy'],
-                        fill: true,
-                        barPercentage: 0.8,
-                        barThickness: 2,
-                        maxBarThickness: 3,
-                        minBarLength: 2,
-                        backgroundColor: [
-                            'rgba(255, 199, 162, 0.2)',
-                        ],
-                        borderColor: [
-                            'rgb(154, 162, 235)',
-                        ],
-                        borderWidth: 1
-                    },
-                    {
-                        type: 'bar',
-                        label: 'Research (bar)',
-                        data: dataset['research'],
-                        fill: true,
-                        barPercentage: 0.8,
-                        barThickness: 2,
-                        maxBarThickness: 3,
-                        minBarLength: 2,
-                        backgroundColor: [
-                            'rgba(255, 159, 14, 0.2)',
-                        ],
-                        borderColor: [
-                            'rgb(54, 62, 235)',
-                        ],
-                        borderWidth: 1
-                    },
-                    {
-                        type: 'bar',
-                        label: 'Military (bar)',
-                        data: dataset['military'],
-                        fill: true,
-                        barPercentage: 0.8,
-                        barThickness: 2,
-                        maxBarThickness: 3,
-                        minBarLength: 2,
-                        backgroundColor: [
-                            'rgba(55, 15, 64, 0.2)',
-                        ],
-                        borderColor: [
-                            'rgb(201, 203, 7)'
-                        ],
-                        borderWidth: 1
-                    },
-                    {
-                        type: 'line',
-                        label: 'Economy activity',
-                        data: dataset['economy'],
-                        fill: false,
-                        borderColor: 'rgb(75, 52, 99)',
-                        tension: 0.5
-                    },
-                    {
-                        type: 'line',
-                        label: 'Research activity',
-                        data: dataset['research'],
-                        fill: false,
-                        borderColor: 'rgb(200, 52, 129)',
-                        tension: 0.5
-                    },
-                    {
-                        type: 'line',
-                        label: 'Military activity',
-                        data: dataset['military'],
-                        fill: false,
-                        borderColor: 'rgb(57, 25, 99)',
-                        tension: 0.5
-                    },
-                    {
-                        label: 'Fleet count activity',
-                        data: dataset['ships'],
-                        fill: false,
-                        borderColor: 'rgb(65, 252, 190)',
-                        tension: 0.5
-                    },
-                    {
-                        type: 'line',
-                        label: 'Military built activity',
-                        data: dataset['mil_built'],
-                        fill: false,
-                        borderColor: 'rgb(255, 52, 200)',
-                        tension: 0.5
-                    },
-                    {
-                        type: 'line',
-                        label: 'Military destroyed activity',
-                        data: dataset['mil_dest'],
-                        fill: false,
-                        borderColor: 'rgb(100, 52, 199)',
-                        tension: 0.5
-                    },
-                    {
-                        type: 'line',
-                        label: 'Military Lost activity',
-                        data: dataset['mil_lost'],
-                        fill: false,
-                        borderColor: 'rgb(75, 152, 199)',
-                        tension: 0.5
-                    },
-                    {
-                        type: 'line',
-                        label: 'Honor activity',
-                        data: dataset['honor'],
-                        fill: false,
-                        borderColor: 'rgb(175, 152, 199)',
-                        tension: 0.5
-                    },
-                    {
-                        type: 'line',
-                        label: 'Total activity',
-                        data: dataset['total'],
-                        fill: false,
-                        borderColor: 'rgb(175, 92, 99)',
-                        tension: 0.5
-                    },
-                ]
-            },
+            data: data,
             options: {
-                responsive: true
+                responsive: false,
+                scales: {
+                    y: {
+                      title: {
+                        display: true,
+                        text: 'Galaxy'
+                      }
+                    },
+                    x: {
+                        title: {
+                          display: true,
+                          text: 'Solar System'
+                        }
+                      }
+                  },
+                  plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function(ctx) {
+                                let name = ctx.dataset.labels[ctx.dataIndex]['name'];
+                                let coord = ctx.dataset.labels[ctx.dataIndex]['coord'];
+                                return name + ' [' + coord + ']';
+                            }
+                        }
+                    }
+                }
             }
         });
-        return mixedChart;
+    return chart;
     })
 }
 
@@ -1123,81 +1032,54 @@ function plot_player_future_activity(query_filter){
 }
 
 
-//////
-
-function plot_player_planets(query_filter){
-    return get_player_planets(query_filter).then(dataset => {
-        const ctx = reset_canvas('DynamicChart', 'dynamic_chart');
-        const planets = dataset['planets'];
-        const solar_systems = [];
-        const galaxy_pos = [];
-        const planet_names = [];
-        let temp = null;
-        let position = null;
-
-        for (let i in planets){
-            solar_systems.push(planets[i]['solarSystem']);
-            position = `${planets[i]['position']}`;
-            temp = `${planets[i]['galaxy']}.${position}`;
-            galaxy_pos.push({y: parseFloat(temp).toFixed(2), x: planets[i]['solarSystem']});
-            planet_names.push({name: planets[i]['name'], coord: planets[i]['rawCoord']});
-        }
-
-        const data = {
-            labels: solar_systems,
-            datasets: [
-                {
-                    label: 'Coord',
-                    labels: planet_names,
-                    data: galaxy_pos,
-                    type: 'scatter',
-                    borderColor: 'rgb(175, 92, 122)',
-                }
-            ]
-            };
-        const chart = new Chart(ctx, {
-            type: 'scatter',
-            data: data,
-            options: {
-                responsive: false,
-                scales: {
-                    y: {
-                      title: {
-                        display: true,
-                        text: 'Galaxy'
-                      }
-                    },
-                    x: {
-                        title: {
-                          display: true,
-                          text: 'Solar System'
-                        }
-                      }
-                  },
-                  plugins: {
-                    tooltip: {
-                        callbacks: {
-                            label: function(ctx) {
-                                // console.log(ctx);
-                                let name = ctx.dataset.labels[ctx.dataIndex]['name'];
-                                let coord = ctx.dataset.labels[ctx.dataIndex]['coord'];
-                                return name + ' [' + coord + ']';
-                            }
-                        }
-                    }
-                }
-            }
-        });
-    return chart;
-    })
-}
-
-
 //////////////////////////////////////////////
 //
 //           Alliance plots
 //
 //////////////////////////////////////////////
+
+function plot_ally_fleet_relative_freq(ally_name){
+    return get_ally(ally_name).then(dataset => {
+        const ctx = reset_canvas('AllyChart', 'ally_chart');
+
+        const chart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: Object.keys(dataset['fleetRelativeFrequency']),
+                datasets: [
+                    {
+                        label: 'Fr% de naves utilizadas nos combates',
+                        data: Object.values(dataset['fleetRelativeFrequency']),
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(255, 159, 64, 0.2)',
+                            'rgba(255, 205, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(201, 203, 207, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgb(255, 99, 132)',
+                            'rgb(255, 159, 64)',
+                            'rgb(255, 205, 86)',
+                            'rgb(75, 192, 192)',
+                            'rgb(54, 162, 235)',
+                            'rgb(153, 102, 255)',
+                            'rgb(201, 203, 207)'
+                        ],
+                        borderWidth: 1
+                    }
+                ]
+            },
+            options: {
+                responsive: false
+            }
+        });
+        return chart;
+    })
+}
+
 
 function plot_ally_planets(ally_name){
     return get_ally(ally_name).then(dataset => {
@@ -1390,6 +1272,9 @@ function update_ally_chart(ally_name, value){
     }
     else if (value == 'GALAXY_DISTRIBUTION'){
         plot_ally_galaxy_distribution(ally_name);
+    }
+    else if (value == 'ALLY_FLLET_REL_FREQ'){
+        plot_ally_fleet_relative_freq(ally_name);
     }
 }
 

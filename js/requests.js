@@ -315,7 +315,7 @@ function get_ally(ally_name){
       The alliance is filtered by a partial name value.
     */
     const query = `alliance(name_Icontains: \\\"${ally_name}\\\")`;
-    const payload = '{"query": "query{' + query + '{name tag logo founder{ name } members{ playerId name shipsCount rank planetsCount status } planetsDistributionCoords{ galaxy solarSystem position rawCoord } planetsDistributionByGalaxy playersCount planetsCount shipsCount}}"}';
+    const payload = '{"query": "query{' + query + '{name tag logo founder{ name }  fleetRelativeFrequency members{ playerId name shipsCount rank planetsCount status } planetsDistributionCoords{ galaxy solarSystem position rawCoord } planetsDistributionByGalaxy playersCount planetsCount shipsCount}}"}';
     const options = get_request_options(payload);
     return fetch(URL, options)
     .then(json)
