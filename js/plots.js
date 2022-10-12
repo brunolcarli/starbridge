@@ -1135,7 +1135,7 @@ function plot_ally_planets(ally_name){
                     borderColor: 'rgb(175, 92, 122)',
                 }
             ]
-            };
+        };
         const chart = new Chart(ctx, {
             type: 'scatter',
             data: data,
@@ -1328,6 +1328,7 @@ function plot_universe_overview(){
             top300: [],
             rest: [],
             inatives: [],
+            vacancy: []
         };
 
         let rank = null;
@@ -1345,6 +1346,9 @@ function plot_universe_overview(){
             status = dataset[i]['status'];
             if (status == 'i' || status == 'I'){
                 key = 'inatives';
+            }
+            else if (status == 'v' || status == 'vi' || status == 'vI') {
+                key = 'vacancy';
             }
             else if (rank <= 100) {
                 key = 'top100';
@@ -1400,6 +1404,12 @@ function plot_universe_overview(){
                     data: collection['inatives'],
                     type: 'scatter',
                     borderColor: 'rgb(111, 112, 112)',
+                },
+                {
+                    label: 'mdf (Férias)',
+                    data: collection['vacancy'],
+                    type: 'scatter',
+                    borderColor: 'rgb(51, 158, 245)',
                 }
             ]
         };
