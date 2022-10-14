@@ -523,96 +523,6 @@ function plot_ship_score(query_filter){
 }
 
 
-function plot_military_built_score(query_filter){
-    return resolve_player_military_built_score(query_filter).then(dataset => {
-        const ctx = reset_canvas('DynamicChart', 'dynamic_chart');
-        const score = dataset['score'];
-        const dates = dataset['dates'];
-
-        const data = {
-            labels: dates,
-            datasets: [
-                {
-                    label: 'Military Built Score',
-                    data: score,
-                    fill: false,
-                    borderColor: 'rgb(175, 92, 99)',
-                    tension: 0.5
-                }
-            ]
-        };
-        const chart = new Chart(ctx, {
-            type: 'line',
-            data: data,
-            options: {
-                responsive: false
-            }
-        });
-    return chart;
-    })
-}
-
-
-function plot_military_destroyed_score(query_filter){
-    return resolve_player_military_destroyed_score(query_filter).then(dataset => {
-        const ctx = reset_canvas('DynamicChart', 'dynamic_chart');
-        const score = dataset['score'];
-        const dates = dataset['dates'];
-
-        const data = {
-            labels: dates,
-            datasets: [
-                {
-                    label: 'Military Destroyed Score',
-                    data: score,
-                    fill: false,
-                    borderColor: 'rgb(175, 92, 99)',
-                    tension: 0.5
-                }
-            ]
-            };
-        const chart = new Chart(ctx, {
-            type: 'line',
-            data: data,
-            options: {
-                responsive: false
-            }
-        });
-    return chart;
-    })
-}
-
-
-function plot_military_lost_score(query_filter){
-    return resolve_player_military_lost_score(query_filter).then(dataset => {
-        const ctx = reset_canvas('DynamicChart', 'dynamic_chart');
-        const score = dataset['score'];
-        const dates = dataset['dates'];
-
-        const data = {
-            labels: dates,
-            datasets: [
-                {
-                    label: 'Military Lost Score',
-                    data: score,
-                    fill: false,
-                    borderColor: 'rgb(175, 92, 99)',
-                    tension: 0.5
-                }
-            ]
-            };
-        const chart = new Chart(ctx, {
-            type: 'line',
-            data: data,
-            options: {
-                responsive: false
-            }
-        });
-        return chart;
-    })
-}
-
-
 function plot_honor_score(query_filter){
     return resolve_player_honor_score(query_filter).then(dataset => {
         const ctx = reset_canvas('DynamicChart', 'dynamic_chart');
@@ -636,6 +546,73 @@ function plot_honor_score(query_filter){
             data: data,
             options: {
                 responsive: false
+            }
+        });
+    return chart;
+    })
+}
+
+
+function plot_player_planets(query_filter){
+    return get_player_planets(query_filter).then(dataset => {
+        const ctx = reset_canvas('DynamicChart', 'dynamic_chart');
+        const planets = dataset['planets'];
+        const solar_systems = [];
+        const galaxy_pos = [];
+        const planet_names = [];
+        let temp = null;
+        let position = null;
+
+        for (let i in planets){
+            solar_systems.push(planets[i]['solarSystem']);
+            position = `${planets[i]['position']}`;
+            temp = `${planets[i]['galaxy']}.${position}`;
+            galaxy_pos.push({y: parseFloat(temp).toFixed(2), x: planets[i]['solarSystem']});
+            planet_names.push({name: planets[i]['name'], coord: planets[i]['rawCoord']});
+        }
+
+        const data = {
+            labels: solar_systems,
+            datasets: [
+                {
+                    label: 'Coord',
+                    labels: planet_names,
+                    data: galaxy_pos,
+                    type: 'scatter',
+                    borderColor: 'rgb(175, 92, 122)',
+                }
+            ]
+            };
+        const chart = new Chart(ctx, {
+            type: 'scatter',
+            data: data,
+            options: {
+                responsive: false,
+                scales: {
+                    y: {
+                      title: {
+                        display: true,
+                        text: 'Galaxy'
+                      }
+                    },
+                    x: {
+                        title: {
+                          display: true,
+                          text: 'Solar System'
+                        }
+                      }
+                  },
+                  plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function(ctx) {
+                                let name = ctx.dataset.labels[ctx.dataIndex]['name'];
+                                let coord = ctx.dataset.labels[ctx.dataIndex]['coord'];
+                                return name + ' [' + coord + ']';
+                            }
+                        }
+                    }
+                }
             }
         });
     return chart;
@@ -888,73 +865,6 @@ function plot_player_halfhour_relative_freq(query_filter){
         });
         return chart;
     });
-}
-
-
-function plot_player_planets(query_filter){
-    return get_player_planets(query_filter).then(dataset => {
-        const ctx = reset_canvas('DynamicChart', 'dynamic_chart');
-        const planets = dataset['planets'];
-        const solar_systems = [];
-        const galaxy_pos = [];
-        const planet_names = [];
-        let temp = null;
-        let position = null;
-
-        for (let i in planets){
-            solar_systems.push(planets[i]['solarSystem']);
-            position = `${planets[i]['position']}`;
-            temp = `${planets[i]['galaxy']}.${position}`;
-            galaxy_pos.push({y: parseFloat(temp).toFixed(2), x: planets[i]['solarSystem']});
-            planet_names.push({name: planets[i]['name'], coord: planets[i]['rawCoord']});
-        }
-
-        const data = {
-            labels: solar_systems,
-            datasets: [
-                {
-                    label: 'Coord',
-                    labels: planet_names,
-                    data: galaxy_pos,
-                    type: 'scatter',
-                    borderColor: 'rgb(175, 92, 122)',
-                }
-            ]
-            };
-        const chart = new Chart(ctx, {
-            type: 'scatter',
-            data: data,
-            options: {
-                responsive: false,
-                scales: {
-                    y: {
-                      title: {
-                        display: true,
-                        text: 'Galaxy'
-                      }
-                    },
-                    x: {
-                        title: {
-                          display: true,
-                          text: 'Solar System'
-                        }
-                      }
-                  },
-                  plugins: {
-                    tooltip: {
-                        callbacks: {
-                            label: function(ctx) {
-                                let name = ctx.dataset.labels[ctx.dataIndex]['name'];
-                                let coord = ctx.dataset.labels[ctx.dataIndex]['coord'];
-                                return name + ' [' + coord + ']';
-                            }
-                        }
-                    }
-                }
-            }
-        });
-    return chart;
-    })
 }
 
 
@@ -1321,7 +1231,6 @@ function update_ally_chart(ally_name, value){
 function plot_ally_statistics(){
     var ally_name = document.getElementById('AllyFilterInput').value;
     var chart_type = document.getElementById('ally_chart_selection').value;
-
 
     if (!ally_name){
         alert('Necessário informar o nome da aliança!');
