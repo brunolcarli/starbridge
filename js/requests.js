@@ -309,13 +309,72 @@ function get_player_score_prediction(query_filter){
 ///////////////////////////////////
 
 
-function get_ally(ally_name){
+function get_ally_resume(ally_name){
+  /*
+    Retrieve a single alliance data resume.
+    The alliance is filtered by a partial name value.
+  */
+  const query = `alliance(name_Icontains: \\\"${ally_name}\\\")`;
+  const payload = '{"query": "query{' + query + '{name tag logo founder{ name } foundDate members{ playerId name shipsCount rank planetsCount planets{ name rawCoord} status combatReportsCount combatReports{ title url } } playersCount planetsCount shipsCount}}"}';
+  const options = get_request_options(payload);
+  return fetch(URL, options)
+  .then(json)
+  .then(response => {
+      let ally_data = response['data']['alliance'];
+      return ally_data;
+  })
+  .catch(err => {
+      console.error(err);
+  });
+}
+
+
+function get_ally_planets(ally_name){
+  /*
+    Retrieve a single alliance planet coords.
+    The alliance is filtered by a partial name value.
+  */
+  const query = `alliance(name_Icontains: \\\"${ally_name}\\\")`;
+  const payload = '{"query": "query{' + query + '{ planetsDistributionCoords{ galaxy solarSystem position rawCoord } } }"}';
+  const options = get_request_options(payload);
+  return fetch(URL, options)
+  .then(json)
+  .then(response => {
+      let ally_data = response['data']['alliance'];
+      return ally_data;
+  })
+  .catch(err => {
+      console.error(err);
+  });
+}
+
+function get_ally_planets_by_galaxy(ally_name){
+  /*
+    Retrieve a single alliance planet distribution by galaxy.
+    The alliance is filtered by a partial name value.
+  */
+  const query = `alliance(name_Icontains: \\\"${ally_name}\\\")`;
+  const payload = '{"query": "query{' + query + '{ planetsDistributionByGalaxy } }"}';
+  const options = get_request_options(payload);
+  return fetch(URL, options)
+  .then(json)
+  .then(response => {
+      let ally_data = response['data']['alliance'];
+      return ally_data;
+  })
+  .catch(err => {
+      console.error(err);
+  });
+}
+
+
+function get_ally_fleet_rel_freq(ally_name){
     /*
-      Retrieve a single alliance data.
+      Retrieve a single alliance fleet relative frequency.
       The alliance is filtered by a partial name value.
     */
     const query = `alliance(name_Icontains: \\\"${ally_name}\\\")`;
-    const payload = '{"query": "query{' + query + '{name tag logo founder{ name }  fleetRelativeFrequency members{ playerId name shipsCount rank planetsCount status combatReportsCount combatReports{ title url } } planetsDistributionCoords{ galaxy solarSystem position rawCoord } planetsDistributionByGalaxy playersCount planetsCount shipsCount}}"}';
+    const payload = '{"query": "query{' + query + '{fleetRelativeFrequency}}"}';
     const options = get_request_options(payload);
     return fetch(URL, options)
     .then(json)

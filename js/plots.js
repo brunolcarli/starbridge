@@ -213,6 +213,7 @@ function reset_ally_resume_table(){
     var planets_count = header.insertCell(3);
     var ships_count = header.insertCell(4);
     var founder = header.insertCell(5);
+    var found_date = header.insertCell(6);
 
     name.innerHTML = '<b><u>Nome</u></b>';
     tag.innerHTML = '<b><u>TAG</u></b>';
@@ -220,12 +221,13 @@ function reset_ally_resume_table(){
     planets_count.innerHTML = '<b><u>Planetas</u></b>';
     ships_count.innerHTML = '<b><u>Naves</u></b>';
     founder.innerHTML = '<b><u>Fundador</u></b>';
+    found_date.innerHTML = '<b><u>Data de fundação</u></b>';
 }
 
 
 function draw_ally_resume_table(ally_name){
     reset_ally_resume_table();
-    return get_ally(ally_name).then(data => {
+    return get_ally_resume(ally_name).then(data => {
         var table = document.getElementById("ally_resume_table");
 
         var logo = data['logo'];
@@ -233,8 +235,7 @@ function draw_ally_resume_table(ally_name){
             var ally_logo = document.getElementById('AllyLogo');
             ally_logo.innerHTML = `<img src="${logo}" align="center" width="150">`;
         }
-        
-        
+
         var row = table.insertRow(table.rows.length);
 
         var name = row.insertCell(0);
@@ -243,14 +244,15 @@ function draw_ally_resume_table(ally_name){
         var planets_count = row.insertCell(3);
         var ships_count = row.insertCell(4);
         var founder = row.insertCell(5);
+        var found_date = row.insertCell(6);
 
-        // Add some text to the new cells:
         name.innerHTML = data['name'];
         tag.innerHTML = data['tag'];
         players_count.innerHTML = data['playersCount'];
         planets_count.innerHTML = data['planetsCount'];
         ships_count.innerHTML = data['shipsCount'];
         founder.innerHTML = data['founder']['name'];
+        found_date.innerHTML = new Date(data['foundDate']).toLocaleDateString();
         
         var temp = null;
         row = table.insertRow(table.rows.length);
@@ -278,6 +280,7 @@ function draw_ally_resume_table(ally_name){
                 player_status = 'Active';
             }
 
+            // Mount player combat report selection list html
             var reports_count = members[i]['combatReportsCount'];
             var reports = members[i]['combatReports'];
 
@@ -297,6 +300,20 @@ function draw_ally_resume_table(ally_name){
                 var report_select = `${reports_count}`;
             }
 
+            // Mount player planet coords list html
+            var member_planets_count = members[i]['planetsCount'];
+            var member_planets_coords = members[i]['planets'];
+            var member_planets_select = '<div class="dropdown">';
+            member_planets_select += '<button class="btn dropdown-toggle" type="button" data-toggle="dropdown"> ';
+            member_planets_select += `${member_planets_count}<span class="caret"></span></button>`;
+            member_planets_select += '<ul class="dropdown-menu">';
+            for (let j in member_planets_coords){
+                var planet_name = member_planets_coords[j]['name'];
+                var planet_coord = member_planets_coords[j]['rawCoord'];
+                member_planets_select += `<hr /><li>- ${planet_name} [${planet_coord}]</li>`;
+            }
+            member_planets_select += '</ul></div>';
+
             row = table.insertRow(table.rows.length);
             temp = row.insertCell(0);
             temp.innerHTML = members[i]['name'];
@@ -305,7 +322,7 @@ function draw_ally_resume_table(ally_name){
             temp = row.insertCell(2);
             temp.innerHTML = player_status;
             temp = row.insertCell(3);
-            temp.innerHTML = members[i]['planetsCount'];
+            temp.innerHTML = member_planets_select;
             temp = row.insertCell(4);
             temp.innerHTML = members[i]['shipsCount'];
             temp = row.insertCell(5);
@@ -1063,7 +1080,7 @@ function plot_player_future_activity(query_filter){
 //////////////////////////////////////////////
 
 function plot_ally_fleet_relative_freq(ally_name){
-    return get_ally(ally_name).then(dataset => {
+    return get_ally_fleet_rel_freq(ally_name).then(dataset => {
         const ctx = reset_canvas('AllyChart', 'ally_chart');
 
         const chart = new Chart(ctx, {
@@ -1106,7 +1123,7 @@ function plot_ally_fleet_relative_freq(ally_name){
 
 
 function plot_ally_planets(ally_name){
-    return get_ally(ally_name).then(dataset => {
+    return get_ally_planets(ally_name).then(dataset => {
         const ctx = reset_canvas('AllyChart', 'ally_chart');
         const planets = dataset['planetsDistributionCoords'];
         const solar_systems = [];
@@ -1173,7 +1190,7 @@ function plot_ally_planets(ally_name){
 
 
 function plot_ally_galaxy_distribution(query_filter){
-    return get_ally(query_filter).then(dataset => {
+    return get_ally_planets_by_galaxy(query_filter).then(dataset => {
         const ctx = reset_canvas('AllyChart', 'ally_chart');
 
         const distribution = dataset['planetsDistributionByGalaxy'];
@@ -1237,8 +1254,6 @@ function plot_ally_galaxy_distribution(query_filter){
         return chart;
     });
 }
-
-
 
 
 //////////////////////////////////////////////
