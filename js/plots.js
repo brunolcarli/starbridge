@@ -56,6 +56,7 @@ function draw_players_list(){
                 player_status = 'Ativo';
             }
 
+            // Mount player combat report selection list
             var reports_count = data[i]['combatReportsCount'];
             var reports = data[i]['combatReports'];
 
@@ -71,6 +72,20 @@ function draw_players_list(){
             }
             report_select += '</ul></div>';
 
+            // Mount player planet coords list html
+            var player_planets_count = data[i]['planetsCount'];
+            var player_planets_coords = data[i]['planets'];
+            var player_planets_select = '<div class="dropdown">';
+            player_planets_select += '<button class="btn dropdown-toggle" type="button" data-toggle="dropdown"> ';
+            player_planets_select += `${player_planets_count}<span class="caret"></span></button>`;
+            player_planets_select += '<ul class="dropdown-menu">';
+            for (let j in player_planets_coords){
+                var planet_name = player_planets_coords[j]['name'];
+                var planet_coord = player_planets_coords[j]['rawCoord'];
+                player_planets_select += `<hr /><li>- ${planet_name} [${planet_coord}]</li>`;
+            }
+            player_planets_select += '</ul></div>';
+
             var player_id = row.insertCell(0);
             var name = row.insertCell(1);
             var status = row.insertCell(2);
@@ -84,7 +99,7 @@ function draw_players_list(){
             name.innerHTML = data[i]['name'];
             status.innerHTML = player_status;
             rank.innerHTML = data[i]['rank'];
-            planets.innerHTML = data[i]['planetsCount'];
+            planets.innerHTML = player_planets_select;
             ally.innerHTML = player_ally;
             ships.innerHTML = data[i]['shipsCount'];
             combat_reports.innerHTML = report_select;
@@ -173,12 +188,26 @@ function draw_player_resume_table(query_filter){
         }
         report_select += '</ul></div>';
 
+        // Mount player planet coords list html
+        var player_planets_count = data['planetsCount'];
+        var player_planets_coords = data['planets'];
+        var player_planets_select = '<div class="dropdown">';
+        player_planets_select += '<button class="btn dropdown-toggle" type="button" data-toggle="dropdown"> ';
+        player_planets_select += `${player_planets_count}<span class="caret"></span></button>`;
+        player_planets_select += '<ul class="dropdown-menu">';
+        for (let j in player_planets_coords){
+            var planet_name = player_planets_coords[j]['name'];
+            var planet_coord = player_planets_coords[j]['rawCoord'];
+            player_planets_select += `<hr /><li>- ${planet_name} [${planet_coord}]</li>`;
+        }
+        player_planets_select += '</ul></div>';
+
         player_id.innerHTML = data['playerId'];
         name.innerHTML = data['name'];
         status.innerHTML = player_status;
         rank.innerHTML = total_score['rank'];
         score.innerHTML = total_score['score'];
-        planets.innerHTML = data['planetsCount'];
+        planets.innerHTML = player_planets_select;
         ally.innerHTML = player_ally;
         ships.innerHTML = data['shipsCount'];
         combat_reports.innerHTML = report_select;

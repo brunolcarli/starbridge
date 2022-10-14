@@ -246,7 +246,7 @@ function get_player_resume(query_filter){
     The player is filtered by a partial name value or player id.
   */
   const query = `player(${query_filter})`;
-  const payload = '{"query": "query{' + query + '{name playerId status planetsCount shipsCount alliance { name tag } scores{ total } combatReportsCount combatReports{ title url } }}"}';
+  const payload = '{"query": "query{' + query + '{name playerId status planetsCount planets {name rawCoord} shipsCount alliance { name tag } scores{ total } combatReportsCount combatReports{ title url } }}"}';
   const options = get_request_options(payload);
   return fetch(URL, options)
   .then(json)
@@ -266,7 +266,7 @@ function get_players_list(query_filters){
     The players may be filtered by a rank range, from min to max rank.
     The players may be filtered by a list os possible status.
   */
-  const payload = '{"query": "query{players' + query_filters + '{name playerId status planetsCount shipsCount rank alliance { name tag } combatReportsCount combatReports{ title url } }}"}';
+  const payload = '{"query": "query{players' + query_filters + '{name playerId status planetsCount planets {name rawCoord} shipsCount rank alliance { name tag } combatReportsCount combatReports{ title url } }}"}';
   const options = get_request_options(payload);
   return fetch(URL, options)
   .then(json)
