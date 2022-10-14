@@ -1447,7 +1447,7 @@ function plot_universe_fleet_relative_freq(){
     return get_universe_fleet_relative_frequency().then(dataset => {
         const ctx = reset_canvas('UniverseOverviewChart', 'universe_overview_chart');
         let section_label = document.getElementById('universe_overview_label');
-        section_label.innerHTML = '<p style="text-align: center">Frquência calcula sobre os relatorios de combate disponívis</p>';
+        section_label.innerHTML = '<p style="text-align: center">Frequência calculada sobre os relatórios de combate disponíveis</p>';
 
         const chart = new Chart(ctx, {
             type: 'bar',
@@ -1488,11 +1488,164 @@ function plot_universe_fleet_relative_freq(){
 }
 
 
+function plot_universe_ranks(){
+    return get_general_ranks().then(dataset => {
+        const ctx = reset_canvas('UniverseOverviewChart', 'universe_overview_chart');
+        let section_label = document.getElementById('universe_overview_label');
+        section_label.innerHTML = '<p style="text-align: center">Ranks Gerais do universo (Jogadores ativos)</p>';
+        
+        let names = [];
+        let total = [];
+        let economy = [];
+        let research = [];
+        let military = [];
+        let built = [];
+        let destroyed = [];
+        let lost = [];
+        let honor = [];
+
+        for (let i in dataset){
+            var scores = dataset[i]['scores'];
+            if (scores.length < 1){continue};
+
+            names.push(`${dataset[i]['name']} (Rank Total: ${dataset[i]['rank']})`);
+            total.push({
+                x: dataset[i]['rank'],
+                y: scores.at(-1)['total']['rank']
+            });
+            economy.push({
+                x: dataset[i]['rank'],
+                y: scores.at(-1)['economy']['rank']
+            });
+            research.push({
+                x: dataset[i]['rank'],
+                y: scores.at(-1)['research']['rank']
+            });
+            military.push({
+                x: dataset[i]['rank'],
+                y: scores.at(-1)['military']['rank']
+            });
+            built.push({
+                x: dataset[i]['rank'],
+                y: scores.at(-1)['militaryBuilt']['rank']
+            });
+            destroyed.push({
+                x: dataset[i]['rank'],
+                y: scores.at(-1)['militaryDestroyed']['rank']
+            });
+            lost.push({
+                x: dataset[i]['rank'],
+                y: scores.at(-1)['militaryLost']['rank']
+            });
+            honor.push({
+                x: dataset[i]['rank'],
+                y: scores.at(-1)['honor']['rank']
+            });
+        }
+
+        const data = {
+            labels: names,
+            datasets: [
+                {
+                    label: 'Total',
+                    labels: names,
+                    data: total,
+                    type: 'scatter',
+                    borderColor: `rgb(${randint(1, 255)}, ${randint(1, 255)}, ${randint(1, 255)})`,
+                },
+                {
+                    label: 'Economia',
+                    labels: names,
+                    data: economy,
+                    type: 'scatter',
+                    borderColor: `rgb(${randint(1, 255)}, ${randint(1, 255)}, ${randint(1, 255)})`,
+                },
+                {
+                    label: 'Pesquisa',
+                    labels: names,
+                    data: research,
+                    type: 'scatter',
+                    borderColor: `rgb(${randint(1, 255)}, ${randint(1, 255)}, ${randint(1, 255)})`,
+                },
+                {
+                    label: 'Militar',
+                    labels: names,
+                    data: military,
+                    type: 'scatter',
+                    borderColor: `rgb(${randint(1, 255)}, ${randint(1, 255)}, ${randint(1, 255)})`,
+                },
+                {
+                    label: 'Militar Construído',
+                    labels: names,
+                    data: built,
+                    type: 'scatter',
+                    borderColor: `rgb(${randint(1, 255)}, ${randint(1, 255)}, ${randint(1, 255)})`,
+                },
+                {
+                    label: 'Militar Destruído',
+                    labels: names,
+                    data: destroyed,
+                    type: 'scatter',
+                    borderColor: `rgb(${randint(1, 255)}, ${randint(1, 255)}, ${randint(1, 255)})`,
+                },
+                {
+                    label: 'Militar Perdido',
+                    labels: names,
+                    data: lost,
+                    type: 'scatter',
+                    borderColor: `rgb(${randint(1, 255)}, ${randint(1, 255)}, ${randint(1, 255)})`,
+                },
+                {
+                    label: 'Honra',
+                    labels: names,
+                    data: honor,
+                    type: 'scatter',
+                    borderColor: `rgb(${randint(1, 255)}, ${randint(1, 255)}, ${randint(1, 255)})`,
+                }
+            ]
+        };
+        const chart = new Chart(ctx, {
+            type: 'scatter',
+            data: data,
+            options: {
+                responsive: false,
+                scales: {
+                    y: {
+                      title: {
+                        display: true,
+                        text: 'Rank Categoria'
+                      }
+                    },
+                    x: {
+                        title: {
+                          display: true,
+                          text: 'Rank Total'
+                        }
+                      }
+                  },
+                  plugins: {
+                    tooltip: {
+                        callbacks: {
+                            label: function(ctx) {
+                                var cat_rank = ` ${ctx.dataset['label']}: (${ctx.raw['y']})`;
+                                return ctx.dataset.labels[ctx.dataIndex] + `${cat_rank}`;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    return chart;
+    })
+}
+
+
 function plot_random_universe_chart(){
-    let number = randint(1, 2);
+    let number = randint(1, 3);
     const universe_charts = {
         1: plot_universe_overview,
-        2: plot_universe_fleet_relative_freq
+        2: plot_universe_fleet_relative_freq,
+        3: plot_universe_ranks
     };
     universe_charts[number]();
 }

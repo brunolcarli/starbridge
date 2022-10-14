@@ -370,3 +370,25 @@ function get_universe_fleet_relative_frequency(){
       console.error(err);
   });
 }
+
+
+function get_general_ranks(){
+  /*
+    Retrieve all players ranks.
+  */
+  const today = new Date();
+  const start_point = new Date(today);
+  start_point.setHours(start_point.getHours() - 2);
+  const date_filter =  ` datetime_Gte: \\\"${start_point.toISOString()}\\\" `
+
+  const payload = `{"query": "query{ players (status: \\\"nan\\\"  rank_Lte: 400 ${date_filter} ) { name  rank scores { total economy research military militaryBuilt militaryDestroyed militaryLost honor} }  }"}`;
+  const options = get_request_options(payload);
+  return fetch(URL, options)
+  .then(json)
+  .then(response => {
+      return response['data']['players'];
+  })
+  .catch(err => {
+      console.error(err);
+  });
+}
