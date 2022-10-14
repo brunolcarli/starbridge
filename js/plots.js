@@ -58,23 +58,18 @@ function draw_players_list(){
 
             var reports_count = data[i]['combatReportsCount'];
             var reports = data[i]['combatReports'];
-            
 
-            if (reports_count > 0){
-                var report_select = '<div class="dropdown">';
-                report_select += '<button class="btn dropdown-toggle" type="button" data-toggle="dropdown"> ';
-                report_select += `${reports_count}<span class="caret"></span></button>`;
-                report_select += '<ul class="dropdown-menu">';
-  
-                for (let j in reports){
-                    var url = reports[j]['url'];
-                    var title = reports[j]['title'];
-                    report_select += `<li><hr /><a href="${url}" target="_blank"> - ${title}</a></li>`;
-                }
-                report_select += '</ul></div>';
-            } else {
-                var report_select = `${reports_count}`;
+            var report_select = '<div class="dropdown">';
+            report_select += '<button class="btn dropdown-toggle" type="button" data-toggle="dropdown"> ';
+            report_select += `${reports_count}<span class="caret"></span></button>`;
+            report_select += '<ul class="dropdown-menu">';
+
+            for (let j in reports){
+                var url = reports[j]['url'];
+                var title = reports[j]['title'];
+                report_select += `<hr /><li><a href="${url}" target="_blank" title="View on forum"> - ${title}</a></li>`;
             }
+            report_select += '</ul></div>';
 
             var player_id = row.insertCell(0);
             var name = row.insertCell(1);
@@ -165,22 +160,18 @@ function draw_player_resume_table(query_filter){
         var reports_count = data['combatReportsCount'];
         var reports = data['combatReports'];
         
+        // Build player combat reports selection list
+        var report_select = '<div class="dropdown">';
+        report_select += '<button class="btn dropdown-toggle" type="button" data-toggle="dropdown"> ';
+        report_select += `${reports_count}<span class="caret"></span></button>`;
+        report_select += '<ul class="dropdown-menu">';
 
-        if (reports_count > 0){
-            var report_select = '<div class="dropdown">';
-            report_select += '<button class="btn dropdown-toggle" type="button" data-toggle="dropdown"> ';
-            report_select += `${reports_count}<span class="caret"></span></button>`;
-            report_select += '<ul class="dropdown-menu">';
-
-            for (let j in reports){
-                var url = reports[j]['url'];
-                var title = reports[j]['title'];
-                report_select += `<li><hr /><a href="${url}" target="_blank"> - ${title}</a></li>`;
-            }
-            report_select += '</ul></div>';
-        } else {
-            var report_select = `${reports_count}`;
+        for (let j in reports){
+            var url = reports[j]['url'];
+            var title = reports[j]['title'];
+            report_select += `<hr /><li><a href="${url}" target="_blank" title="View on forum"> - ${title}</a></li>`;
         }
+        report_select += '</ul></div>';
 
         player_id.innerHTML = data['playerId'];
         name.innerHTML = data['name'];
@@ -284,22 +275,18 @@ function draw_ally_resume_table(ally_name){
             var reports_count = members[i]['combatReportsCount'];
             var reports = members[i]['combatReports'];
 
-            if (reports_count > 0){
-                var report_select = '<div class="dropdown">';
-                report_select += '<button class="btn dropdown-toggle" type="button" data-toggle="dropdown"> ';
-                report_select += `${reports_count}<span class="caret"></span></button>`;
-                report_select += '<ul class="dropdown-menu">';
-  
-                for (let j in reports){
-                    var url = reports[j]['url'];
-                    var title = reports[j]['title'];
-                    report_select += `<li><hr /><a href="${url}" target="_blank"> - ${title}</a></li>`;
-                }
-                report_select += '</ul></div>';
-            } else {
-                var report_select = `${reports_count}`;
-            }
+            var report_select = '<div class="dropdown">';
+            report_select += '<button class="btn dropdown-toggle" type="button" data-toggle="dropdown"> ';
+            report_select += `${reports_count}<span class="caret"></span></button>`;
+            report_select += '<ul class="dropdown-menu">';
 
+            for (let j in reports){
+                var url = reports[j]['url'];
+                var title = reports[j]['title'];
+                report_select += `<hr /><li><a href="${url}" target="_blank" title="View on forum"> - ${title}</a></li>`;
+            }
+            report_select += '</ul></div>';
+ 
             // Mount player planet coords list html
             var member_planets_count = members[i]['planetsCount'];
             var member_planets_coords = members[i]['planets'];
