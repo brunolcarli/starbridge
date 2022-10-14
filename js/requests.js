@@ -451,3 +451,33 @@ function get_general_ranks(){
       console.error(err);
   });
 }
+
+
+///////////////////////////////////
+//
+//     Authorization requests
+//
+///////////////////////////////////
+
+
+function login_mutation(username, password){
+    /*
+      Sends user credentials to log in Invictus system.
+      If login succeeds, the user token is returned to send
+      as Bearer token on http authorization headers in protected
+      requests.
+    */
+      const query = `logIn(username: \\\"${username}\\\" password: \\\"${password}\\\")`;
+      const payload = '{"query": "mutation{' + query + '{ token }}"}';
+      const options = get_request_options(payload);
+      return fetch(URL, options)
+      .then(json)
+      .then(response => {
+          console.log(response)
+          return response['data']['logIn'];
+      })
+      .catch(err => {
+        alert('Usuário ou senha incorretos!');
+        console.error(err);
+      });
+}
