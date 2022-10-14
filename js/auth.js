@@ -18,7 +18,10 @@ function log_in(){
             alert('Usuário ou senha incorretos!');
             return
         }
-        localStorage.setItem('USER_TOKEN', {username: username, token: token});
+        localStorage.setItem(
+            'USER_TOKEN',
+            JSON.stringify({username: username, token: token})
+        );
         alert(`Login autenticado com sucesso para usuário ${username}`);
     });
 }
