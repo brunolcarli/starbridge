@@ -418,7 +418,7 @@ function resolve_player_fleet_record(){
     var input_data = `{ playerId: ${parseInt(player_id)} `;
     input_data += `coord: \\\"${coords}\\\" `;
     input_data += `username: \\\"${credentials['username']}\\\" `;
-    input_data += `fleet: ${fleet} }`
+    input_data += `fleet: ${fleet} }`;
 
     var authorization = `Bearer ${credentials['token']}`;
 
@@ -427,7 +427,16 @@ function resolve_player_fleet_record(){
             alert('Falha ao salvar os dados. Recarregue a página e tente novamente!');
             return
         }
-        alert('Registro: ' + JSON.stringify(response));
+        var fleet_record = response['fleetRecord'];
+        var registered_data = `Data de registro: ${Date(fleet_record['datetime']).toLocaleString()}\r\n`;
+        registered_data += `Jogador: ${fleet_record['player']['name']}\r\n`;
+        registered_data += `Coordenadas: ${fleet_record['coord']}\r\n`;
+        registered_data += `Naves:\r\n`;
+        for (let i in fleet_record['fleet']){
+            registered_data += `${i}: ${fleet_record['fleet'][i]}\r\n`;
+        }
+
+        alert('Registro:\r\n\r\n' + registered_data);
         window.location.href = 'send.html';
     });
 }
