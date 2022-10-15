@@ -495,6 +495,13 @@ function plot_military_score(query_filter){
                     borderColor: 'rgb(155, 255, 99)',
                     tension: 0.5
                 },
+                {
+                    label: 'Military Built',
+                    data: dataset['built'],
+                    fill: false,
+                    borderColor: 'rgb(1, 255, 1)',
+                    tension: 0.5
+                },
             ]
         };
         const chart = new Chart(ctx, {
