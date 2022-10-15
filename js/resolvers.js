@@ -52,6 +52,7 @@ function resolve_player_military_score(query_filter){
         let military = [];
         let military_destroyed = [];
         let military_lost = [];
+        let military_built = [];
         let dates = [];
         let ships = [];
 
@@ -60,6 +61,7 @@ function resolve_player_military_score(query_filter){
             military.push(scores[i]['military']['score']);
             military_destroyed.push(scores[i]['militaryDestroyed']['score']);
             military_lost.push(scores[i]['militaryLost']['score']);
+            military_built.push(scores[i]['militaryBuilt']['score']);
             ships.push(scores[i]['military']['ships']);
             dates.push(scores[i]['datetime']);
         }
@@ -68,7 +70,8 @@ function resolve_player_military_score(query_filter){
             'destroyed': military_destroyed,
             'dates': dates,
             'ships': ships,
-            'lost': military_lost
+            'lost': military_lost,
+            'built': military_built
         };
         return data;
     });
@@ -324,4 +327,90 @@ function list_players(){
         query_filter = `( ${query_filter} )`;
     }
     return get_players_list(query_filter);
+}
+
+
+function resolve_send_player_fleet_player_selection(){
+    return get_players_name_id().then(players => {
+        let player_selection_div = document.getElementById('send_player_fleet_select_player');
+        let player_selection_html = '<div style="text-align: center">';
+        player_selection_html += '<label for="player_selection">Selecione um jogador:</label>';
+        player_selection_html += '<select name="player_selection" id="FleetRecordPlayerInput">';
+        // Fills player selection list
+        for (let i in players){
+            player_selection_html += `<option value="${players[i]['playerId']}">${players[i]['name']}</option>`;
+        }
+        player_selection_html += '</select></div><br />';
+        player_selection_div.innerHTML = player_selection_html;
+    });
+}
+
+
+function resolve_player_fleet_record(){
+    var player_id = document.getElementById('FleetRecordPlayerInput').value;
+    var galaxy = document.getElementById('FleetRecordGalaxyInput').value;
+    var solar_system = document.getElementById('FleetRecordSolarSystemInput').value;
+    var position = document.getElementById('FleetRecordPositionInput').value;
+    var credentials = JSON.parse(localStorage.getItem('USER_TOKEN'));
+
+    const fleet_input_ids = [
+        'LIGHT_FIGHTER',
+        'HEAVY_FIGHTER',
+        'CRUISER',
+        'BATTLESHIP',
+        'BATTLECRUISER',
+        'BOMBER',
+        'DESTROYER',
+        'DEATHSTAR',
+        'REAPER',
+        'PATHFINDER',
+        'SMALL_CARGO',
+        'LARGE_CARGO',
+        'COLONY_SHIP',
+        'RECYCLER',
+        'ESPIONAGE_PROBE'
+    ];
+    var fleet = '';
+
+    // parse planet coord
+    if (!galaxy || !solar_system || !position){
+        alert('As coordenadas do planeta estão incompletas!');
+        return
+    }
+    else if (galaxy < 1 || solar_system < 1 || position < 1 || galaxy > 5 || solar_system > 499 || position > 15){
+        alert('Coordenadas inválidas!');
+        return
+    }
+    else {
+        var coords = `${galaxy}:${solar_system}:${position}`;
+    }
+
+    // parse fleet
+    for (let i in fleet_input_ids){
+        var ship = document.getElementById(fleet_input_ids[i]).value;
+        if (!ship || ship == 0){continue};
+        if (ship < 0){
+            alert('Número de naves não pode ser negativo');
+            return
+        }
+        fleet += `${fleet_input_ids[i]}: ${parseInt(ship)} `;
+    }
+    if (!fleet){
+        alert('Obrigatório prencher alguma frota');
+        return
+    }
+    else{
+        fleet = `{${fleet}}`;
+    }
+
+    var input_data = `{ playerId: ${parseInt(player_id)} `;
+    input_data += `coord: \\\"${coords}\\\" `;
+    input_data += `username: \\\"${credentials['username']}\\\" `;
+    input_data += `fleet: ${fleet} }`
+
+    var authorization = `Bearer ${credentials['token']}`;
+
+    create_fleet_record_mutation(input_data, authorization).then(response =>{
+        alert('Registro: ' + JSON.stringify(response));
+    });
 }
