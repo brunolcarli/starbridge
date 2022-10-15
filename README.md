@@ -7,6 +7,9 @@
 
 *Ogame data tracker*
 
+> ![Version badge](https://img.shields.io/badge/version-0.0.0-silver.svg)
+
+
 [Available on GitHub Pages](https://brunolcarli.github.io/starbridge/)
 </td></tr></table>
 
