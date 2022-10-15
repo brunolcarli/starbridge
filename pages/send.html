@@ -77,6 +77,193 @@
       </ol>
     </nav>
 
+    <!-- FORM INPUTS -->
+    <!-- Select player -->
+    <span class="input-group-text">&#9998; Cadastrar frota de um jogador</span>  <!-- &#9998; is the ASCII code for the pencil icon emoji -->
+    <hr />
+    <div id="send_player_fleet_select_player"></div>
 
+    <!-- Planet coords -->
+    <h5 align="center">Coordenadas da frota</h5>
+    <div class="input-group flex-nowrap">
+      <span class="input-group-text">&#127756;</span>
+      <input type="number" class="form-control" placeholder="Galáxia" id="FleetRecordGalaxyInput" aria-label="FleetRecordGalaxy" aria-describedby="addon-wrapping" min="1" max="5">
+      <span class="input-group-text">&#9728;</span>
+      <input type="number" class="form-control" placeholder="Sistema Solar" id="FleetRecordSolarSystemInput" aria-label="FleetRecordSolarSystem" aria-describedby="addon-wrapping" min="1" max="499">
+      <span class="input-group-text">&#127760;</span>
+      <input type="number" class="form-control" placeholder="Posição" id="FleetRecordPositionInput" aria-label="FleetRecordPosition" aria-describedby="addon-wrapping" min="1" max="15">
+  </div>
+  <br />
+    
+  <h4 align="center">Especificacão da frota</h4>
+  <div class="row row-cols-1 row-cols-md-6 g-10">
+    <div class="col">
+      <!-- LIGHT FIGHTER -->
+      <div class="card text-white bg-dark" style="width: 7rem;">
+        <img src="../static/img/light_fighter.png" class="card-img-top" alt="Caça Ligeiro">
+        <div class="card-body">
+          <div class="input-group input-group-sm mb-1">
+            <input type="number" class="form-control" placeholder="0" id="LIGHT_FIGHTER" aria-label="CL" aria-describedby="inputGroup-sizing-sm">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <!-- HEAVY FIGHTER -->
+      <div class="card text-white bg-dark" style="width: 7rem;">
+        <img src="../static/img/heavy_fighter.png" class="card-img-top" alt="Caça Pesado">
+        <div class="card-body">
+          <div class="input-group input-group-sm mb-1">
+            <input type="number" class="form-control" placeholder="0" id="HEAVY_FIGHTER" aria-label="CP" aria-describedby="inputGroup-sizing-sm">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <!-- CRUISER -->
+      <div class="card text-white bg-dark" style="width: 7rem;">
+        <img src="../static/img/cruiser.png" class="card-img-top" alt="Cruzador">
+        <div class="card-body">
+          <div class="input-group input-group-sm mb-1">
+            <input type="number" class="form-control" placeholder="0" id="CRUISER" aria-label="CZ" aria-describedby="inputGroup-sizing-sm">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <!-- BATTLESHIP -->
+      <div class="card text-white bg-dark" style="width: 7rem;">
+        <img src="../static/img/battleship.png" class="card-img-top" alt="Nave de Batalha">
+        <div class="card-body">
+          <div class="input-group input-group-sm mb-1">
+            <input type="number" class="form-control" placeholder="0" id="BATTLESHIP" aria-label="NB" aria-describedby="inputGroup-sizing-sm">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <!-- BATTLECRUISER -->
+      <div class="card text-white bg-dark" style="width: 7rem;">
+        <img src="../static/img/battlecruiser.png" class="card-img-top" alt="Interceptador">
+        <div class="card-body">
+          <div class="input-group input-group-sm mb-1">
+            <input type="number" class="form-control" placeholder="0" id="BATTLECRUISER" aria-label="INT" aria-describedby="inputGroup-sizing-sm">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <!-- BOMBER -->
+      <div class="card text-white bg-dark" style="width: 7rem;">
+        <img src="../static/img/bomber.png" class="card-img-top" alt="Bombardeiro">
+        <div class="card-body">
+          <div class="input-group input-group-sm mb-1">
+            <input type="number" class="form-control" placeholder="0" id="BOMBER" aria-label="BB" aria-describedby="inputGroup-sizing-sm">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <!-- DESTROYER -->
+      <div class="card text-white bg-dark" style="width: 7rem;">
+        <img src="../static/img/destroyer.png" class="card-img-top" alt="Destruidor">
+        <div class="card-body">
+          <div class="input-group input-group-sm mb-1">
+            <input type="number" class="form-control" placeholder="0" id="DESTROYER" aria-label="DD" aria-describedby="inputGroup-sizing-sm">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <!-- DEATHSTAR -->
+      <div class="card text-white bg-dark" style="width: 7rem;">
+        <img src="../static/img/deathstar.png" class="card-img-top" alt="Estrela da Morte">
+        <div class="card-body">
+          <div class="input-group input-group-sm mb-1">
+            <input type="number" class="form-control" placeholder="0" id="DEATHSTAR" aria-label="EDM" aria-describedby="inputGroup-sizing-sm">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <!-- REAPER -->
+      <div class="card text-white bg-dark" style="width: 7rem;">
+        <img src="../static/img/reaper.png" class="card-img-top" alt="Ceifeira">
+        <div class="card-body">
+          <div class="input-group input-group-sm mb-1">
+            <input type="number" class="form-control" placeholder="0" id="REAPER" aria-label="RP" aria-describedby="inputGroup-sizing-sm">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <!-- PATHFINDER -->
+      <div class="card text-white bg-dark" style="width: 7rem;">
+        <img src="../static/img/pathfinder.png" class="card-img-top" alt="Explorador">
+        <div class="card-body">
+          <div class="input-group input-group-sm mb-1">
+            <input type="number" class="form-control" placeholder="0" id="PATHFINDER" aria-label="EXP" aria-describedby="inputGroup-sizing-sm">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <!-- SMALL CARGO -->
+      <div class="card text-white bg-dark" style="width: 7rem;">
+        <img src="../static/img/small_cargo.png" class="card-img-top" alt="Cargueiro Pequeno">
+        <div class="card-body">
+          <div class="input-group input-group-sm mb-1">
+            <input type="number" class="form-control" placeholder="0" id="SMALL_CARGO" aria-label="CP" aria-describedby="inputGroup-sizing-sm">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <!-- LARGE CARGO -->
+      <div class="card text-white bg-dark" style="width: 7rem;">
+        <img src="../static/img/large_cargo.png" class="card-img-top" alt="Cargueiro Grande">
+        <div class="card-body">
+          <div class="input-group input-group-sm mb-1">
+            <input type="number" class="form-control" placeholder="0" id="LARGE_CARGO" aria-label="CG" aria-describedby="inputGroup-sizing-sm">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <!-- COLONY SHIP -->
+      <div class="card text-white bg-dark" style="width: 7rem;">
+        <img src="../static/img/colony_ship.png" class="card-img-top" alt="Nave Colonizadora">
+        <div class="card-body">
+          <div class="input-group input-group-sm mb-1">
+            <input type="number" class="form-control" placeholder="0" id="COLONY_SHIP" aria-label="NC" aria-describedby="inputGroup-sizing-sm">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <!-- RECYCLER -->
+      <div class="card text-white bg-dark" style="width: 7rem;">
+        <img src="../static/img/recycler.png" class="card-img-top" alt="Reciclador">
+        <div class="card-body">
+          <div class="input-group input-group-sm mb-1">
+            <input type="number" class="form-control" placeholder="0" id="RECYCLER" aria-label="RC" aria-describedby="inputGroup-sizing-sm">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <!-- ESPIONAGE PROBE -->
+      <div class="card text-white bg-dark" style="width: 7rem;">
+        <img src="../static/img/espionage_probe.png" class="card-img-top" alt="Sonda de Espionagem">
+        <div class="card-body">
+          <div class="input-group input-group-sm mb-1">
+            <input type="number" class="form-control" placeholder="0" id="ESPIONAGE_PROBE" aria-label="SE" aria-describedby="inputGroup-sizing-sm">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br />
+  <button type="button" class="btn btn-success btn-block" onclick="resolve_player_fleet_record()">&#10003; Enviar</button>
   </body>
 </html>
