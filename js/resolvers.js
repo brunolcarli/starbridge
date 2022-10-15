@@ -335,19 +335,31 @@ function resolve_send_player_fleet_player_selection(){
         let player_selection_div = document.getElementById('send_player_fleet_select_player');
         let player_selection_html = '<div style="text-align: center">';
         player_selection_html += '<label for="player_selection">Selecione um jogador:</label>';
-        player_selection_html += '<select name="player_selection" id="FleetRecordPlayerInput">';
+        player_selection_html += '<input type="text" list="FleetRecordPlayerInput" id="PlayerSelector" placeholder="Nome do jogador">';
+        player_selection_html += '<datalist name="player_selection" id="FleetRecordPlayerInput">';
         // Fills player selection list
         for (let i in players){
             player_selection_html += `<option value="${players[i]['playerId']}">${players[i]['name']}</option>`;
         }
-        player_selection_html += '</select></div><br />';
+        player_selection_html += '</datalist></div><br />';
         player_selection_div.innerHTML = player_selection_html;
     });
 }
 
 
 function resolve_player_fleet_record(){
-    var player_id = document.getElementById('FleetRecordPlayerInput').value;
+    var player_id = $('#PlayerSelector').val();
+    // Validate player input
+    if (!player_id){
+        alert('Necessário escolher um jogador!');
+        return
+    }
+    var inputed = $("#FleetRecordPlayerInput").find("option[value='" + player_id + "']");
+    if (inputed == null || inputed.length <= 0){
+        alert('Jogador inválido!');
+        return
+    }
+
     var galaxy = document.getElementById('FleetRecordGalaxyInput').value;
     var solar_system = document.getElementById('FleetRecordSolarSystemInput').value;
     var position = document.getElementById('FleetRecordPositionInput').value;
@@ -410,7 +422,12 @@ function resolve_player_fleet_record(){
 
     var authorization = `Bearer ${credentials['token']}`;
 
-    create_fleet_record_mutation(input_data, authorization).then(response =>{
+    create_fleet_record_mutation(input_data, authorization).then(response => {
+        if (!response){
+            alert('Falha ao salvar os dados. Recarregue a página e tente novamente!');
+            return
+        }
         alert('Registro: ' + JSON.stringify(response));
+        window.location.href = 'send.html';
     });
 }
