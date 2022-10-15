@@ -452,6 +452,21 @@ function get_general_ranks(){
   });
 }
 
+function get_players_name_id(){
+    const payload = '{"query": "query{ players(status_In: [\\\"nan\\\", \\\"i\\\", \\\"I\\\"]){ playerId name }}"}';
+    const options = get_request_options(payload);
+    return fetch(URL, options)
+    .then(json)
+    .then(response => {
+        return response['data']['players'];
+    })
+    .catch(err => {
+      console.error(err);
+      // localStorage.clear();
+      // window.location.href = '../index.html';
+    });
+}
+
 
 ///////////////////////////////////
 //
@@ -467,17 +482,51 @@ function login_mutation(username, password){
       as Bearer token on http authorization headers in protected
       requests.
     */
-      const query = `logIn(username: \\\"${username}\\\" password: \\\"${password}\\\")`;
-      const payload = '{"query": "mutation{' + query + '{ token }}"}';
-      const options = get_request_options(payload);
-      return fetch(URL, options)
-      .then(json)
-      .then(response => {
-          console.log(response)
-          return response['data']['logIn'];
-      })
-      .catch(err => {
-        alert('Usuário ou senha incorretos!');
-        console.error(err);
-      });
+    const query = `logIn(username: \\\"${username}\\\" password: \\\"${password}\\\")`;
+    const payload = '{"query": "mutation{' + query + '{ token }}"}';
+    const options = get_request_options(payload);
+    return fetch(URL, options)
+    .then(json)
+    .then(response => {
+        return response['data']['logIn'];
+    })
+    .catch(err => {
+      console.error(err);
+      // localStorage.clear();
+      // window.location.href = '../index.html';
+    });
+}
+
+function refresh_user_token(token){
+    const query = `refreshUserToken(token: \\\"${token}\\\")`;
+    const payload = '{"query": "mutation{' + query + '{ token }}"}';
+    const options = get_request_options(payload);
+    return fetch(URL, options)
+    .then(json)
+    .then(response => {
+        return response['data']['refreshUserToken'];
+    })
+    .catch(err => {
+      console.error(err);
+      // localStorage.clear();
+      // window.location.href = '../index.html';
+    });
+}
+
+
+function create_fleet_record_mutation(input_data, authorization){
+  const query = `createFleetRecord(input: ${input_data})`;
+  const payload = '{"query": "mutation{' + query + '{ fleetRecord {datetime player {name} fleet} }}"}';
+  var options = get_request_options(payload);
+  options['headers']['Authorization'] = authorization;
+  return fetch(URL, options)
+  .then(json)
+  .then(response => {
+      return response['data']['createFleetRecord'];
+  })
+  .catch(err => {
+    console.error(err);
+    // localStorage.clear();
+    // window.location.href = '../index.html';
+  });
 }
