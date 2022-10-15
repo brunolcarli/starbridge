@@ -516,7 +516,7 @@ function refresh_user_token(token){
 
 function create_fleet_record_mutation(input_data, authorization){
   const query = `createFleetRecord(input: ${input_data})`;
-  const payload = '{"query": "mutation{' + query + '{ fleetRecord {datetime player {name} fleet} }}"}';
+  const payload = '{"query": "mutation{' + query + '{ fleetRecord {datetime player {name} fleet coord } }}"}';
   var options = get_request_options(payload);
   options['headers']['Authorization'] = authorization;
   return fetch(URL, options)
