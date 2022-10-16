@@ -363,7 +363,6 @@ function resolve_player_fleet_record(){
     var galaxy = document.getElementById('FleetRecordGalaxyInput').value;
     var solar_system = document.getElementById('FleetRecordSolarSystemInput').value;
     var position = document.getElementById('FleetRecordPositionInput').value;
-    var credentials = JSON.parse(localStorage.getItem('USER_TOKEN'));
 
     const fleet_input_ids = [
         'LIGHT_FIGHTER',
@@ -415,28 +414,33 @@ function resolve_player_fleet_record(){
         fleet = `{${fleet}}`;
     }
 
-    var input_data = `{ playerId: ${parseInt(player_id)} `;
-    input_data += `coord: \\\"${coords}\\\" `;
-    input_data += `username: \\\"${credentials['username']}\\\" `;
-    input_data += `fleet: ${fleet} }`;
+    refresh_user_token(user_data['token']).then(response => {
+        refresh_session(user_data['username'], response['token']);
+        var credentials = JSON.parse(localStorage.getItem('USER_TOKEN'));
+        var authorization = `Bearer ${credentials['token']}`;
+        var input_data = `{ playerId: ${parseInt(player_id)} `;
+        input_data += `coord: \\\"${coords}\\\" `;
+        input_data += `username: \\\"${credentials['username']}\\\" `;
+        input_data += `fleet: ${fleet} }`;
+        create_fleet_record_mutation(input_data, authorization).then(response => {
+            if (!response){
+                alert('Falha ao salvar os dados. Recarregue a página e tente novamente!');
+                return
+            }
+            var fleet_record = response['fleetRecord'];
+            var registered_data = '\t REGISTRO \t \n';
+            registered_data += '\t ------------ \t \n';
+            registered_data += `Data de registro: ${Date(fleet_record['datetime']).toLocaleString()}\n`;
+            registered_data += `Jogador: ${fleet_record['player']['name']}\n`;
+            registered_data += `Coordenadas: ${fleet_record['coord']}\n`;
+            registered_data += `Frota:\n`;
+            for (let i in fleet_record['fleet']){
+                registered_data += `\t ${i}: ${fleet_record['fleet'][i]}\n`;
+            }
+            registered_data += '\t ------------ \t';
 
-    var authorization = `Bearer ${credentials['token']}`;
-
-    create_fleet_record_mutation(input_data, authorization).then(response => {
-        if (!response){
-            alert('Falha ao salvar os dados. Recarregue a página e tente novamente!');
-            return
-        }
-        var fleet_record = response['fleetRecord'];
-        var registered_data = `Data de registro: ${Date(fleet_record['datetime']).toLocaleString()}\r\n`;
-        registered_data += `Jogador: ${fleet_record['player']['name']}\r\n`;
-        registered_data += `Coordenadas: ${fleet_record['coord']}\r\n`;
-        registered_data += `Naves:\r\n`;
-        for (let i in fleet_record['fleet']){
-            registered_data += `${i}: ${fleet_record['fleet'][i]}\r\n`;
-        }
-
-        alert('Registro:\r\n\r\n' + registered_data);
-        window.location.href = 'send.html';
+            alert(registered_data);
+            window.location.href = 'send.html';
+        });
     });
 }
