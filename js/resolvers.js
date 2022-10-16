@@ -414,9 +414,10 @@ function resolve_player_fleet_record(){
         fleet = `{${fleet}}`;
     }
 
-    refresh_user_token(user_data['token']).then(response => {
-        refresh_session(user_data['username'], response['token']);
-        var credentials = JSON.parse(localStorage.getItem('USER_TOKEN'));
+    var credentials = JSON.parse(localStorage.getItem('USER_TOKEN'));
+    refresh_user_token(credentials['token']).then(response => {
+        refresh_session(credentials['username'], response['token']);
+        credentials = JSON.parse(localStorage.getItem('USER_TOKEN'));
         var authorization = `Bearer ${credentials['token']}`;
         var input_data = `{ playerId: ${parseInt(player_id)} `;
         input_data += `coord: \\\"${coords}\\\" `;
