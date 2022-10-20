@@ -530,3 +530,23 @@ function create_fleet_record_mutation(input_data, authorization){
     // window.location.href = '../index.html';
   });
 }
+
+////////////
+
+
+function get_players_comparative_rank(query_filters){
+  /*
+    
+  */
+  const payload = '{"query": "query{players' + query_filters + '{name rank scores{ datetime total } }}"}';
+  const options = get_request_options(payload);
+  return fetch(URL, options)
+  .then(json)
+  .then(response => {
+      let player_data = response['data']['players'];
+      return player_data;
+  })
+  .catch(err => {
+      console.error(err);
+  });
+}

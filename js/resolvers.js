@@ -322,10 +322,12 @@ function list_players(){
         max_rank = ` rank_Lte: ${max_rank} `;
     }
 
-    var query_filter = `${min_rank}${max_rank}${status_list}`;
+    var dt_start = resolve_datetime_input(7);
+    var query_filter = `${min_rank}${max_rank} ${status_list} ${dt_start}`;
     if (Boolean(query_filter)){
         query_filter = `( ${query_filter} )`;
     }
+    plot_players_comparative_rank(query_filter);
     return get_players_list(query_filter);
 }
 

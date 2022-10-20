@@ -403,7 +403,7 @@ function plot_total_score(query_filter){
             }
         });
     return chart;
-    })
+    });
 }
 
 
@@ -1595,4 +1595,49 @@ function plot_random_universe_chart(){
         3: plot_universe_ranks
     };
     universe_charts[number]();
+}
+
+
+
+/////
+
+function plot_players_comparative_rank(query_filter){
+    return get_players_comparative_rank(query_filter).then(players => {
+        const ctx = reset_canvas('PlayerListComparativeChart', 'player_list_comparative_rank_chart');
+        let section_label = document.getElementById('comparative_rank');
+        section_label.innerHTML = '<p style="text-align: center">Comparativo</p>';
+
+        let dates = [];
+        let datasets = [];
+
+        for (let i in players){
+            var dataset = {
+                label: `${players[i]['name']} Rank: ${players[i]['rank']}`,
+                fill: false,
+                borderColor: `rgb(${randint(1, 255)}, ${randint(1, 255)}, ${randint(1, 255)})`,
+                tension: 0.5,
+                data: []
+            };
+            var scores = players[i]['scores'];
+            for (let j in scores){
+                dataset['data'].push(scores[j]['total']['score']);
+            }
+            datasets.push(dataset);
+        }
+        for (let i in players[0]['scores']){
+            dates.push(players[0]['scores'][i]['datetime']);
+        }
+        const data = {
+            labels: dates,
+            datasets: datasets
+        };
+        const chart = new Chart(ctx, {
+            type: 'line',
+            data: data,
+            options: {
+                responsive: false
+            }
+        });
+    return chart;
+    });
 }
